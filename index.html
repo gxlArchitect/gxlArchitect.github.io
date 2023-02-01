@@ -420,16 +420,23 @@
       
         
           
-          1、数据结构1.1、稀疏数组如果一个二维数据大部分元素为0，或者同一个值的数组时，可以使用稀疏数组来保存该数组。
-保存原始二维数组总共存在多少几行几列，保存存在数据的位置和值，从而缩小数组大小
-1.2、应用实例使用稀疏数组实现棋盘保存到磁盘，再读取磁盘数据恢复棋盘记录
-整体思路：
+          1、数据结构1.1、线性结构1线性结构分为两种数据存储方式，一种是顺序存储，一种链式存储
 
-将原始二维数组，转换成稀疏数组，再写入磁盘
-读取磁盘中的稀疏数组，转换成二维数组，恢复棋盘
+1.1.1、顺序结构API设计
 
-代码实现：
-12345
+
+
+类名
+SequenceList
+
+
+
+构造方法
+SequenceList(int capacity)：创建容量为capacity的SequenceList对象
+
+
+成员方法
+1.public void clear()：空置对象2.public boolean isEmp
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -576,7 +583,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
