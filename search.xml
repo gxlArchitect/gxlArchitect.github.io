@@ -3,7 +3,16 @@
   <entry>
     <title>RPC框架</title>
     <url>/2023/02/02/RPC%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1 id="RPC框架"><a href="#RPC框架" class="headerlink" title="RPC框架"></a>RPC框架</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2>]]></content>
+    <content><![CDATA[<h1 id="RPC框架"><a href="#RPC框架" class="headerlink" title="RPC框架"></a>RPC框架</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>RPC 的主要功能目标是让构建分布式计算（应用）更容易，是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议规范，简单的来说就是像调用本地服务一样调用远程服务，对开发者而言是透明的。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>1、RPC框架一般使用长链接，不必每次通信都要3次握手，减少网络开销</p>
+<p>2、RPC框架一般都有注册中心，有丰富的监控管理</p>
+<p>3、发布、下线接口、动态扩展等，对调用方来说是无感知、统一化的操作</p>
+<p>4、协议私密，安全性较高</p>
+<p>5、rpc 能做到协议更简单内容更小，效率更高</p>
+<p>6、rpc是面向服务的更高级的抽象，支持服务注册发现，负载均衡，超时重试，熔断降级等高级特性</p>
+<h2 id="实现要点"><a href="#实现要点" class="headerlink" title="实现要点"></a>实现要点</h2><h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><p>在高可用的生产环境中，服务一般都以集群方式提供服务，集群里面的IP等重要参数信息可能随时会发生变化，节点也可能会动态扩缩容，客户端需要能够及时感知服务端的变化，获取集群最新服务节点的连接信息，而这些变化要求是要对调用方应用无感知的。</p>
+<p>常用的注册中心：<strong>Zookeeper</strong>，<strong>Consul</strong>，<strong>Nacos</strong></p>
+]]></content>
       <categories>
         <category>RPC</category>
       </categories>
