@@ -327,6 +327,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/02/Zookeeper%E5%85%A5%E9%97%A8%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="架构师之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/02/02/Zookeeper%E5%85%A5%E9%97%A8%E7%AF%87/" itemprop="url">Zookeeper入门篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-02-02T14:20:38+08:00">
+                2023-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Zookeeper/" itemprop="url" rel="index">
+                    <span itemprop="name">Zookeeper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          概念
+Zookeeper 是 Apache Hadoop 项目下的一个子项目，是一个树形目录服务。
+Zookeeper 翻译过来就是 动物园管理员，他是用来管 Hadoop（大象）、Hive(蜜蜂)、Pig(小 猪)的管理员。简称zk。
+Zookeeper 是一个分布式的、开源的分布式应用程序的协调服务。
+Zookeeper 提供的主要功能包括：配置管理、分布式锁、集群管理
+
+安装与配置下载安装环
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2023/02/02/Zookeeper%E5%85%A5%E9%97%A8%E7%AF%87/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/02/RPC%E6%A1%86%E6%9E%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -420,10 +574,11 @@
       
         
           
-          RPC框架概述RPC 的主要功能目标是让构建分布式计算（应用）更容易，是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议规范，简单的来说就是像调用本地服务一样调用远程服务，对开发者而言是透明的。
+          概述RPC 的主要功能目标是让构建分布式计算（应用）更容易，是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议规范，简单的来说就是像调用本地服务一样调用远程服务，对开发者而言是透明的。
 优点1、RPC框架一般使用长链接，不必每次通信都要3次握手，减少网络开销
 2、RPC框架一般都有注册中心，有丰富的监控管理
-3、发布、下线接口、动态扩展等，对调用方来说是无感知、统一
+3、发布、下线接口、动态扩展等，对调用方来说是无感知、统一化的操作
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -571,9 +726,9 @@
       
         
           
-          数据结构1.1、线性结构1线性结构分为两种数据存储方式，一种是顺序存储，一种链式存储
+          数据结构线性结构1线性结构分为两种数据存储方式，一种是顺序存储，一种链式存储
 
-1.1.1、顺序结构API设计
+顺序结构API设计
 
 
 
@@ -587,7 +742,7 @@ SequenceList(int capacity)：创建容量为capacity的SequenceList对象
 
 
 成员方法
-1.public void clear()：空置对象2.public boolean isEmpty
+1.public void clear()：空置对象2.public boolean isEmpty()：判断线性表是否
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -675,7 +830,7 @@ SequenceList(int capacity)：创建容量为capacity的SequenceList对象
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -686,7 +841,7 @@ SequenceList(int capacity)：创建容量为capacity的SequenceList对象
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -697,7 +852,7 @@ SequenceList(int capacity)：创建容量为capacity的SequenceList对象
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
