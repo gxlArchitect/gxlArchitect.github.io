@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="gateway,网关," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="微服务网关就是一个系统，通过暴露该微服务网关系统，方便我们进行相关的鉴权，安全控制，日志统一处理，易于监控，限流等相关功能。 Gateway工作原理 Gateway的执行流程如下： 123456781:Gateway的客户端向Spring Cloud Gateway发起请求，请求首先会被HttpWebHandlerAdapter进行提取组装成网关的上下文，然后网关的上下文会传递到Dispatche">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud Gateway">
+<meta property="og:url" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/index.html">
+<meta property="og:site_name" content="架构师之路">
+<meta property="og:description" content="微服务网关就是一个系统，通过暴露该微服务网关系统，方便我们进行相关的鉴权，安全控制，日志统一处理，易于监控，限流等相关功能。 Gateway工作原理 Gateway的执行流程如下： 123456781:Gateway的客户端向Spring Cloud Gateway发起请求，请求首先会被HttpWebHandlerAdapter进行提取组装成网关的上下文，然后网关的上下文会传递到Dispatche">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/.com//1609152705386.png">
+<meta property="og:image" content="http://example.com/.com//1609172632423.png">
+<meta property="og:image" content="http://example.com/.com//gateway30.png">
+<meta property="og:image" content="http://example.com/.com//gatewayfilter.png">
+<meta property="og:image" content="http://example.com/.com//1609180530575.png">
+<meta property="og:image" content="http://example.com/.com//gateway31.png">
+<meta property="og:image" content="http://example.com/.com//1609181986772.png">
+<meta property="article:published_time" content="2023-06-11T11:02:42.000Z">
+<meta property="article:modified_time" content="2023-06-16T02:12:55.498Z">
+<meta property="article:author" content="郭学良">
+<meta property="article:tag" content="gateway">
+<meta property="article:tag" content="网关">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/.com//1609152705386.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/06/11/Spring-Cloud-Gateway/"/>
+
+
+
+
+
+  <title>Spring Cloud Gateway | 架构师之路</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">架构师之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/11/Spring-Cloud-Gateway/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="架构师之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Cloud Gateway</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-06-11T19:02:42+08:00">
+                2023-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gateway/" itemprop="url" rel="index">
+                    <span itemprop="name">gateway</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gateway/%E7%BD%91%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">网关</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gateway/%E7%BD%91%E5%85%B3/springcloud/" itemprop="url" rel="index">
+                    <span itemprop="name">springcloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>微服务网关就是一个系统，通过暴露该微服务网关系统，方便我们进行相关的鉴权，安全控制，日志统一处理，易于监控，限流等相关功能。</strong></p>
+<h2 id="Gateway工作原理"><a href="#Gateway工作原理" class="headerlink" title="Gateway工作原理"></a>Gateway工作原理</h2><p><img src="/.com//1609152705386.png" alt="1609152705386"></p>
+<p>Gateway的执行流程如下：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1:Gateway的客户端向Spring Cloud Gateway发起请求，请求首先会被HttpWebHandlerAdapter进行提取组装成网关的上下文，然后网关的上下文会传递到DispatcherHandler。</span><br><span class="line"></span><br><span class="line">2:DispatcherHandler是所有请求的分发处理器，DispatcherHandler主要负责分发请求对应的处理器，比如将请求分发到对应RoutePredicateHandlerMapping(路由断言处理器映射器）。</span><br><span class="line"></span><br><span class="line">3:路由断言处理映射器主要用于路由的查找，以及找到路由后返回对应的FilteringWebHandler。</span><br><span class="line"></span><br><span class="line">4:FilteringWebHandler主要负责组装Filter链表并调用Filter执行一系列Filter处理，然后把请求转到后端对应的代理服务处理，处理完毕后，将Response返回到Gateway客户端。</span><br><span class="line">在Filter链中，通过虚线分割Filter的原因是，过滤器可以在转发请求之前处理或者接收到被代理服务的返回结果之后处理。所有的Pre类型的Filter执行完毕之后，才会转发请求到被代理的服务处理。被代理的服务把所有请求完毕之后，才会执行Post类型的过滤器。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Gateway路由"><a href="#Gateway路由" class="headerlink" title="Gateway路由"></a>Gateway路由</h2><p>Gateway路由配置分为<strong>基于配置的静态路由</strong>设置和<strong>基于代码动态路由</strong>配置</p>
+<p>静态路由是指在application.yml中把路由信息配置好了，而动态路由则支持在代码中动态加载路由信息，更加灵活，我们接下来把这2种路由操作都实现一次。</p>
+<h3 id="基于配置路由设置"><a href="#基于配置路由设置" class="headerlink" title="基于配置路由设置"></a>基于配置路由设置</h3><p>配置参数说明：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">routes:路由配置</span><br><span class="line"><span class="bullet">-</span> id:唯一标识符</span><br><span class="line">uri:路由地址，可以是 lb://IP:端口     也可以是   lb://$&#123;spring.application.name&#125;</span><br><span class="line">predicates:断言，是指路由条件</span><br><span class="line"><span class="bullet">-</span> Path=/driver/<span class="strong">**:路由条件。Predicate 接受一个输入参数，返回一个布尔值结果。这里表示匹配所有以driver开始的请求。</span></span><br><span class="line"><span class="strong">filters:过滤器</span></span><br><span class="line"><span class="strong">- StripPrefix=1:真实路由的时候，去掉第1个路径，路径个数以/分割区分</span></span><br></pre></td></tr></table></figure>
+
+<p>通过在配置文件中配置以上参数实现路由</p>
+<h3 id="基于代码路由配置"><a href="#基于代码路由配置" class="headerlink" title="基于代码路由配置"></a>基于代码路由配置</h3><p>我们同样实现上面的功能，但这里基于代码方式实现。所有路由规则我们可以从数据库中读取并加载到程序中。基于代码的路由配置我们只需要创建<code>RouteLocator</code>并添加路由配置即可，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> RouteLocator <span class="title function_">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span>&#123;</span><br><span class="line">       <span class="comment">//构建路由</span></span><br><span class="line">       <span class="keyword">return</span> builder.routes()</span><br><span class="line">               .route(<span class="string">&quot;order-route&quot;</span>,r-&gt; r.path(<span class="string">&quot;/order/**&quot;</span>).uri(<span class="string">&quot;lb://hailtaxi-order&quot;</span>))</span><br><span class="line">               .build();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在真实场景中，基于配置文件的方式更直观、简介，但代码的路由配置是更强大，可以实现很丰富的功能，可以把路由规则存在数据库中，每次直接从数据库中加载规则，这样的好处是可以动态刷新路由规则，通常应用于权限系统动态配置。</p>
+<h3 id="Gateway-Predicate"><a href="#Gateway-Predicate" class="headerlink" title="Gateway-Predicate"></a>Gateway-Predicate</h3><p>上面路由匹配规则中我们都用了<code>- Path</code>方式，其实就是路径匹配方式，除了路径匹配方式，Gateway还支持很多丰富的匹配方式，我们对这些方式分别进行讲解。</p>
+<p>routes下面的属性含义如下：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id：我们自定义的路由 ID，保持唯一</span><br><span class="line"></span><br><span class="line">uri：目标服务地址</span><br><span class="line"></span><br><span class="line">predicates：路由条件，Predicate 接受一个输入参数，返回一个布尔值结果。该属性包含多种默认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）</span><br></pre></td></tr></table></figure>
+
+<p>Predicate 来源于 Java 8，Predicate 接受一个输入参数，返回一个布尔值结果。该接口包含多种默认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）</p>
+<p>在 Spring Cloud Gateway 中 Spring 利用 Predicate 的特性实现了各种路由匹配规则，通过 Header、请求参数等不同的条件来作为条件匹配到对应的路由。</p>
+<p><img src="/.com//1609172632423.png" alt="1609172632423"></p>
+<h4 id="Cookie："><a href="#Cookie：" class="headerlink" title="Cookie："></a><strong>Cookie：</strong></h4><p>Gateway的Cookie匹配接收两个参数：一个是 Cookie name ,一个是正则表达式。路由规则就是通过获取对应的 Cookie name 值和正则表达式去匹配，如果匹配上就会执行路由，如果没有匹配上则不执行。如下配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">hailtaxi-driver</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">lb://hailtaxi-driver</span></span><br><span class="line">    <span class="attr">predicates:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Path=/driver/**</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Cookie=username,test</span></span><br></pre></td></tr></table></figure>
+
+<p>这里表示请求携带了cookie为username的数据，并且值为test，就允许通过。</p>
+<h4 id="Header-匹配："><a href="#Header-匹配：" class="headerlink" title="Header 匹配："></a><strong>Header 匹配：</strong></h4><p>Header 匹配 和 Cookie 匹配 一样，也是接收两个参数，一个 header 中属性名称和一个正则表达式，这个属性值和正则表达式匹配则执行。配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">hailtaxi-driver</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">lb://hailtaxi-driver</span></span><br><span class="line">    <span class="attr">predicates:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Path=/driver/**</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Header=token,^(?!\d+$)[\da-zA-Z]+$</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的匹配规则，就是请求头要有token属性，并且值必须为数字和字母组合的正则表达式，例如携带token&#x3D;<code>19and30</code>就可以通过访问。</p>
+<h4 id="请求方式匹配："><a href="#请求方式匹配：" class="headerlink" title="请求方式匹配："></a><strong>请求方式匹配：</strong></h4><p>通过请求的方式是 POST、GET、PUT、DELETE 等进行路由。配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">hailtaxi-driver</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">lb://hailtaxi-driver</span></span><br><span class="line">    <span class="attr">predicates:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Path=/driver/**</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Method=GET,POST</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Gateway过滤器"><a href="#Gateway过滤器" class="headerlink" title="Gateway过滤器"></a>Gateway过滤器</h2><p>Spring Cloud Gateway根据作用范围划分为<strong>GatewayFilter</strong>和<strong>GlobalFilter</strong>，二者区别如下：</p>
+<ul>
+<li>GatewayFilter : 需要通过spring.cloud.routes.filters 配置在具体路由下，只作用在当前路由上或通过spring.cloud.default-filters配置在全局，作用在所有路由上；gateway内置了多种过滤器工厂，配套的过滤器可以直接使用，如下图所示：</li>
+</ul>
+<p><img src="/.com//gateway30.png" alt="gateway30"></p>
+<p><img src="/.com//gatewayfilter.png" alt="gatewayfilter"></p>
+<ul>
+<li>GlobalFilter : 全局过滤器，不需要在配置文件中配置，作用在所有的路由上，最终通过GatewayFilterAdapter包装成GatewayFilterChain可识别的过滤器，它为请求业务以及路由的URI转换为真实业务服务的请求地址的核心过滤器，不需要配置，系统初始化时加载，并作用在每个路由上。</li>
+</ul>
+<p><img src="/.com//1609180530575.png" alt="1609180530575"></p>
+<p>过滤器作为Gateway的重要功能。常用于请求鉴权、服务调用时长统计、修改请求或响应header、限流、去除路径等等。</p>
+<h3 id="过滤器分类"><a href="#过滤器分类" class="headerlink" title="过滤器分类"></a>过滤器分类</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">默认过滤器:出厂自带，实现好了拿来就用，不需要实现</span><br><span class="line">  全局默认过滤器</span><br><span class="line">  局部默认过滤器</span><br><span class="line">  </span><br><span class="line">自定义过滤器:根据需求自己实现，实现后需配置，然后才能用哦。</span><br><span class="line">  全局过滤器:作用在所有路由上。</span><br><span class="line">  局部过滤器:配置在具体路由下，只作用在当前路由上。</span><br></pre></td></tr></table></figure>
+
+<p>默认过滤器十好几个，常见如下：</p>
+<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>说明</th>
+<th>对应的类</th>
+<th align="center">父类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AddRequestHeader</td>
+<td>对匹配上的请求加上Header</td>
+<td>AddRequestHeaderGatewayFilterFactory</td>
+<td align="center">AbstractNameValueGatewayFilterFactory</td>
+</tr>
+<tr>
+<td>AddRequestParameters</td>
+<td>对匹配上的请求路由</td>
+<td>AddRequestHeaderGatewayFilterFactory</td>
+<td align="center">AbstractNameValueGatewayFilterFactory</td>
+</tr>
+<tr>
+<td>AddResponseHeader</td>
+<td>对从网关返回的响应添加Header</td>
+<td>AddResponseHeaderGatewayFilterFactory</td>
+<td align="center">AbstractNameValueGatewayFilterFactory</td>
+</tr>
+<tr>
+<td>StripPrefix</td>
+<td>对匹配上的请求路径去除前缀</td>
+<td>StripPrefixGatewayFilterFactory</td>
+<td align="center">AbstractGatewayFilterFactory</td>
+</tr>
+</tbody></table>
+<h3 id="默认过滤器的使用"><a href="#默认过滤器的使用" class="headerlink" title="默认过滤器的使用"></a>默认过滤器的使用</h3><p>所谓默认过滤器就是系统自带的。有很多，这里简要说明几个：（<strong>通过java配置，注释掉yaml配置</strong>）</p>
+<p><strong>1)添加响应头</strong></p>
+<p>AddResponseHeaderGatewayFilterFactory  属于  GatewayFilter</p>
+<p>对输出响应头设置属性，比如对输出的响应设置其头部属性名称为：X-Response-Default-MyName , 值为test</p>
+<p>修改配置文件，配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">     <span class="comment"># 配置全局默认过滤器 作用在所有路由上，也可单独为某个路由配置</span></span><br><span class="line">      <span class="attr">default-filters:</span></span><br><span class="line">      <span class="comment"># 往响应过滤器中加入信息</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">AddResponseHeader=X-Response-Default-MyName,test</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2)前缀处理</strong></p>
+<p>在项目中做开发对接接口的时候，我们很多时候需要统一API路径，比如统一以<code>/api</code>开始的请求调用<code>hailtaxi-driver</code>服务，但真实服务接口地址又没有<code>/api</code>路径，我们可以使用Gateway的过滤器处理请求路径。</p>
+<p>在gateway中可以通过配置路由的过滤器StripPrefix实现映射路径中的前缀处理，我们来使用一下该过滤器，再进一步做说明。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">hailtaxi-driver</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">lb://hailtaxi-driver</span></span><br><span class="line">    <span class="attr">predicates:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Path=/api/driver/**</span></span><br><span class="line">    <span class="attr">filters:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">StripPrefix=1</span></span><br></pre></td></tr></table></figure>
+
+<p>此处<code>- StripPrefix=1</code>表示真实请求地址是当前用户请求以<code>/api</code>开始的uri中去除第1个路径<code>/api</code>.</p>
+<h3 id="自定义GatewayFilter"><a href="#自定义GatewayFilter" class="headerlink" title="自定义GatewayFilter"></a>自定义GatewayFilter</h3><h4 id="1、实现GatewayFilter接口"><a href="#1、实现GatewayFilter接口" class="headerlink" title="1、实现GatewayFilter接口"></a>1、实现GatewayFilter接口</h4><p>GatewayFilter 一般作用在某一个路由上，需要实例化创建才能使用，局部过滤器需要实现接口<code>GatewayFilter、Ordered</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilterChain;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.Ordered;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.server.ServerWebExchange;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Mono;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: guoxueliang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2023-06-12</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DriverFilter</span> <span class="keyword">implements</span> <span class="title class_">GatewayFilter</span>, Ordered &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;GatewayFilter拦截器执行---pre-----DriverFilter&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;GatewayFilter拦截器执行---post-----DriverFilter&quot;</span>);</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.itheima.filter.DriverFilter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.route.RouteLocator;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 动态路由配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: guoxueliang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2023-06-12</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RouteConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RouteLocator <span class="title function_">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span>&#123;</span><br><span class="line">        <span class="comment">//构建路由</span></span><br><span class="line">        <span class="keyword">return</span> builder.routes()</span><br><span class="line">                .route(<span class="string">&quot;driver-route&quot;</span>,r-&gt; r.path(<span class="string">&quot;/driver/**&quot;</span>).uri(<span class="string">&quot;lb://hailtaxi-driver&quot;</span>).filter(<span class="keyword">new</span> <span class="title class_">DriverFilter</span>()))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、继承GatewayFilterFactory"><a href="#2、继承GatewayFilterFactory" class="headerlink" title="2、继承GatewayFilterFactory"></a>2、继承GatewayFilterFactory</h4><p>如果定义局部过滤器，想在配置文件中进行配置来使用，可以继承<code>AbstractGatewayFilterFactory&lt;T&gt;</code>抽象类或者<code>AbstractNameValueGatewayFilterFactory</code></p>
+<p>整个体系结构为：</p>
+<p><img src="/.com//gateway31.png" alt="gateway31"></p>
+<p>这两个抽象类的区别就是前者接收一个参数（像StripPrefix和我们创建的这种），后者接收两个参数（像AddResponseHeader）</p>
+<p>代码的编写可以参考：<code>StripPrefixGatewayFilterFactory</code> 和 <code>AddRequestHeaderGatewayFilterFactory</code></p>
+<p><strong>过滤器工厂默认命名规则必须按照”名称”+GatewayFilterFactory&#96;，如上StripPrefixGatewayFilterFactory的过滤器名称为StripPrefix</strong></p>
+<p><strong>2.1、继承<code>AbstractGatewayFilterFactory</code></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: guoxueliang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2023-06-13</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DriverMethodGatewayFilterFactory</span> <span class="keyword">extends</span> <span class="title class_">AbstractGatewayFilterFactory</span>&lt;DriverMethodGatewayFilterFactory.Config&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DriverMethodGatewayFilterFactory</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> GatewayFilter <span class="title function_">apply</span><span class="params">(Config config)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (exchange, chain) -&gt; &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">method</span> <span class="operator">=</span> config.getMethod();</span><br><span class="line">            <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> config.getMsg();</span><br><span class="line">            log.info(<span class="string">&quot;DriverMethodGatewayFilterFactory 加载到的配置信息为:&#123;&#125;---&#123;&#125;&quot;</span>,method,msg);</span><br><span class="line">            <span class="comment">//将method添加到请求头中</span></span><br><span class="line">            exchange.getRequest().mutate().header(<span class="string">&quot;method&quot;</span>,method);</span><br><span class="line">            <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;String&gt; <span class="title function_">shortcutFieldOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//指定从yml中提前出来的配置信息填充到配置类中哪个属性,按规则配置</span></span><br><span class="line">        <span class="keyword">return</span>  Arrays.asList(<span class="string">&quot;method&quot;</span>,<span class="string">&quot;msg&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ShortcutType <span class="title function_">shortcutType</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//默认规则</span></span><br><span class="line">        <span class="keyword">return</span> ShortcutType.DEFAULT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Config</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String method;</span><br><span class="line">        <span class="keyword">private</span> String msg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、配置文件中使用如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">filters:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">DriverMethod=driver,test</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2.2、继承<code>AbstractNameValueGatewayFilterFactory</code></strong></p>
+<p>直接查看<code>AddRequestHeaderGatewayFilterFactory</code>源码，分析即可！</p>
+<h3 id="自定义GlobalFilter"><a href="#自定义GlobalFilter" class="headerlink" title="自定义GlobalFilter"></a>自定义GlobalFilter</h3><p>定义全局过滤器需要实现GlobalFilter,Ordered接口：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GlobalFilter:过滤器拦截处理方法</span><br><span class="line">Ordered:过滤器也有多个，这里主要定义过滤器执行顺序，里面有个方法getOrder()会返回过滤器执行顺序，返回值越小，越靠前执行</span><br></pre></td></tr></table></figure>
+
+<p><strong>需求</strong>：</p>
+<p>我们创建全局过滤器并完成常见业务用户权限校验，如果请求中有带有一个名字为<code>token</code>的请求参数，则认为请求有效放行，如果没有则拦截提示授权无效。</p>
+<p>创建全局过滤器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilterChain;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.gateway.filter.GlobalFilter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.Ordered;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpStatus;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.server.ServerWebExchange;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Mono;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: guoxueliang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2023-06-13</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RouterFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 路由拦截</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> exchange</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> chain</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;RouterFilter----------------&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> exchange.getRequest().getQueryParams().getFirst(<span class="string">&quot;token&quot;</span>);</span><br><span class="line">        <span class="comment">//如果token为空，表示未登录</span></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(token))&#123;</span><br><span class="line">            <span class="comment">//没登录，状态设置403</span></span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.PAYLOAD_TOO_LARGE);</span><br><span class="line">            <span class="comment">//结束请求</span></span><br><span class="line">            <span class="keyword">return</span> exchange.getResponse().setComplete();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//放行</span></span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="跨域配置"><a href="#跨域配置" class="headerlink" title="跨域配置"></a>跨域配置</h2><p>出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）。</p>
+<p>在Spring Cloud Gateway中配置跨域是非常简单的，如下面<code>application.yml</code>所示：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="attr">globalcors:</span></span><br><span class="line">    <span class="attr">corsConfigurations:</span></span><br><span class="line">      <span class="string">&#x27;[/**]&#x27;</span><span class="string">:</span></span><br><span class="line">        <span class="attr">allowedOrigins:</span> <span class="string">&quot;*&quot;</span></span><br><span class="line">        <span class="attr">allowedMethods:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">GET</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">POST</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">PUT</span></span><br></pre></td></tr></table></figure>
+
+<p>另外一种写法就需要创建<code>CorsWebFilter</code>过滤器，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置跨域</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> CorsWebFilter <span class="title function_">corsFilter</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">CorsConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CorsConfiguration</span>();</span><br><span class="line">    <span class="comment">// cookie跨域</span></span><br><span class="line">    config.setAllowCredentials(Boolean.TRUE);</span><br><span class="line">    config.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    config.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    config.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    <span class="comment">// 配置前端js允许访问的自定义响应头</span></span><br><span class="line">    config.addExposedHeader(<span class="string">&quot;Authorization&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">UrlBasedCorsConfigurationSource</span> <span class="variable">source</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UrlBasedCorsConfigurationSource</span>(<span class="keyword">new</span> <span class="title class_">PathPatternParser</span>());</span><br><span class="line">    source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, config);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">CorsWebFilter</span>(source);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h2><p>网关可以做很多的事情，比如，限流，当我们的系统 被频繁的请求的时候，就有可能 将系统压垮，所以 为了解决这个问题，需要在每一个微服务中做限流操作，但是如果有了网关，那么就可以在网关系统做限流，因为所有的请求都需要先通过网关系统才能路由到微服务中。</p>
+<h3 id="令牌桶算法讲解"><a href="#令牌桶算法讲解" class="headerlink" title="令牌桶算法讲解"></a>令牌桶算法讲解</h3><p><img src="/.com//1609181986772.png" alt="1609181986772"></p>
+<p>令牌桶算法是常见的限流算法之一，我们讲解一下漏桶算法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1）所有的请求在处理之前都需要拿到一个可用的令牌才会被处理；</span><br><span class="line">2）根据限流大小，设置按照一定的速率往桶里添加令牌；</span><br><span class="line">3）桶设置最大的放置令牌限制，当桶满时、新添加的令牌就被丢弃或者拒绝；</span><br><span class="line">4）请求达到后首先要获取令牌桶中的令牌，拿着令牌才可以进行其他的业务逻辑，处理完业务逻辑之后，将令牌直接删除；</span><br><span class="line">5）令牌桶有最低限额，当桶中的令牌达到最低限额的时候，请求处理完之后将不会删除令牌，以此保证足够的限流</span><br></pre></td></tr></table></figure>
+
+<p>令牌桶算法的实现，有很多技术，Guaua是其中之一，redis客户端也有其实现。</p>
+<p>spring cloud gateway 默认使用redis的RateLimter限流算法来实现，外面来简要实现一下：</p>
+<p>1、引入依赖</p>
+<p>首先需要引入redis的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis-reactive<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">redis:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+
+<p>2、定义KeyResolver</p>
+<p>在Application引导类中添加如下代码，KeyResolver用于计算某一个类型的限流的KEY也就是说，可以通过KeyResolver来指定限流的Key。</p>
+<p>我们可以根据IP来限流，比如每个IP每秒钟只能请求一次，在GatewayApplication定义key的获取，获取客户端IP，将IP作为key，如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * IP限流</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Bean(name=&quot;ipKeyResolver&quot;)</span></span><br><span class="line"><span class="keyword">public</span> KeyResolver <span class="title function_">userKeyResolver</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">KeyResolver</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Mono&lt;String&gt; <span class="title function_">resolve</span><span class="params">(ServerWebExchange exchange)</span> &#123;</span><br><span class="line">            <span class="comment">//获取远程客户端IP</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">hostName</span> <span class="operator">=</span> exchange.getRequest().getRemoteAddress().getAddress().getHostAddress();</span><br><span class="line">            System.out.println(<span class="string">&quot;hostName:&quot;</span>+hostName);</span><br><span class="line">            <span class="keyword">return</span> Mono.just(hostName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在路由中配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="comment">#路由配置</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">    <span class="comment">#唯一标识符</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">hailtaxi-driver</span></span><br><span class="line">      <span class="attr">uri:</span> <span class="string">lb://hailtaxi-driver</span></span><br><span class="line">      <span class="comment">#路由断言</span></span><br><span class="line">      <span class="attr">predicates:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">Path=/driver/**</span></span><br><span class="line">      <span class="attr">filters:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">RequestRateLimiter</span> <span class="comment">#请求数限流 名字不能随便写 ，使用默认的facatory</span></span><br><span class="line">          <span class="attr">args:</span></span><br><span class="line">            <span class="attr">key-resolver:</span> <span class="string">&quot;#&#123;@ipKeyResolver&#125;&quot;</span></span><br><span class="line">            <span class="attr">redis-rate-limiter.replenishRate:</span> <span class="number">1</span></span><br><span class="line">            <span class="attr">redis-rate-limiter.burstCapacity:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-rate-limiter.replenishRate是您希望允许用户每秒执行多少请求，而不会丢弃任何请求。这是令牌桶填充的速率</span><br><span class="line">redis-rate-limiter.burstCapacity是指令牌桶的容量，允许在一秒钟内完成的最大请求数,将此值设置为零将阻止所有请求。</span><br><span class="line">key-resolver: “#&#123;@ipKeyResolver&#125;” 用于通过SPEL表达式来指定使用哪一个KeyResolver.</span><br></pre></td></tr></table></figure>
+
+<p>如上配置： 表示 一秒内，允许 一个请求通过，令牌桶的填充速率也是一秒钟添加一个令牌。 最大突发状况 也只允许 一秒内有一次请求，可以根据业务来调整 。</p>
+<h2 id="源码剖析"><a href="#源码剖析" class="headerlink" title="源码剖析"></a>源码剖析</h2><h3 id="Gateway工作流程源码剖析"><a href="#Gateway工作流程源码剖析" class="headerlink" title="Gateway工作流程源码剖析"></a>Gateway工作流程源码剖析</h3><h4 id="Gateway工作流程分析"><a href="#Gateway工作流程分析" class="headerlink" title="Gateway工作流程分析"></a>Gateway工作流程分析</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gateway/" rel="tag"># gateway</a>
+          
+            <a href="/tags/%E7%BD%91%E5%85%B3/" rel="tag"># 网关</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/06/05/Seata%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="next" title="Seata分布式事务">
+                <i class="fa fa-chevron-left"></i> Seata分布式事务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/06/16/Mysql%E5%9F%BA%E7%A1%80%E7%AF%87/" rel="prev" title="Mysql">
+                Mysql <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gateway%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">Gateway工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gateway%E8%B7%AF%E7%94%B1"><span class="nav-number">2.</span> <span class="nav-text">Gateway路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">基于配置路由设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%A3%E7%A0%81%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">基于代码路由配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gateway-Predicate"><span class="nav-number">2.3.</span> <span class="nav-text">Gateway-Predicate</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie%EF%BC%9A"><span class="nav-number">2.3.1.</span> <span class="nav-text">Cookie：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Header-%E5%8C%B9%E9%85%8D%EF%BC%9A"><span class="nav-number">2.3.2.</span> <span class="nav-text">Header 匹配：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%E5%8C%B9%E9%85%8D%EF%BC%9A"><span class="nav-number">2.3.3.</span> <span class="nav-text">请求方式匹配：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gateway%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">Gateway过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E5%88%86%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">过滤器分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">默认过滤器的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89GatewayFilter"><span class="nav-number">3.3.</span> <span class="nav-text">自定义GatewayFilter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%AE%9E%E7%8E%B0GatewayFilter%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.3.1.</span> <span class="nav-text">1、实现GatewayFilter接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E7%BB%A7%E6%89%BFGatewayFilterFactory"><span class="nav-number">3.3.2.</span> <span class="nav-text">2、继承GatewayFilterFactory</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89GlobalFilter"><span class="nav-number">3.4.</span> <span class="nav-text">自定义GlobalFilter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">跨域配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E6%B5%81"><span class="nav-number">5.</span> <span class="nav-text">限流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%B2%E8%A7%A3"><span class="nav-number">5.1.</span> <span class="nav-text">令牌桶算法讲解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">源码剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gateway%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90"><span class="nav-number">6.1.</span> <span class="nav-text">Gateway工作流程源码剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gateway%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="nav-number">6.1.1.</span> <span class="nav-text">Gateway工作流程分析</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郭学良</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
