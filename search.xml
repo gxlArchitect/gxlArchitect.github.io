@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Mysql事务</title>
-    <url>/2023/07/14/Mysql%E4%BA%8B%E5%8A%A1/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>Dubbo</title>
     <url>/2023/03/31/Dubbo/</url>
     <content><![CDATA[<h2 id="Dubbo架构体系"><a href="#Dubbo架构体系" class="headerlink" title="Dubbo架构体系"></a>Dubbo架构体系</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和 Spring框架无缝集成。</p>
@@ -126,13 +121,13 @@
       </tags>
   </entry>
   <entry>
-    <title>Mysql日志与备份</title>
-    <url>/2023/07/14/Mysql%E6%97%A5%E5%BF%97%E4%B8%8E%E5%A4%87%E4%BB%BD/</url>
+    <title>Mysql事务</title>
+    <url>/2023/07/14/Mysql%E4%BA%8B%E5%8A%A1/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>Mysql机构篇</title>
-    <url>/2023/07/14/Mysql%E6%9E%B6%E6%9E%84%E7%AF%87/</url>
+    <title>Mysql日志与备份</title>
+    <url>/2023/07/14/Mysql%E6%97%A5%E5%BF%97%E4%B8%8E%E5%A4%87%E4%BB%BD/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -605,6 +600,11 @@
       <tags>
         <tag>mysql</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Mysql机构篇</title>
+    <url>/2023/07/14/Mysql%E6%9E%B6%E6%9E%84%E7%AF%87/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>Mysql索引及调优</title>
@@ -1440,90 +1440,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringCloud Consul</title>
-    <url>/2023/03/02/SpringCloud-Consul/</url>
-    <content><![CDATA[<h2 id="Consul介绍"><a href="#Consul介绍" class="headerlink" title="Consul介绍"></a>Consul介绍</h2><p>​		Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更“一站式”，内置了服务注册与发现框 架、分布一致性协议实现、健康检查、Key&#x2F;Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较 为简单。Consul 使用 Go 语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker 等轻量级容器可无缝配合。</p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
-<li>服务发现</li>
-<li>健康检查</li>
-<li>Key&#x2F;Value 存储</li>
-<li>多数据中心</li>
-<li>社区活跃</li>
-</ul>
-<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
-<li>使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接. 相比较而言,zookeeper 采用的是 Paxos, 而 etcd 使用的则是 Raft。</li>
-<li>支持多数据中心，内外网的服务采用不同的端口进行监听。 多数据中心集群可以避免单数据中心的单点故障,而其部署则需要考虑网络延迟,分片等情况等。 zookeeper 和 etcd 均不提供多数据中心功能的支持。</li>
-<li>支持健康检查。 etcd 不提供此功能。</li>
-<li>支持 http 和 dns 协议接口。 zookeeper 的集成较为复杂, etcd 只支持http 协议</li>
-<li>官方提供 web 管理界面, etcd 无此功能。</li>
-<li>综合比较, Consul 作为服务注册和配置管理的新星, 比较值得关注和研究</li>
-<li>提供了rest api 便于集成：<a href="https://www.consul.io/api-docs/index">https://www.consul.io/api-docs/index</a></li>
-</ul>
-<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><ul>
-<li>client: 客户端, 无状态, 将 HTTP 和 DNS 接口请求转发给局域网内的服务端集群。</li>
-<li>server: 服务端, 保存配置信息, 高可用集群, 在局域网内与本地客户端通讯, 通过广域网与其它数据中心通讯。 每个数据中心的 server 数量推荐为 3 个或是 5 个。</li>
-</ul>
-<p>Consul 客户端、服务端还支持夸中心的使用，更加提高了它的高可用性。</p>
-<h2 id="Consul-基础架构"><a href="#Consul-基础架构" class="headerlink" title="Consul 基础架构"></a>Consul 基础架构</h2><h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><ul>
-<li><p>agent</p>
-<p>​		组成 consul 集群的每个成员上都要运行一个 agent，可以通过 consul agent 命令来启动。agent可以运行在 server 状态或者 client 状态。自然运行在 server 状态的节点被称为 server 节点；运行在 client 状态的节点被称为 client 节点</p>
-</li>
-<li><p>server 节点</p>
-<p>​		负责组成 cluster 的复杂工作（选举server 自行选举一个 leader、状态维护、转发请求到 leader），以及 consul 提供的服务（响应RPC 请求），以及存放和复制数据。考虑到容错和收敛，一般部署 3 ~ 5 个比较合适。</p>
-</li>
-<li><p>client 节点</p>
-<p>​		负责转发所有的 RPC 到 server 节点。本身无状态，且轻量级，因此，可以部署大量的client 节点。</p>
-</li>
-<li><p>数据中心</p>
-<p>​		虽然数据中心的定义似乎很明显，但仍有一些细微的细节必须考虑。我们将一个数据中心定义为一个私有、低延迟和高带宽的网络环境。这不包括通过公共互联网的通信，但是为了我们的目的，单个EC2 区域内的多个可用区域将被视为单个数据中心的一部分。</p>
-</li>
-</ul>
-<p>另外：</p>
-<p>​		server 自行选举一个 leader。虽然 Consul 可以运行在一台 server ，但是建议使用 3 到 5 台来避免失败情况下数据的丢失。每个数据中心建议配置一个server 集群。</p>
-<p>​		在基础设施中需要发现其他服务的组件可以查询任何一个 Consul 的server 或者agent，Agent 会自动转发请求到 server。</p>
-<p>​		每个数据中心运行了一个 Consul server 集群。当一个跨数据中心的服务发现和配置请求创建时，本地 Consul Server 转发请求到远程的数据中心并返回结果。</p>
-<h3 id="如何实现服务注册和发现"><a href="#如何实现服务注册和发现" class="headerlink" title="如何实现服务注册和发现"></a><strong>如何实现服务注册和发现</strong></h3><p><img src="1677740195077.jpg" alt="1677740195077"></p>
-<p>工作原理：</p>
-<ol>
-<li>当Producer启动的时候，会向Consul发送一个post请求，并向Consul传输自己的IP和Port。</li>
-<li>Consul 接收到Producer的注册后，每隔10s（默认）会向Producer发送一个健康检查的请求，检验Producer是否健康。</li>
-<li>当Consumer以Http的方式向Producer发起请求，会先从Consul中拿到一个存储服务IP和Port的临时表，从表中拿到Producer的IP和Port后再发送请求。</li>
-<li>该临时表每隔10s会更新，只包含有通过了健康检查的Producer。</li>
-</ol>
-<h2 id="Consul安装"><a href="#Consul安装" class="headerlink" title="Consul安装"></a>Consul安装</h2><p><strong>下载consul服务</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 从官网下载最新版本的Consul服务</span></span></span><br><span class="line">wget https://releases.hashicorp.com/consul/1.10.3/consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#使用unzip命令解压</span></span></span><br><span class="line">unzip consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#将解压好的consul可执行命令移动到/usr/local/bin目录下</span></span></span><br><span class="line">mv consul /usr/local/bin</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#测试一下</span></span></span><br><span class="line">consul --version</span><br></pre></td></tr></table></figure>
-
-<p><strong>启动consul服务</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// ip1</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-1 -client=0.0.0.0 -bind=ip1 -datacenter=dc1</span><br><span class="line"> </span><br><span class="line">// ip2</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-2 -client=0.0.0.0 -bind=ip2 -datacenter=dc1 -join ip1</span><br><span class="line"> </span><br><span class="line">// ip3</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-3 -client=0.0.0.0 -bind=ip3 -datacenter=dc1 -join ip1</span><br></pre></td></tr></table></figure>
-
-<p>​	<strong>参数解释：</strong></p>
-<ul>
-<li>-bootstrap-expect:集群期望的节点数，只有节点数量达到这个值才会选举leader。</li>
-<li>-server： 运行在server模式</li>
-<li>-client：consul服务侦听地址，这个地址提供HTTP、DNS、RPC等服务，默认是127.0.0.1所以不对外提供服务，如果你要对外提供服务改成0.0.0.0</li>
-<li>-data-dir：指定数据目录，其他的节点对于这个目录必须有读的权限</li>
-<li>-node：指定节点的名称</li>
-<li>-bind：为该节点绑定一个地址</li>
-<li>-config-dir：指定配置文件，定义服务的，默认所有一.json结尾的文件都会读</li>
-<li>-enable-script-checks&#x3D;true：设置检查服务为可用</li>
-<li>-datacenter: 数据中心名称</li>
-</ul>
-<p>-join：加入到已有的集群中</p>
-<p> <strong>其他命令</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群成员</span></span><br><span class="line">consul members</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群状态</span></span><br><span class="line">consul info</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重新加载配置文件</span></span><br><span class="line">consul reload</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">帮助</span></span><br><span class="line">consul agent -h</span><br></pre></td></tr></table></figure>
-
-<p><strong>Consul 的 WebUI 控制台</strong></p>
-<p><a href="http://ip1:8500/">http://ip1:8500</a></p>
-]]></content>
-      <categories>
-        <category>Consul</category>
-      </categories>
-      <tags>
-        <tag>注册中心</tag>
-        <tag>Consul</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring Cloud Gateway</title>
     <url>/2023/06/11/Spring-Cloud-Gateway/</url>
     <content><![CDATA[<p><strong>微服务网关就是一个系统，通过暴露该微服务网关系统，方便我们进行相关的鉴权，安全控制，日志统一处理，易于监控，限流等相关功能。</strong></p>
@@ -1688,6 +1604,90 @@
       <tags>
         <tag>gateway</tag>
         <tag>网关</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud Consul</title>
+    <url>/2023/03/02/SpringCloud-Consul/</url>
+    <content><![CDATA[<h2 id="Consul介绍"><a href="#Consul介绍" class="headerlink" title="Consul介绍"></a>Consul介绍</h2><p>​		Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更“一站式”，内置了服务注册与发现框 架、分布一致性协议实现、健康检查、Key&#x2F;Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较 为简单。Consul 使用 Go 语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker 等轻量级容器可无缝配合。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>服务发现</li>
+<li>健康检查</li>
+<li>Key&#x2F;Value 存储</li>
+<li>多数据中心</li>
+<li>社区活跃</li>
+</ul>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接. 相比较而言,zookeeper 采用的是 Paxos, 而 etcd 使用的则是 Raft。</li>
+<li>支持多数据中心，内外网的服务采用不同的端口进行监听。 多数据中心集群可以避免单数据中心的单点故障,而其部署则需要考虑网络延迟,分片等情况等。 zookeeper 和 etcd 均不提供多数据中心功能的支持。</li>
+<li>支持健康检查。 etcd 不提供此功能。</li>
+<li>支持 http 和 dns 协议接口。 zookeeper 的集成较为复杂, etcd 只支持http 协议</li>
+<li>官方提供 web 管理界面, etcd 无此功能。</li>
+<li>综合比较, Consul 作为服务注册和配置管理的新星, 比较值得关注和研究</li>
+<li>提供了rest api 便于集成：<a href="https://www.consul.io/api-docs/index">https://www.consul.io/api-docs/index</a></li>
+</ul>
+<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><ul>
+<li>client: 客户端, 无状态, 将 HTTP 和 DNS 接口请求转发给局域网内的服务端集群。</li>
+<li>server: 服务端, 保存配置信息, 高可用集群, 在局域网内与本地客户端通讯, 通过广域网与其它数据中心通讯。 每个数据中心的 server 数量推荐为 3 个或是 5 个。</li>
+</ul>
+<p>Consul 客户端、服务端还支持夸中心的使用，更加提高了它的高可用性。</p>
+<h2 id="Consul-基础架构"><a href="#Consul-基础架构" class="headerlink" title="Consul 基础架构"></a>Consul 基础架构</h2><h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><ul>
+<li><p>agent</p>
+<p>​		组成 consul 集群的每个成员上都要运行一个 agent，可以通过 consul agent 命令来启动。agent可以运行在 server 状态或者 client 状态。自然运行在 server 状态的节点被称为 server 节点；运行在 client 状态的节点被称为 client 节点</p>
+</li>
+<li><p>server 节点</p>
+<p>​		负责组成 cluster 的复杂工作（选举server 自行选举一个 leader、状态维护、转发请求到 leader），以及 consul 提供的服务（响应RPC 请求），以及存放和复制数据。考虑到容错和收敛，一般部署 3 ~ 5 个比较合适。</p>
+</li>
+<li><p>client 节点</p>
+<p>​		负责转发所有的 RPC 到 server 节点。本身无状态，且轻量级，因此，可以部署大量的client 节点。</p>
+</li>
+<li><p>数据中心</p>
+<p>​		虽然数据中心的定义似乎很明显，但仍有一些细微的细节必须考虑。我们将一个数据中心定义为一个私有、低延迟和高带宽的网络环境。这不包括通过公共互联网的通信，但是为了我们的目的，单个EC2 区域内的多个可用区域将被视为单个数据中心的一部分。</p>
+</li>
+</ul>
+<p>另外：</p>
+<p>​		server 自行选举一个 leader。虽然 Consul 可以运行在一台 server ，但是建议使用 3 到 5 台来避免失败情况下数据的丢失。每个数据中心建议配置一个server 集群。</p>
+<p>​		在基础设施中需要发现其他服务的组件可以查询任何一个 Consul 的server 或者agent，Agent 会自动转发请求到 server。</p>
+<p>​		每个数据中心运行了一个 Consul server 集群。当一个跨数据中心的服务发现和配置请求创建时，本地 Consul Server 转发请求到远程的数据中心并返回结果。</p>
+<h3 id="如何实现服务注册和发现"><a href="#如何实现服务注册和发现" class="headerlink" title="如何实现服务注册和发现"></a><strong>如何实现服务注册和发现</strong></h3><p><img src="1677740195077.jpg" alt="1677740195077"></p>
+<p>工作原理：</p>
+<ol>
+<li>当Producer启动的时候，会向Consul发送一个post请求，并向Consul传输自己的IP和Port。</li>
+<li>Consul 接收到Producer的注册后，每隔10s（默认）会向Producer发送一个健康检查的请求，检验Producer是否健康。</li>
+<li>当Consumer以Http的方式向Producer发起请求，会先从Consul中拿到一个存储服务IP和Port的临时表，从表中拿到Producer的IP和Port后再发送请求。</li>
+<li>该临时表每隔10s会更新，只包含有通过了健康检查的Producer。</li>
+</ol>
+<h2 id="Consul安装"><a href="#Consul安装" class="headerlink" title="Consul安装"></a>Consul安装</h2><p><strong>下载consul服务</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 从官网下载最新版本的Consul服务</span></span></span><br><span class="line">wget https://releases.hashicorp.com/consul/1.10.3/consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#使用unzip命令解压</span></span></span><br><span class="line">unzip consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#将解压好的consul可执行命令移动到/usr/local/bin目录下</span></span></span><br><span class="line">mv consul /usr/local/bin</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#测试一下</span></span></span><br><span class="line">consul --version</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动consul服务</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// ip1</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-1 -client=0.0.0.0 -bind=ip1 -datacenter=dc1</span><br><span class="line"> </span><br><span class="line">// ip2</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-2 -client=0.0.0.0 -bind=ip2 -datacenter=dc1 -join ip1</span><br><span class="line"> </span><br><span class="line">// ip3</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-3 -client=0.0.0.0 -bind=ip3 -datacenter=dc1 -join ip1</span><br></pre></td></tr></table></figure>
+
+<p>​	<strong>参数解释：</strong></p>
+<ul>
+<li>-bootstrap-expect:集群期望的节点数，只有节点数量达到这个值才会选举leader。</li>
+<li>-server： 运行在server模式</li>
+<li>-client：consul服务侦听地址，这个地址提供HTTP、DNS、RPC等服务，默认是127.0.0.1所以不对外提供服务，如果你要对外提供服务改成0.0.0.0</li>
+<li>-data-dir：指定数据目录，其他的节点对于这个目录必须有读的权限</li>
+<li>-node：指定节点的名称</li>
+<li>-bind：为该节点绑定一个地址</li>
+<li>-config-dir：指定配置文件，定义服务的，默认所有一.json结尾的文件都会读</li>
+<li>-enable-script-checks&#x3D;true：设置检查服务为可用</li>
+<li>-datacenter: 数据中心名称</li>
+</ul>
+<p>-join：加入到已有的集群中</p>
+<p> <strong>其他命令</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群成员</span></span><br><span class="line">consul members</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群状态</span></span><br><span class="line">consul info</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重新加载配置文件</span></span><br><span class="line">consul reload</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">帮助</span></span><br><span class="line">consul agent -h</span><br></pre></td></tr></table></figure>
+
+<p><strong>Consul 的 WebUI 控制台</strong></p>
+<p><a href="http://ip1:8500/">http://ip1:8500</a></p>
+]]></content>
+      <categories>
+        <category>Consul</category>
+      </categories>
+      <tags>
+        <tag>注册中心</tag>
+        <tag>Consul</tag>
       </tags>
   </entry>
   <entry>
