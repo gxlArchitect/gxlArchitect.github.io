@@ -130,20 +130,20 @@
 <meta property="og:site_name" content="架构师之路">
 <meta property="og:description" content="微服务网关就是一个系统，通过暴露该微服务网关系统，方便我们进行相关的鉴权，安全控制，日志统一处理，易于监控，限流等相关功能。 Gateway工作原理 Gateway的执行流程如下： 123456781:Gateway的客户端向Spring Cloud Gateway发起请求，请求首先会被HttpWebHandlerAdapter进行提取组装成网关的上下文，然后网关的上下文会传递到Dispatche">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/.com//1609152705386.png">
-<meta property="og:image" content="http://example.com/.com//1609172632423.png">
-<meta property="og:image" content="http://example.com/.com//gateway30.png">
-<meta property="og:image" content="http://example.com/.com//gatewayfilter.png">
-<meta property="og:image" content="http://example.com/.com//1609180530575.png">
-<meta property="og:image" content="http://example.com/.com//gateway31.png">
-<meta property="og:image" content="http://example.com/.com//1609181986772.png">
+<meta property="og:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/1609152705386.png">
+<meta property="og:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/1609172632423.png">
+<meta property="og:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/gateway30.png">
+<meta property="og:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/gatewayfilter.png">
+<meta property="og:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/1609180530575.png">
+<meta property="og:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/gateway31.png">
+<meta property="og:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/1609181986772.png">
 <meta property="article:published_time" content="2023-06-11T11:02:42.000Z">
 <meta property="article:modified_time" content="2023-06-16T02:12:55.498Z">
 <meta property="article:author" content="郭学良">
 <meta property="article:tag" content="gateway">
 <meta property="article:tag" content="网关">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/.com//1609152705386.png">
+<meta name="twitter:image" content="http://example.com/2023/06/11/Spring-Cloud-Gateway/1609152705386.png">
 
 
 
@@ -452,7 +452,7 @@
 
       
         <p><strong>微服务网关就是一个系统，通过暴露该微服务网关系统，方便我们进行相关的鉴权，安全控制，日志统一处理，易于监控，限流等相关功能。</strong></p>
-<h2 id="Gateway工作原理"><a href="#Gateway工作原理" class="headerlink" title="Gateway工作原理"></a>Gateway工作原理</h2><p><img src="/.com//1609152705386.png" alt="1609152705386"></p>
+<h2 id="Gateway工作原理"><a href="#Gateway工作原理" class="headerlink" title="Gateway工作原理"></a>Gateway工作原理</h2><p><img src="1609152705386.png" alt="1609152705386"></p>
 <p>Gateway的执行流程如下：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1:Gateway的客户端向Spring Cloud Gateway发起请求，请求首先会被HttpWebHandlerAdapter进行提取组装成网关的上下文，然后网关的上下文会传递到DispatcherHandler。</span><br><span class="line"></span><br><span class="line">2:DispatcherHandler是所有请求的分发处理器，DispatcherHandler主要负责分发请求对应的处理器，比如将请求分发到对应RoutePredicateHandlerMapping(路由断言处理器映射器）。</span><br><span class="line"></span><br><span class="line">3:路由断言处理映射器主要用于路由的查找，以及找到路由后返回对应的FilteringWebHandler。</span><br><span class="line"></span><br><span class="line">4:FilteringWebHandler主要负责组装Filter链表并调用Filter执行一系列Filter处理，然后把请求转到后端对应的代理服务处理，处理完毕后，将Response返回到Gateway客户端。</span><br><span class="line">在Filter链中，通过虚线分割Filter的原因是，过滤器可以在转发请求之前处理或者接收到被代理服务的返回结果之后处理。所有的Pre类型的Filter执行完毕之后，才会转发请求到被代理的服务处理。被代理的服务把所有请求完毕之后，才会执行Post类型的过滤器。</span><br></pre></td></tr></table></figure>
 
@@ -472,7 +472,7 @@
 
 <p>Predicate 来源于 Java 8，Predicate 接受一个输入参数，返回一个布尔值结果。该接口包含多种默认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）</p>
 <p>在 Spring Cloud Gateway 中 Spring 利用 Predicate 的特性实现了各种路由匹配规则，通过 Header、请求参数等不同的条件来作为条件匹配到对应的路由。</p>
-<p><img src="/.com//1609172632423.png" alt="1609172632423"></p>
+<p><img src="1609172632423.png" alt="1609172632423"></p>
 <h4 id="Cookie："><a href="#Cookie：" class="headerlink" title="Cookie："></a><strong>Cookie：</strong></h4><p>Gateway的Cookie匹配接收两个参数：一个是 Cookie name ,一个是正则表达式。路由规则就是通过获取对应的 Cookie name 值和正则表达式去匹配，如果匹配上就会执行路由，如果没有匹配上则不执行。如下配置：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">hailtaxi-driver</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">lb://hailtaxi-driver</span></span><br><span class="line">    <span class="attr">predicates:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Path=/driver/**</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Cookie=username,test</span></span><br></pre></td></tr></table></figure>
 
@@ -488,12 +488,12 @@
 <ul>
 <li>GatewayFilter : 需要通过spring.cloud.routes.filters 配置在具体路由下，只作用在当前路由上或通过spring.cloud.default-filters配置在全局，作用在所有路由上；gateway内置了多种过滤器工厂，配套的过滤器可以直接使用，如下图所示：</li>
 </ul>
-<p><img src="/.com//gateway30.png" alt="gateway30"></p>
-<p><img src="/.com//gatewayfilter.png" alt="gatewayfilter"></p>
+<p><img src="gateway30.png" alt="gateway30"></p>
+<p><img src="gatewayfilter.png" alt="gatewayfilter"></p>
 <ul>
 <li>GlobalFilter : 全局过滤器，不需要在配置文件中配置，作用在所有的路由上，最终通过GatewayFilterAdapter包装成GatewayFilterChain可识别的过滤器，它为请求业务以及路由的URI转换为真实业务服务的请求地址的核心过滤器，不需要配置，系统初始化时加载，并作用在每个路由上。</li>
 </ul>
-<p><img src="/.com//1609180530575.png" alt="1609180530575"></p>
+<p><img src="1609180530575.png" alt="1609180530575"></p>
 <p>过滤器作为Gateway的重要功能。常用于请求鉴权、服务调用时长统计、修改请求或响应header、限流、去除路径等等。</p>
 <h3 id="过滤器分类"><a href="#过滤器分类" class="headerlink" title="过滤器分类"></a>过滤器分类</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">默认过滤器:出厂自带，实现好了拿来就用，不需要实现</span><br><span class="line">  全局默认过滤器</span><br><span class="line">  局部默认过滤器</span><br><span class="line">  </span><br><span class="line">自定义过滤器:根据需求自己实现，实现后需配置，然后才能用哦。</span><br><span class="line">  全局过滤器:作用在所有路由上。</span><br><span class="line">  局部过滤器:配置在具体路由下，只作用在当前路由上。</span><br></pre></td></tr></table></figure>
 
@@ -552,7 +552,7 @@
 
 <h4 id="2、继承GatewayFilterFactory"><a href="#2、继承GatewayFilterFactory" class="headerlink" title="2、继承GatewayFilterFactory"></a>2、继承GatewayFilterFactory</h4><p>如果定义局部过滤器，想在配置文件中进行配置来使用，可以继承<code>AbstractGatewayFilterFactory&lt;T&gt;</code>抽象类或者<code>AbstractNameValueGatewayFilterFactory</code></p>
 <p>整个体系结构为：</p>
-<p><img src="/.com//gateway31.png" alt="gateway31"></p>
+<p><img src="gateway31.png" alt="gateway31"></p>
 <p>这两个抽象类的区别就是前者接收一个参数（像StripPrefix和我们创建的这种），后者接收两个参数（像AddResponseHeader）</p>
 <p>代码的编写可以参考：<code>StripPrefixGatewayFilterFactory</code> 和 <code>AddRequestHeaderGatewayFilterFactory</code></p>
 <p><strong>过滤器工厂默认命名规则必须按照”名称”+GatewayFilterFactory&#96;，如上StripPrefixGatewayFilterFactory的过滤器名称为StripPrefix</strong></p>
@@ -580,7 +580,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置跨域</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> CorsWebFilter <span class="title function_">corsFilter</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">CorsConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CorsConfiguration</span>();</span><br><span class="line">    <span class="comment">// cookie跨域</span></span><br><span class="line">    config.setAllowCredentials(Boolean.TRUE);</span><br><span class="line">    config.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    config.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    config.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    <span class="comment">// 配置前端js允许访问的自定义响应头</span></span><br><span class="line">    config.addExposedHeader(<span class="string">&quot;Authorization&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">UrlBasedCorsConfigurationSource</span> <span class="variable">source</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UrlBasedCorsConfigurationSource</span>(<span class="keyword">new</span> <span class="title class_">PathPatternParser</span>());</span><br><span class="line">    source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, config);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">CorsWebFilter</span>(source);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h2><p>网关可以做很多的事情，比如，限流，当我们的系统 被频繁的请求的时候，就有可能 将系统压垮，所以 为了解决这个问题，需要在每一个微服务中做限流操作，但是如果有了网关，那么就可以在网关系统做限流，因为所有的请求都需要先通过网关系统才能路由到微服务中。</p>
-<h3 id="令牌桶算法讲解"><a href="#令牌桶算法讲解" class="headerlink" title="令牌桶算法讲解"></a>令牌桶算法讲解</h3><p><img src="/.com//1609181986772.png" alt="1609181986772"></p>
+<h3 id="令牌桶算法讲解"><a href="#令牌桶算法讲解" class="headerlink" title="令牌桶算法讲解"></a>令牌桶算法讲解</h3><p><img src="1609181986772.png" alt="1609181986772"></p>
 <p>令牌桶算法是常见的限流算法之一，我们讲解一下漏桶算法：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1）所有的请求在处理之前都需要拿到一个可用的令牌才会被处理；</span><br><span class="line">2）根据限流大小，设置按照一定的速率往桶里添加令牌；</span><br><span class="line">3）桶设置最大的放置令牌限制，当桶满时、新添加的令牌就被丢弃或者拒绝；</span><br><span class="line">4）请求达到后首先要获取令牌桶中的令牌，拿着令牌才可以进行其他的业务逻辑，处理完业务逻辑之后，将令牌直接删除；</span><br><span class="line">5）令牌桶有最低限额，当桶中的令牌达到最低限额的时候，请求处理完之后将不会删除令牌，以此保证足够的限流</span><br></pre></td></tr></table></figure>
 

@@ -130,14 +130,14 @@
 <meta property="og:site_name" content="架构师之路">
 <meta property="og:description" content="Consul介绍​		Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更“一站式”，内置了服务注册与发现框 架、分布一致性协议实现、健康检查、Key&#x2F;Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较 为简单。Consul 使用 Go 语言">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/.com//1677740195077.jpg">
+<meta property="og:image" content="http://example.com/2023/03/02/SpringCloud-Consul/1677740195077.jpg">
 <meta property="article:published_time" content="2023-03-02T06:06:32.000Z">
 <meta property="article:modified_time" content="2023-03-02T08:25:06.156Z">
 <meta property="article:author" content="郭学良">
 <meta property="article:tag" content="注册中心">
 <meta property="article:tag" content="Consul">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/.com//1677740195077.jpg">
+<meta name="twitter:image" content="http://example.com/2023/03/02/SpringCloud-Consul/1677740195077.jpg">
 
 
 
@@ -463,7 +463,7 @@
 <p>​		server 自行选举一个 leader。虽然 Consul 可以运行在一台 server ，但是建议使用 3 到 5 台来避免失败情况下数据的丢失。每个数据中心建议配置一个server 集群。</p>
 <p>​		在基础设施中需要发现其他服务的组件可以查询任何一个 Consul 的server 或者agent，Agent 会自动转发请求到 server。</p>
 <p>​		每个数据中心运行了一个 Consul server 集群。当一个跨数据中心的服务发现和配置请求创建时，本地 Consul Server 转发请求到远程的数据中心并返回结果。</p>
-<h3 id="如何实现服务注册和发现"><a href="#如何实现服务注册和发现" class="headerlink" title="如何实现服务注册和发现"></a><strong>如何实现服务注册和发现</strong></h3><p><img src="/.com//1677740195077.jpg" alt="1677740195077"></p>
+<h3 id="如何实现服务注册和发现"><a href="#如何实现服务注册和发现" class="headerlink" title="如何实现服务注册和发现"></a><strong>如何实现服务注册和发现</strong></h3><p><img src="1677740195077.jpg" alt="1677740195077"></p>
 <p>工作原理：</p>
 <ol>
 <li>当Producer启动的时候，会向Consul发送一个post请求，并向Consul传输自己的IP和Port。</li>
