@@ -1,126 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Dubbo</title>
-    <url>/2023/03/31/Dubbo/</url>
-    <content><![CDATA[<h2 id="Dubbo架构体系"><a href="#Dubbo架构体系" class="headerlink" title="Dubbo架构体系"></a>Dubbo架构体系</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和 Spring框架无缝集成。</p>
-<p>Dubbo是一款高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。</p>
-<h2 id="Dubbo基本使用"><a href="#Dubbo基本使用" class="headerlink" title="Dubbo基本使用"></a>Dubbo基本使用</h2><h3 id="Dubbo与SpringBoot的整合"><a href="#Dubbo与SpringBoot的整合" class="headerlink" title="Dubbo与SpringBoot的整合"></a>Dubbo与SpringBoot的整合</h3><p>基于Zookeeper实现Dubbo与Spring Boot的集成整合。</p>
-<h4 id="顶级工程pom依赖"><a href="#顶级工程pom依赖" class="headerlink" title="顶级工程pom依赖"></a><strong>顶级工程pom依赖</strong></h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dubbo-version</span>&gt;</span>2.7.8<span class="tag">&lt;/<span class="name">dubbo-version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">spring-boot.version</span>&gt;</span>2.3.0.RELEASE<span class="tag">&lt;/<span class="name">spring-boot.version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!-- Spring Boot --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-boot.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">           <span class="comment">&lt;!-- Apache Dubbo  --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-dependencies-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">           <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo核心组件 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--Spring Boot 依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-boot.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Zookeeper客户端框架 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.curator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>curator-framework<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Zookeeper dependencies --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-dependencies-zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="公用RPC接口工程"><a href="#公用RPC接口工程" class="headerlink" title="公用RPC接口工程"></a>公用RPC接口工程</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取订单详情</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> orderId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">getOrder</span><span class="params">(Long orderId)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="服务端工程"><a href="#服务端工程" class="headerlink" title="服务端工程"></a>服务端工程</h4><p>1、pom依赖</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo 核心依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 公用RPC接口依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-interface<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>2、RPC服务接口</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@DubboService(version = &quot;$&#123;dubbo.spring.provider.version&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 服务端口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String serverPort;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;dubbo.spring.provider.version&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String serviceVersion;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取订单详情</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> orderId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getOrder</span><span class="params">(Long orderId)</span> &#123;</span><br><span class="line"></span><br><span class="line">       <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;get order detail ,orderId=&quot;</span>+orderId +<span class="string">&quot;,serverPort=&quot;</span>+serverPort +<span class="string">&quot;,serviceVersion=&quot;</span>+serviceVersion;</span><br><span class="line">        System.out.println(result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过DubboService注解， 声明为RPC服务，version可以标识具体的版本号， 消费端需匹配保持一致。</p>
-<p>3、工程配置</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 服务端口</span></span><br><span class="line"><span class="attr">server.port</span>=<span class="string">18081</span></span><br><span class="line"><span class="comment"># 应用程序名称</span></span><br><span class="line"><span class="attr">spring.application.name</span>=<span class="string">dubbo-spring-provider</span></span><br><span class="line"><span class="comment"># Dubbo服务扫描路径</span></span><br><span class="line"><span class="attr">dubbo.scan.base-packages</span>=<span class="string">com.itheima</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># Dubbo 通讯协议</span></span><br><span class="line"><span class="attr">dubbo.protocol.name</span>=<span class="string">dubbo</span></span><br><span class="line"><span class="comment"># Dubbo服务提供的端口， 配置为-1，代表为随机端口 默认20880</span></span><br><span class="line"><span class="attr">dubbo.protocol.port</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">## Dubbo 注册器配置信息</span></span><br><span class="line"><span class="attr">dubbo.registry.address</span>=<span class="string">zookeeper://127.0.0.1:2181</span></span><br><span class="line"><span class="attr">dubbo.registry.file</span> = <span class="string">$&#123;user.home&#125;/dubbo-cache/$&#123;spring.application.name&#125;/dubbo.cache</span></span><br><span class="line"><span class="attr">dubbo.spring.provider.version</span> = <span class="string">1.0.0</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="消费端工程"><a href="#消费端工程" class="headerlink" title="消费端工程"></a>消费端工程</h4><p>1、pom依赖</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 公用RPC接口依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-interface<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>2、消费端调用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/order&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单服务接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DubboReference(version = &quot;$&#123;dubbo.spring.provider.version&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取订单详情接口</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> orderId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/getOrder&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getOrder</span><span class="params">(Long orderId)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            result = orderService.getOrder(orderId);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">            logger.error(e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3、工程配置</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 服务端口</span></span><br><span class="line"><span class="attr">server.port</span>=<span class="string">18084</span></span><br><span class="line"><span class="comment">#服务名称</span></span><br><span class="line"><span class="attr">spring.application.name</span>=<span class="string">dubbo-spring-consumer</span></span><br><span class="line"><span class="comment">#服务版本号</span></span><br><span class="line"><span class="attr">dubbo.spring.provider.version</span> = <span class="string">1.0.0</span></span><br><span class="line"><span class="comment">#消费端注册器配置信息</span></span><br><span class="line"><span class="attr">dubbo.registry.address</span>=<span class="string">zookeeper://127.0.0.1:2181</span></span><br><span class="line"><span class="attr">dubbo.registry.file</span> = <span class="string">$&#123;user.home&#125;/dubbo-cache/$&#123;spring.application.name&#125;/dubbo.cache</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Dubbo高阶配置运用"><a href="#Dubbo高阶配置运用" class="headerlink" title="Dubbo高阶配置运用"></a>Dubbo高阶配置运用</h3><h4 id="不同配置覆盖关系"><a href="#不同配置覆盖关系" class="headerlink" title="不同配置覆盖关系"></a>不同配置覆盖关系</h4><p>配置规则：</p>
-<p>方法级优先，接口级次之，全局配置再次之。</p>
-<p>如果级别一样，则消费方优先，提供方次之。</p>
-<h4 id="属性配置优先级"><a href="#属性配置优先级" class="headerlink" title="属性配置优先级"></a><strong>属性配置优先级</strong></h4><p>优先级从高到低：</p>
-<ul>
-<li>JVM -D 参数；</li>
-<li>XML（application.yml&#x2F;application.properties）配置会重写dubbo.properties 中的，一般配置项目特有的</li>
-<li>Properties默认配置（dubbo.properties），仅仅作用于以上两者没有配置时，一般配置全局公共配置</li>
-</ul>
-<h4 id="重试与容错处理机制"><a href="#重试与容错处理机制" class="headerlink" title="重试与容错处理机制"></a><strong>重试与容错处理机制</strong></h4><p>容错机制：</p>
-<ul>
-<li><p>Failfast Cluster</p>
-<p>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</p>
-</li>
-<li><p>Failsafe Cluster</p>
-<p>失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。</p>
-</li>
-<li><p>Failback Cluster</p>
-<p>失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。</p>
-</li>
-<li><p>Forking Cluster</p>
-<p>并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks&#x3D;”2” 来设置最大并行数。</p>
-</li>
-<li><p>Broadcast Cluster</p>
-<p>广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。</p>
-</li>
-</ul>
-<h4 id="多版本控制"><a href="#多版本控制" class="headerlink" title="多版本控制"></a><strong>多版本控制</strong></h4><p>根据指定的版本，消费端和服务端必须一致，否则无法远程调用</p>
-<h4 id="本地存根调用"><a href="#本地存根调用" class="headerlink" title="本地存根调用"></a>本地存根调用</h4><h4 id="负载均衡机制"><a href="#负载均衡机制" class="headerlink" title="负载均衡机制"></a><strong>负载均衡机制</strong></h4><ol>
-<li><p>默认负载策略</p>
-<p>Dubbo默认采用的是随机负载策略。</p>
-<p>开启三个服务节点，通过消费端访问验证： <a href="http://127.0.0.1:18084/order/getOrder?orderId=123">http://127.0.0.1:18084/order/getOrder?orderId=123</a></p>
-<p>通过控制后台日志输出， 可以看到每个服务节点呈现不规则的调用。</p>
-</li>
-<li><p>Dubbo 支持的负载均衡策略，可用参看源码：<code>AbstractLoadBalance</code></p>
-<ul>
-<li><p>Random LoadBalance：默认</p>
-<blockquote>
-<p>随机，按权重设置随机概率。 在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。</p>
-</blockquote>
-</li>
-<li><p>RoundRobin LoadBalance</p>
-<blockquote>
-<p>加权轮询负载均衡，按公约后的权重设置轮询比率。 存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。</p>
-</blockquote>
-</li>
-<li><p>LeastActive LoadBalance</p>
-<blockquote>
-<p>最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。 活跃数其实就是在当前这个服务调用者中当前这个时刻 某个invoker（某个服务提供者的某个接口）某个方法的调用并发数，在调用之前+1 调用之后-1的一个计数器，如果出现多个活跃数相等invoker的时候使用随机算法来选取一个</p>
-</blockquote>
-</li>
-<li><p>ConsistentHash LoadBalance</p>
-<blockquote>
-<p>一致性 Hash，相同参数的请求总是发到同一提供者。 当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<blockquote>
-<p>一致性Hash负载均衡涉及到两个主要的配置参数为<strong>hash.arguments</strong> 与<strong>hash.nodes</strong>。</p>
-</blockquote>
-<blockquote>
-<p><strong>hash.arguments</strong> ： 当进行调用时候根据调用方法的哪几个参数生成key，并根据key来通过一致性hash算法来选择调用结点</p>
-</blockquote>
-<blockquote>
-<p><strong>hash.nodes</strong>： 为结点的副本数</p>
-</blockquote>
-</blockquote>
-<ul>
-<li><p>ShortestResponseLoadBalance</p>
-<blockquote>
-<p>2.7.7 +新增</p>
-<p>最短响应时间负载均衡</p>
-<p>从多个服务提供者中选择出调用成功的且响应时间最短的服务提供者，由于满足这样条件的服务提供者有可能有多个。所以当选择出多个服务提供者后要根据他们的权重做分析，如果权重一样，则随机</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="服务降级运用"><a href="#服务降级运用" class="headerlink" title="服务降级运用"></a>服务降级运用</h4><h2 id="Dubbo源码分析"><a href="#Dubbo源码分析" class="headerlink" title="Dubbo源码分析"></a>Dubbo源码分析</h2><p><img src="/.com//1322298-20220522215206659-384650563.png" alt="1322298-20220522215206659-384650563"></p>
-<h3 id="服务导出"><a href="#服务导出" class="headerlink" title="服务导出"></a>服务导出</h3><p>如图所示，在ServiceConfig执行export方法，根据接口实现代理对象，对方法进行增强，并封装成invoker对象，在拦截增强执行invoke方法内，通过SPI自适应机制生成对应的Expoter对象，一层一层封装handler对象，最终在最底层Server对象中开启netty监听，并在zookeeper中注册资源信息，最终完成服务端的启动</p>
-<h3 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h3>]]></content>
-      <categories>
-        <category>Dubbo</category>
-      </categories>
-      <tags>
-        <tag>Dubbo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mysql事务</title>
     <url>/2023/07/14/Mysql%E4%BA%8B%E5%8A%A1/</url>
     <content><![CDATA[]]></content>
@@ -597,13 +477,133 @@
       </tags>
   </entry>
   <entry>
-    <title>Mysql机构篇</title>
-    <url>/2023/07/14/Mysql%E6%9E%B6%E6%9E%84%E7%AF%87/</url>
-    <content><![CDATA[]]></content>
+    <title>Dubbo</title>
+    <url>/2023/03/31/Dubbo/</url>
+    <content><![CDATA[<h2 id="Dubbo架构体系"><a href="#Dubbo架构体系" class="headerlink" title="Dubbo架构体系"></a>Dubbo架构体系</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和 Spring框架无缝集成。</p>
+<p>Dubbo是一款高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。</p>
+<h2 id="Dubbo基本使用"><a href="#Dubbo基本使用" class="headerlink" title="Dubbo基本使用"></a>Dubbo基本使用</h2><h3 id="Dubbo与SpringBoot的整合"><a href="#Dubbo与SpringBoot的整合" class="headerlink" title="Dubbo与SpringBoot的整合"></a>Dubbo与SpringBoot的整合</h3><p>基于Zookeeper实现Dubbo与Spring Boot的集成整合。</p>
+<h4 id="顶级工程pom依赖"><a href="#顶级工程pom依赖" class="headerlink" title="顶级工程pom依赖"></a><strong>顶级工程pom依赖</strong></h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dubbo-version</span>&gt;</span>2.7.8<span class="tag">&lt;/<span class="name">dubbo-version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">spring-boot.version</span>&gt;</span>2.3.0.RELEASE<span class="tag">&lt;/<span class="name">spring-boot.version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!-- Spring Boot --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-boot.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">           <span class="comment">&lt;!-- Apache Dubbo  --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-dependencies-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">           <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo核心组件 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--Spring Boot 依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-boot.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Zookeeper客户端框架 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.curator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>curator-framework<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Zookeeper dependencies --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-dependencies-zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="公用RPC接口工程"><a href="#公用RPC接口工程" class="headerlink" title="公用RPC接口工程"></a>公用RPC接口工程</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取订单详情</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> orderId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">getOrder</span><span class="params">(Long orderId)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="服务端工程"><a href="#服务端工程" class="headerlink" title="服务端工程"></a>服务端工程</h4><p>1、pom依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo 核心依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 公用RPC接口依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-interface<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、RPC服务接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@DubboService(version = &quot;$&#123;dubbo.spring.provider.version&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 服务端口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String serverPort;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;dubbo.spring.provider.version&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String serviceVersion;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取订单详情</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> orderId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getOrder</span><span class="params">(Long orderId)</span> &#123;</span><br><span class="line"></span><br><span class="line">       <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;get order detail ,orderId=&quot;</span>+orderId +<span class="string">&quot;,serverPort=&quot;</span>+serverPort +<span class="string">&quot;,serviceVersion=&quot;</span>+serviceVersion;</span><br><span class="line">        System.out.println(result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过DubboService注解， 声明为RPC服务，version可以标识具体的版本号， 消费端需匹配保持一致。</p>
+<p>3、工程配置</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 服务端口</span></span><br><span class="line"><span class="attr">server.port</span>=<span class="string">18081</span></span><br><span class="line"><span class="comment"># 应用程序名称</span></span><br><span class="line"><span class="attr">spring.application.name</span>=<span class="string">dubbo-spring-provider</span></span><br><span class="line"><span class="comment"># Dubbo服务扫描路径</span></span><br><span class="line"><span class="attr">dubbo.scan.base-packages</span>=<span class="string">com.itheima</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># Dubbo 通讯协议</span></span><br><span class="line"><span class="attr">dubbo.protocol.name</span>=<span class="string">dubbo</span></span><br><span class="line"><span class="comment"># Dubbo服务提供的端口， 配置为-1，代表为随机端口 默认20880</span></span><br><span class="line"><span class="attr">dubbo.protocol.port</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">## Dubbo 注册器配置信息</span></span><br><span class="line"><span class="attr">dubbo.registry.address</span>=<span class="string">zookeeper://127.0.0.1:2181</span></span><br><span class="line"><span class="attr">dubbo.registry.file</span> = <span class="string">$&#123;user.home&#125;/dubbo-cache/$&#123;spring.application.name&#125;/dubbo.cache</span></span><br><span class="line"><span class="attr">dubbo.spring.provider.version</span> = <span class="string">1.0.0</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="消费端工程"><a href="#消费端工程" class="headerlink" title="消费端工程"></a>消费端工程</h4><p>1、pom依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;dubbo-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 公用RPC接口依赖 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-interface<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、消费端调用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/order&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单服务接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DubboReference(version = &quot;$&#123;dubbo.spring.provider.version&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取订单详情接口</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> orderId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/getOrder&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getOrder</span><span class="params">(Long orderId)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            result = orderService.getOrder(orderId);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">            logger.error(e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、工程配置</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 服务端口</span></span><br><span class="line"><span class="attr">server.port</span>=<span class="string">18084</span></span><br><span class="line"><span class="comment">#服务名称</span></span><br><span class="line"><span class="attr">spring.application.name</span>=<span class="string">dubbo-spring-consumer</span></span><br><span class="line"><span class="comment">#服务版本号</span></span><br><span class="line"><span class="attr">dubbo.spring.provider.version</span> = <span class="string">1.0.0</span></span><br><span class="line"><span class="comment">#消费端注册器配置信息</span></span><br><span class="line"><span class="attr">dubbo.registry.address</span>=<span class="string">zookeeper://127.0.0.1:2181</span></span><br><span class="line"><span class="attr">dubbo.registry.file</span> = <span class="string">$&#123;user.home&#125;/dubbo-cache/$&#123;spring.application.name&#125;/dubbo.cache</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Dubbo高阶配置运用"><a href="#Dubbo高阶配置运用" class="headerlink" title="Dubbo高阶配置运用"></a>Dubbo高阶配置运用</h3><h4 id="不同配置覆盖关系"><a href="#不同配置覆盖关系" class="headerlink" title="不同配置覆盖关系"></a>不同配置覆盖关系</h4><p>配置规则：</p>
+<p>方法级优先，接口级次之，全局配置再次之。</p>
+<p>如果级别一样，则消费方优先，提供方次之。</p>
+<h4 id="属性配置优先级"><a href="#属性配置优先级" class="headerlink" title="属性配置优先级"></a><strong>属性配置优先级</strong></h4><p>优先级从高到低：</p>
+<ul>
+<li>JVM -D 参数；</li>
+<li>XML（application.yml&#x2F;application.properties）配置会重写dubbo.properties 中的，一般配置项目特有的</li>
+<li>Properties默认配置（dubbo.properties），仅仅作用于以上两者没有配置时，一般配置全局公共配置</li>
+</ul>
+<h4 id="重试与容错处理机制"><a href="#重试与容错处理机制" class="headerlink" title="重试与容错处理机制"></a><strong>重试与容错处理机制</strong></h4><p>容错机制：</p>
+<ul>
+<li><p>Failfast Cluster</p>
+<p>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</p>
+</li>
+<li><p>Failsafe Cluster</p>
+<p>失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。</p>
+</li>
+<li><p>Failback Cluster</p>
+<p>失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。</p>
+</li>
+<li><p>Forking Cluster</p>
+<p>并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks&#x3D;”2” 来设置最大并行数。</p>
+</li>
+<li><p>Broadcast Cluster</p>
+<p>广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。</p>
+</li>
+</ul>
+<h4 id="多版本控制"><a href="#多版本控制" class="headerlink" title="多版本控制"></a><strong>多版本控制</strong></h4><p>根据指定的版本，消费端和服务端必须一致，否则无法远程调用</p>
+<h4 id="本地存根调用"><a href="#本地存根调用" class="headerlink" title="本地存根调用"></a>本地存根调用</h4><h4 id="负载均衡机制"><a href="#负载均衡机制" class="headerlink" title="负载均衡机制"></a><strong>负载均衡机制</strong></h4><ol>
+<li><p>默认负载策略</p>
+<p>Dubbo默认采用的是随机负载策略。</p>
+<p>开启三个服务节点，通过消费端访问验证： <a href="http://127.0.0.1:18084/order/getOrder?orderId=123">http://127.0.0.1:18084/order/getOrder?orderId=123</a></p>
+<p>通过控制后台日志输出， 可以看到每个服务节点呈现不规则的调用。</p>
+</li>
+<li><p>Dubbo 支持的负载均衡策略，可用参看源码：<code>AbstractLoadBalance</code></p>
+<ul>
+<li><p>Random LoadBalance：默认</p>
+<blockquote>
+<p>随机，按权重设置随机概率。 在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。</p>
+</blockquote>
+</li>
+<li><p>RoundRobin LoadBalance</p>
+<blockquote>
+<p>加权轮询负载均衡，按公约后的权重设置轮询比率。 存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。</p>
+</blockquote>
+</li>
+<li><p>LeastActive LoadBalance</p>
+<blockquote>
+<p>最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。 活跃数其实就是在当前这个服务调用者中当前这个时刻 某个invoker（某个服务提供者的某个接口）某个方法的调用并发数，在调用之前+1 调用之后-1的一个计数器，如果出现多个活跃数相等invoker的时候使用随机算法来选取一个</p>
+</blockquote>
+</li>
+<li><p>ConsistentHash LoadBalance</p>
+<blockquote>
+<p>一致性 Hash，相同参数的请求总是发到同一提供者。 当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>一致性Hash负载均衡涉及到两个主要的配置参数为<strong>hash.arguments</strong> 与<strong>hash.nodes</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>hash.arguments</strong> ： 当进行调用时候根据调用方法的哪几个参数生成key，并根据key来通过一致性hash算法来选择调用结点</p>
+</blockquote>
+<blockquote>
+<p><strong>hash.nodes</strong>： 为结点的副本数</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><p>ShortestResponseLoadBalance</p>
+<blockquote>
+<p>2.7.7 +新增</p>
+<p>最短响应时间负载均衡</p>
+<p>从多个服务提供者中选择出调用成功的且响应时间最短的服务提供者，由于满足这样条件的服务提供者有可能有多个。所以当选择出多个服务提供者后要根据他们的权重做分析，如果权重一样，则随机</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="服务降级运用"><a href="#服务降级运用" class="headerlink" title="服务降级运用"></a>服务降级运用</h4><h2 id="Dubbo源码分析"><a href="#Dubbo源码分析" class="headerlink" title="Dubbo源码分析"></a>Dubbo源码分析</h2><p><img src="/.com//1322298-20220522215206659-384650563.png" alt="1322298-20220522215206659-384650563"></p>
+<h3 id="服务导出"><a href="#服务导出" class="headerlink" title="服务导出"></a>服务导出</h3><p>如图所示，在ServiceConfig执行export方法，根据接口实现代理对象，对方法进行增强，并封装成invoker对象，在拦截增强执行invoke方法内，通过SPI自适应机制生成对应的Expoter对象，一层一层封装handler对象，最终在最底层Server对象中开启netty监听，并在zookeeper中注册资源信息，最终完成服务端的启动</p>
+<h3 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h3>]]></content>
+      <categories>
+        <category>Dubbo</category>
+      </categories>
+      <tags>
+        <tag>Dubbo</tag>
+      </tags>
   </entry>
   <entry>
     <title>Mysql日志与备份</title>
     <url>/2023/07/14/Mysql%E6%97%A5%E5%BF%97%E4%B8%8E%E5%A4%87%E4%BB%BD/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Mysql机构篇</title>
+    <url>/2023/07/14/Mysql%E6%9E%B6%E6%9E%84%E7%AF%87/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -1349,6 +1349,90 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringCloud Consul</title>
+    <url>/2023/03/02/SpringCloud-Consul/</url>
+    <content><![CDATA[<h2 id="Consul介绍"><a href="#Consul介绍" class="headerlink" title="Consul介绍"></a>Consul介绍</h2><p>​		Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更“一站式”，内置了服务注册与发现框 架、分布一致性协议实现、健康检查、Key&#x2F;Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较 为简单。Consul 使用 Go 语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker 等轻量级容器可无缝配合。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>服务发现</li>
+<li>健康检查</li>
+<li>Key&#x2F;Value 存储</li>
+<li>多数据中心</li>
+<li>社区活跃</li>
+</ul>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接. 相比较而言,zookeeper 采用的是 Paxos, 而 etcd 使用的则是 Raft。</li>
+<li>支持多数据中心，内外网的服务采用不同的端口进行监听。 多数据中心集群可以避免单数据中心的单点故障,而其部署则需要考虑网络延迟,分片等情况等。 zookeeper 和 etcd 均不提供多数据中心功能的支持。</li>
+<li>支持健康检查。 etcd 不提供此功能。</li>
+<li>支持 http 和 dns 协议接口。 zookeeper 的集成较为复杂, etcd 只支持http 协议</li>
+<li>官方提供 web 管理界面, etcd 无此功能。</li>
+<li>综合比较, Consul 作为服务注册和配置管理的新星, 比较值得关注和研究</li>
+<li>提供了rest api 便于集成：<a href="https://www.consul.io/api-docs/index">https://www.consul.io/api-docs/index</a></li>
+</ul>
+<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><ul>
+<li>client: 客户端, 无状态, 将 HTTP 和 DNS 接口请求转发给局域网内的服务端集群。</li>
+<li>server: 服务端, 保存配置信息, 高可用集群, 在局域网内与本地客户端通讯, 通过广域网与其它数据中心通讯。 每个数据中心的 server 数量推荐为 3 个或是 5 个。</li>
+</ul>
+<p>Consul 客户端、服务端还支持夸中心的使用，更加提高了它的高可用性。</p>
+<h2 id="Consul-基础架构"><a href="#Consul-基础架构" class="headerlink" title="Consul 基础架构"></a>Consul 基础架构</h2><h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><ul>
+<li><p>agent</p>
+<p>​		组成 consul 集群的每个成员上都要运行一个 agent，可以通过 consul agent 命令来启动。agent可以运行在 server 状态或者 client 状态。自然运行在 server 状态的节点被称为 server 节点；运行在 client 状态的节点被称为 client 节点</p>
+</li>
+<li><p>server 节点</p>
+<p>​		负责组成 cluster 的复杂工作（选举server 自行选举一个 leader、状态维护、转发请求到 leader），以及 consul 提供的服务（响应RPC 请求），以及存放和复制数据。考虑到容错和收敛，一般部署 3 ~ 5 个比较合适。</p>
+</li>
+<li><p>client 节点</p>
+<p>​		负责转发所有的 RPC 到 server 节点。本身无状态，且轻量级，因此，可以部署大量的client 节点。</p>
+</li>
+<li><p>数据中心</p>
+<p>​		虽然数据中心的定义似乎很明显，但仍有一些细微的细节必须考虑。我们将一个数据中心定义为一个私有、低延迟和高带宽的网络环境。这不包括通过公共互联网的通信，但是为了我们的目的，单个EC2 区域内的多个可用区域将被视为单个数据中心的一部分。</p>
+</li>
+</ul>
+<p>另外：</p>
+<p>​		server 自行选举一个 leader。虽然 Consul 可以运行在一台 server ，但是建议使用 3 到 5 台来避免失败情况下数据的丢失。每个数据中心建议配置一个server 集群。</p>
+<p>​		在基础设施中需要发现其他服务的组件可以查询任何一个 Consul 的server 或者agent，Agent 会自动转发请求到 server。</p>
+<p>​		每个数据中心运行了一个 Consul server 集群。当一个跨数据中心的服务发现和配置请求创建时，本地 Consul Server 转发请求到远程的数据中心并返回结果。</p>
+<h3 id="如何实现服务注册和发现"><a href="#如何实现服务注册和发现" class="headerlink" title="如何实现服务注册和发现"></a><strong>如何实现服务注册和发现</strong></h3><p><img src="/.com//1677740195077.jpg" alt="1677740195077"></p>
+<p>工作原理：</p>
+<ol>
+<li>当Producer启动的时候，会向Consul发送一个post请求，并向Consul传输自己的IP和Port。</li>
+<li>Consul 接收到Producer的注册后，每隔10s（默认）会向Producer发送一个健康检查的请求，检验Producer是否健康。</li>
+<li>当Consumer以Http的方式向Producer发起请求，会先从Consul中拿到一个存储服务IP和Port的临时表，从表中拿到Producer的IP和Port后再发送请求。</li>
+<li>该临时表每隔10s会更新，只包含有通过了健康检查的Producer。</li>
+</ol>
+<h2 id="Consul安装"><a href="#Consul安装" class="headerlink" title="Consul安装"></a>Consul安装</h2><p><strong>下载consul服务</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 从官网下载最新版本的Consul服务</span></span></span><br><span class="line">wget https://releases.hashicorp.com/consul/1.10.3/consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#使用unzip命令解压</span></span></span><br><span class="line">unzip consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#将解压好的consul可执行命令移动到/usr/local/bin目录下</span></span></span><br><span class="line">mv consul /usr/local/bin</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#测试一下</span></span></span><br><span class="line">consul --version</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动consul服务</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// ip1</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-1 -client=0.0.0.0 -bind=ip1 -datacenter=dc1</span><br><span class="line"> </span><br><span class="line">// ip2</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-2 -client=0.0.0.0 -bind=ip2 -datacenter=dc1 -join ip1</span><br><span class="line"> </span><br><span class="line">// ip3</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-3 -client=0.0.0.0 -bind=ip3 -datacenter=dc1 -join ip1</span><br></pre></td></tr></table></figure>
+
+<p>​	<strong>参数解释：</strong></p>
+<ul>
+<li>-bootstrap-expect:集群期望的节点数，只有节点数量达到这个值才会选举leader。</li>
+<li>-server： 运行在server模式</li>
+<li>-client：consul服务侦听地址，这个地址提供HTTP、DNS、RPC等服务，默认是127.0.0.1所以不对外提供服务，如果你要对外提供服务改成0.0.0.0</li>
+<li>-data-dir：指定数据目录，其他的节点对于这个目录必须有读的权限</li>
+<li>-node：指定节点的名称</li>
+<li>-bind：为该节点绑定一个地址</li>
+<li>-config-dir：指定配置文件，定义服务的，默认所有一.json结尾的文件都会读</li>
+<li>-enable-script-checks&#x3D;true：设置检查服务为可用</li>
+<li>-datacenter: 数据中心名称</li>
+</ul>
+<p>-join：加入到已有的集群中</p>
+<p> <strong>其他命令</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群成员</span></span><br><span class="line">consul members</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群状态</span></span><br><span class="line">consul info</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重新加载配置文件</span></span><br><span class="line">consul reload</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">帮助</span></span><br><span class="line">consul agent -h</span><br></pre></td></tr></table></figure>
+
+<p><strong>Consul 的 WebUI 控制台</strong></p>
+<p><a href="http://ip1:8500/">http://ip1:8500</a></p>
+]]></content>
+      <categories>
+        <category>Consul</category>
+      </categories>
+      <tags>
+        <tag>注册中心</tag>
+        <tag>Consul</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Cloud Gateway</title>
     <url>/2023/06/11/Spring-Cloud-Gateway/</url>
     <content><![CDATA[<p><strong>微服务网关就是一个系统，通过暴露该微服务网关系统，方便我们进行相关的鉴权，安全控制，日志统一处理，易于监控，限流等相关功能。</strong></p>
@@ -1516,90 +1600,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringCloud Consul</title>
-    <url>/2023/03/02/SpringCloud-Consul/</url>
-    <content><![CDATA[<h2 id="Consul介绍"><a href="#Consul介绍" class="headerlink" title="Consul介绍"></a>Consul介绍</h2><p>​		Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更“一站式”，内置了服务注册与发现框 架、分布一致性协议实现、健康检查、Key&#x2F;Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较 为简单。Consul 使用 Go 语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker 等轻量级容器可无缝配合。</p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
-<li>服务发现</li>
-<li>健康检查</li>
-<li>Key&#x2F;Value 存储</li>
-<li>多数据中心</li>
-<li>社区活跃</li>
-</ul>
-<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
-<li>使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接. 相比较而言,zookeeper 采用的是 Paxos, 而 etcd 使用的则是 Raft。</li>
-<li>支持多数据中心，内外网的服务采用不同的端口进行监听。 多数据中心集群可以避免单数据中心的单点故障,而其部署则需要考虑网络延迟,分片等情况等。 zookeeper 和 etcd 均不提供多数据中心功能的支持。</li>
-<li>支持健康检查。 etcd 不提供此功能。</li>
-<li>支持 http 和 dns 协议接口。 zookeeper 的集成较为复杂, etcd 只支持http 协议</li>
-<li>官方提供 web 管理界面, etcd 无此功能。</li>
-<li>综合比较, Consul 作为服务注册和配置管理的新星, 比较值得关注和研究</li>
-<li>提供了rest api 便于集成：<a href="https://www.consul.io/api-docs/index">https://www.consul.io/api-docs/index</a></li>
-</ul>
-<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><ul>
-<li>client: 客户端, 无状态, 将 HTTP 和 DNS 接口请求转发给局域网内的服务端集群。</li>
-<li>server: 服务端, 保存配置信息, 高可用集群, 在局域网内与本地客户端通讯, 通过广域网与其它数据中心通讯。 每个数据中心的 server 数量推荐为 3 个或是 5 个。</li>
-</ul>
-<p>Consul 客户端、服务端还支持夸中心的使用，更加提高了它的高可用性。</p>
-<h2 id="Consul-基础架构"><a href="#Consul-基础架构" class="headerlink" title="Consul 基础架构"></a>Consul 基础架构</h2><h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><ul>
-<li><p>agent</p>
-<p>​		组成 consul 集群的每个成员上都要运行一个 agent，可以通过 consul agent 命令来启动。agent可以运行在 server 状态或者 client 状态。自然运行在 server 状态的节点被称为 server 节点；运行在 client 状态的节点被称为 client 节点</p>
-</li>
-<li><p>server 节点</p>
-<p>​		负责组成 cluster 的复杂工作（选举server 自行选举一个 leader、状态维护、转发请求到 leader），以及 consul 提供的服务（响应RPC 请求），以及存放和复制数据。考虑到容错和收敛，一般部署 3 ~ 5 个比较合适。</p>
-</li>
-<li><p>client 节点</p>
-<p>​		负责转发所有的 RPC 到 server 节点。本身无状态，且轻量级，因此，可以部署大量的client 节点。</p>
-</li>
-<li><p>数据中心</p>
-<p>​		虽然数据中心的定义似乎很明显，但仍有一些细微的细节必须考虑。我们将一个数据中心定义为一个私有、低延迟和高带宽的网络环境。这不包括通过公共互联网的通信，但是为了我们的目的，单个EC2 区域内的多个可用区域将被视为单个数据中心的一部分。</p>
-</li>
-</ul>
-<p>另外：</p>
-<p>​		server 自行选举一个 leader。虽然 Consul 可以运行在一台 server ，但是建议使用 3 到 5 台来避免失败情况下数据的丢失。每个数据中心建议配置一个server 集群。</p>
-<p>​		在基础设施中需要发现其他服务的组件可以查询任何一个 Consul 的server 或者agent，Agent 会自动转发请求到 server。</p>
-<p>​		每个数据中心运行了一个 Consul server 集群。当一个跨数据中心的服务发现和配置请求创建时，本地 Consul Server 转发请求到远程的数据中心并返回结果。</p>
-<h3 id="如何实现服务注册和发现"><a href="#如何实现服务注册和发现" class="headerlink" title="如何实现服务注册和发现"></a><strong>如何实现服务注册和发现</strong></h3><p><img src="/.com//1677740195077.jpg" alt="1677740195077"></p>
-<p>工作原理：</p>
-<ol>
-<li>当Producer启动的时候，会向Consul发送一个post请求，并向Consul传输自己的IP和Port。</li>
-<li>Consul 接收到Producer的注册后，每隔10s（默认）会向Producer发送一个健康检查的请求，检验Producer是否健康。</li>
-<li>当Consumer以Http的方式向Producer发起请求，会先从Consul中拿到一个存储服务IP和Port的临时表，从表中拿到Producer的IP和Port后再发送请求。</li>
-<li>该临时表每隔10s会更新，只包含有通过了健康检查的Producer。</li>
-</ol>
-<h2 id="Consul安装"><a href="#Consul安装" class="headerlink" title="Consul安装"></a>Consul安装</h2><p><strong>下载consul服务</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 从官网下载最新版本的Consul服务</span></span></span><br><span class="line">wget https://releases.hashicorp.com/consul/1.10.3/consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#使用unzip命令解压</span></span></span><br><span class="line">unzip consul_1.10.3_linux_amd64.zip </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#将解压好的consul可执行命令移动到/usr/local/bin目录下</span></span></span><br><span class="line">mv consul /usr/local/bin</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#测试一下</span></span></span><br><span class="line">consul --version</span><br></pre></td></tr></table></figure>
-
-<p><strong>启动consul服务</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// ip1</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-1 -client=0.0.0.0 -bind=ip1 -datacenter=dc1</span><br><span class="line"> </span><br><span class="line">// ip2</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-2 -client=0.0.0.0 -bind=ip2 -datacenter=dc1 -join ip1</span><br><span class="line"> </span><br><span class="line">// ip3</span><br><span class="line">consul agent -server -ui -bootstrap-expect=3 -data-dir=/data/consul -node=agent-3 -client=0.0.0.0 -bind=ip3 -datacenter=dc1 -join ip1</span><br></pre></td></tr></table></figure>
-
-<p>​	<strong>参数解释：</strong></p>
-<ul>
-<li>-bootstrap-expect:集群期望的节点数，只有节点数量达到这个值才会选举leader。</li>
-<li>-server： 运行在server模式</li>
-<li>-client：consul服务侦听地址，这个地址提供HTTP、DNS、RPC等服务，默认是127.0.0.1所以不对外提供服务，如果你要对外提供服务改成0.0.0.0</li>
-<li>-data-dir：指定数据目录，其他的节点对于这个目录必须有读的权限</li>
-<li>-node：指定节点的名称</li>
-<li>-bind：为该节点绑定一个地址</li>
-<li>-config-dir：指定配置文件，定义服务的，默认所有一.json结尾的文件都会读</li>
-<li>-enable-script-checks&#x3D;true：设置检查服务为可用</li>
-<li>-datacenter: 数据中心名称</li>
-</ul>
-<p>-join：加入到已有的集群中</p>
-<p> <strong>其他命令</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群成员</span></span><br><span class="line">consul members</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看集群状态</span></span><br><span class="line">consul info</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重新加载配置文件</span></span><br><span class="line">consul reload</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">帮助</span></span><br><span class="line">consul agent -h</span><br></pre></td></tr></table></figure>
-
-<p><strong>Consul 的 WebUI 控制台</strong></p>
-<p><a href="http://ip1:8500/">http://ip1:8500</a></p>
-]]></content>
-      <categories>
-        <category>Consul</category>
-      </categories>
-      <tags>
-        <tag>注册中心</tag>
-        <tag>Consul</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Zookeeper入门篇</title>
     <url>/2023/02/02/Zookeeper%E5%85%A5%E9%97%A8%E7%AF%87/</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
@@ -1646,8 +1646,8 @@
 </ol>
 </li>
 </ul>
-<p><img src="/./images/1592054828485.png" alt="1592054828485"></p>
-<p><img src="/./images/1592054844023.png" alt="1592054844023"></p>
+<p><img src="/../images/1592054828485.png" alt="1592054828485"></p>
+<p><img src="/../images/1592054844023.png" alt="1592054844023"></p>
 <h3 id="Zookeeper命令操作服务端命令"><a href="#Zookeeper命令操作服务端命令" class="headerlink" title="Zookeeper命令操作服务端命令"></a>Zookeeper命令操作服务端命令</h3><ul>
 <li><p>启动 ZooKeeper 服务: .&#x2F;zkServer.sh start</p>
 </li>
