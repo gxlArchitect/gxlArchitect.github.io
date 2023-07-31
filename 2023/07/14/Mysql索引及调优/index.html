@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -127,7 +127,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql索引及调优">
 <meta property="og:url" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/index.html">
-<meta property="og:site_name" content="架构师之路">
+<meta property="og:site_name" content="Guo&#39;s  Blog">
 <meta property="og:description" content="为什么使用索引索引是存储引擎用于快速找到数据记录的一种数据结构，就好比一本教科书的目录部分，通过目录中找到对应文章的页码，便可快速定位到需要的文章。MySQL中也是一样的道理，进行数据查找时，首先查看查询条件是否命中某条索引，符合则通过索引查找相关数据，如果不符合则需要全表扫描，即需要一条一条地查找记录，直到找到与条件符合的记录。  如上图所示，数据库没有索引的情况下，数据分布在硬盘不同的位置上面">
 <meta property="og:locale">
 <meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/index.png">
@@ -318,8 +318,44 @@
 <meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230719161419430.png">
 <meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230719161431240.png">
 <meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230719161522661.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/blog/architect/source_posts/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724114031282.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/blog/architect/source_posts/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724114337762.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724143530242.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724143647333.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724143814272.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724143926587.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724144010126-1690180811819-4.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724144138332.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724144147508.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230724144436345.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725150209948.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725150234449.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725150317521.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725151145228.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725151549435.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725151659989.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725151722370.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230725151906852.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230726145628244.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230726174542607.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728142608606.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728142712172.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728142908005.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728142943472.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728143001825.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728143132063.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728143252520.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728143330716-1690526011905-1.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728153559784.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728153651374.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230728164420172.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230731133244497.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230731133303415.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230731133319904.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230731133336238.png">
+<meta property="og:image" content="http://example.com/2023/07/14/Mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98/image-20230731134556472.png">
 <meta property="article:published_time" content="2023-07-14T06:04:00.000Z">
-<meta property="article:modified_time" content="2023-07-21T02:02:53.497Z">
+<meta property="article:modified_time" content="2023-07-31T05:46:13.157Z">
 <meta property="article:author" content="郭学良">
 <meta property="article:tag" content="Mysql">
 <meta property="article:tag" content="调优">
@@ -332,9 +368,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '',
-    scheme: 'Pisces',
+    scheme: 'Gemini',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -360,7 +396,7 @@
 
 
 
-  <title>Mysql索引及调优 | 架构师之路</title>
+  <title>Mysql索引及调优 | Guo's  Blog</title>
   
 
 
@@ -390,7 +426,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">架构师之路</span>
+        <span class="site-title">Guo's  Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -418,17 +454,27 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
           </a>
@@ -436,9 +482,9 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             分类
           </a>
@@ -446,9 +492,9 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
           </a>
@@ -530,7 +576,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="架构师之路">
+      <meta itemprop="name" content="Guo's  Blog">
     </span>
 
     
@@ -591,6 +637,11 @@
           
           
 
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
           
 
           
@@ -1960,8 +2011,543 @@
 <p>应用开发中范围查询，例如：金额查询，日期查询往往都是范围查询。应将查询条件放置where语句最后。（创建的联合索引中，务必把范围涉及到的字段写在最后）</p>
 </blockquote>
 <ol start="3">
-<li>效果</li>
+<li><p>效果</p>
+<p><img src="blog\architect\source_posts\Mysql索引及调优\image-20230724114031282.png" alt="image-20230724114031282"></p>
+</li>
 </ol>
+<h4 id="不等于-x3D-或者-lt-gt-索引失效"><a href="#不等于-x3D-或者-lt-gt-索引失效" class="headerlink" title="不等于(!&#x3D; 或者&lt;&gt;)索引失效"></a>不等于(!&#x3D; 或者&lt;&gt;)索引失效</h4><ul>
+<li>为name字段创建索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name <span class="keyword">ON</span> student(NAME);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看索引是否失效</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> SQL_NO_CACHE <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> student.name <span class="operator">&lt;&gt;</span> <span class="string">&#x27;abc&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="blog\architect\source_posts\Mysql索引及调优\image-20230724114337762.png" alt="image-20230724114337762"></p>
+<h4 id="is-null可以使用索引，is-not-null无法使用索引"><a href="#is-null可以使用索引，is-not-null无法使用索引" class="headerlink" title="is null可以使用索引，is not null无法使用索引"></a>is null可以使用索引，is not null无法使用索引</h4><ul>
+<li>IS NULL: 可以触发索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> SQL_NO_CACHE <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> age <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IS NOT NULL: 无法触发索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> SQL_NO_CACHE <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> age <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<p>结论：最好在设计数据库的时候就将<code>字段设置为 NOT NULL 约束</code>，比如你可以将 INT 类型的字段，默认值设置为0。将字符类型的默认值设置为空字符串(‘’)。</p>
+<p>扩展：同理，在查询中使用<code>not like</code>也无法使用索引，导致全表扫描。</p>
+<h4 id="like以通配符-开头索引失效"><a href="#like以通配符-开头索引失效" class="headerlink" title="like以通配符%开头索引失效"></a>like以通配符%开头索引失效</h4><p>在使用LIKE关键字进行查询的查询语句中，如果匹配字符串的第一个字符为’%’，索引就不会起作用。只有’%’不在第一个位置，索引才会起作用。</p>
+<ul>
+<li>使用到索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> SQL_NO_CACHE <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;ab%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>未使用到索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> SQL_NO_CACHE <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;%ab%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="OR-前后存在非索引的列，索引失效"><a href="#OR-前后存在非索引的列，索引失效" class="headerlink" title="OR 前后存在非索引的列，索引失效"></a>OR 前后存在非索引的列，索引失效</h4><p>在WHERE子句中，如果在OR前的条件列进行了索引，而在OR后的条件列没有进行索引，那么索引会失效。也就是说，<strong>OR前后的两个条件中的列都是索引时，查询中才使用索引。</strong></p>
+<p>因为OR的含义就是两个只要满足一个即可，因此<code>只有一个条件列进行了索引是没有意义的</code>，只要有条件列没有进行索引，就会进行<code>全表扫描</code>，因此所以的条件列也会失效。</p>
+<p>查询语句使用OR关键字的情况：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 未使用到索引</span><br><span class="line">EXPLAIN <span class="keyword">SELECT</span> SQL_NO_CACHE <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> age <span class="operator">=</span> <span class="number">10</span> <span class="keyword">OR</span> classid <span class="operator">=</span> <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<p>因为classId字段上没有索引，所以上述查询语句没有使用索引。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#使用到索引</span><br><span class="line">EXPLAIN <span class="keyword">SELECT</span> SQL_NO_CACHE <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> age <span class="operator">=</span> <span class="number">10</span> <span class="keyword">OR</span> name <span class="operator">=</span> <span class="string">&#x27;Abel&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>因为age字段和name字段上都有索引，所以查询中使用了索引。你能看到这里使用到了<code>index_merge</code>，简单来说index_merge就是对age和name分别进行了扫描，然后将这两个结果集进行了合并。这样做的好处就是<code>避免了全表扫描</code>。</p>
+<h4 id="数据库和表的字符集统一使用utf8mb4"><a href="#数据库和表的字符集统一使用utf8mb4" class="headerlink" title="数据库和表的字符集统一使用utf8mb4"></a>数据库和表的字符集统一使用utf8mb4</h4><p>统一使用utf8mb4( 5.5.3版本以上支持)兼容性更好，统一字符集可以避免由于字符集转换产生的乱码。不 同的 <code>字符集</code> 进行比较前需要进行 <code>转换</code> 会造成索引失效。</p>
+<h3 id="关联查询优化"><a href="#关联查询优化" class="headerlink" title="关联查询优化"></a>关联查询优化</h3><h4 id="join语句原理"><a href="#join语句原理" class="headerlink" title="join语句原理"></a>join语句原理</h4><p>join方式连接多个表，本质就是各个表之间数据的循环匹配。MySQL5.5版本之前，MySQL只支持一种表间关联方式，就是嵌套循环(Nested Loop Join)。如果关联表的数据量很大，则join关联的执行时间会很长。在MySQL5.5以后的版本中，MySQL通过引入BNLJ算法来优化嵌套执行。</p>
+<h5 id="1-驱动表和被驱动表"><a href="#1-驱动表和被驱动表" class="headerlink" title="1. 驱动表和被驱动表"></a>1. 驱动表和被驱动表</h5><p>驱动表就是主表，被驱动表就是从表、非驱动表。</p>
+<ul>
+<li>对于内连接来说：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> A <span class="keyword">JOIN</span> B <span class="keyword">ON</span> ...</span><br></pre></td></tr></table></figure>
+
+<p>A一定是驱动表吗？不一定，优化器会根据你查询语句做优化，决定先查哪张表。先查询的那张表就是驱动表，反之就是被驱动表。通过explain关键字可以查看。</p>
+<ul>
+<li>对于外连接来说：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> A <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> B <span class="keyword">ON</span> ...</span><br><span class="line"># 或</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> B <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> A <span class="keyword">ON</span> ... </span><br></pre></td></tr></table></figure>
+
+<p>通常，大家会认为A就是驱动表，B就是被驱动表。但也未必。</p>
+<h5 id="2-Simple-Nested-Loop-Join-简单嵌套循环连接"><a href="#2-Simple-Nested-Loop-Join-简单嵌套循环连接" class="headerlink" title="2. Simple Nested-Loop Join (简单嵌套循环连接)"></a>2. Simple Nested-Loop Join (简单嵌套循环连接)</h5><p>算法相当简单，从表A中取出一条数据1，遍历表B，将匹配到的数据放到result.. 以此类推，驱动表A中的每一条记录与被驱动表B的记录进行判断：</p>
+<p><img src="image-20230724143530242.png" alt="image-20230724143530242"></p>
+<p>可以看到这种方式效率是非常低的，以上述表A数据100条，表B数据1000条计算，则A*B&#x3D;10万次。开销统计如下:<img src="image-20230724143647333.png" alt="image-20230724143647333"></p>
+<p>当然mysql肯定不会这么粗暴的去进行表的连接，所以就出现了后面的两种对Nested-Loop Join优化算法。</p>
+<h5 id="3-Index-Nested-Loop-Join-（索引嵌套循环连接）"><a href="#3-Index-Nested-Loop-Join-（索引嵌套循环连接）" class="headerlink" title="3. Index Nested-Loop Join （索引嵌套循环连接）"></a>3. Index Nested-Loop Join （索引嵌套循环连接）</h5><p>Index Nested-Loop Join其优化的思路主要是为了<code>减少内存表数据的匹配次数</code>，所以要求被驱动表上必须<code>有索引</code>才行。通过外层表匹配条件直接与内层表索引进行匹配，避免和内存表的每条记录去进行比较，这样极大的减少了对内存表的匹配次数。</p>
+<p><img src="image-20230724143814272.png" alt="image-20230724143814272"></p>
+<p>驱动表中的每条记录通过被驱动表的索引进行访问，因为索引查询的成本是比较固定的，故mysql优化器都倾向于使用记录数少的表作为驱动表（外表）。</p>
+<p><img src="image-20230724143926587.png" alt="image-20230724143926587"></p>
+<p>如果被驱动表加索引，效率是非常高的，但如果索引不是主键索引，所以还得进行一次回表查询。相比，被驱动表的索引是主键索引，效率会更高。</p>
+<h5 id="4-Block-Nested-Loop-Join（块嵌套循环连接）"><a href="#4-Block-Nested-Loop-Join（块嵌套循环连接）" class="headerlink" title="4. Block Nested-Loop Join（块嵌套循环连接）"></a>4. Block Nested-Loop Join（块嵌套循环连接）</h5><p><img src="image-20230724144010126-1690180811819-4.png" alt="image-20230724144010126"></p>
+<blockquote>
+<p>注意：</p>
+<p>这里缓存的不只是关联表的列，select后面的列也会缓存起来。</p>
+<p>在一个有N个join关联的sql中会分配N-1个join buffer。所以查询的时候尽量减少不必要的字段，可以让join buffer中可以存放更多的列。</p>
+</blockquote>
+<p><img src="image-20230724144138332.png" alt="image-20230724144138332"></p>
+<p><img src="image-20230724144147508.png" alt="image-20230724144147508"></p>
+<p>参数设置：</p>
+<ul>
+<li>block_nested_loop</li>
+</ul>
+<p>通过<code>show variables like &#39;%optimizer_switch%</code> 查看 <code>block_nested_loop</code>状态。默认是开启的。</p>
+<ul>
+<li>join_buffer_size</li>
+</ul>
+<p>驱动表能不能一次加载完，要看join buffer能不能存储所有的数据，默认情况下<code>join_buffer_size=256k</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;%join_buffer%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>join_buffer_size的最大值在32位操作系统可以申请4G，而在64位操作系统下可以申请大于4G的Join Buffer空间（64位Windows除外，其大值会被截断为4GB并发出警告）。</p>
+<h5 id="5-Join小结"><a href="#5-Join小结" class="headerlink" title="5. Join小结"></a>5. Join小结</h5><p>1、<strong>整体效率比较：INLJ &gt; BNLJ &gt; SNLJ</strong></p>
+<p>2、永远用小结果集驱动大结果集（其本质就是减少外层循环的数据数量）（小的度量单位指的是表行数 * 每行大小）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.b,t2.<span class="operator">*</span> <span class="keyword">from</span> t1 straight_join t2 <span class="keyword">on</span> (t1.b<span class="operator">=</span>t2.b) <span class="keyword">where</span> t2.id<span class="operator">&lt;=</span><span class="number">100</span>; # 推荐</span><br><span class="line"><span class="keyword">select</span> t1.b,t2.<span class="operator">*</span> <span class="keyword">from</span> t2 straight_join t1 <span class="keyword">on</span> (t1.b<span class="operator">=</span>t2.b) <span class="keyword">where</span> t2.id<span class="operator">&lt;=</span><span class="number">100</span>; # 不推荐</span><br></pre></td></tr></table></figure>
+
+<p>3、为被驱动表匹配的条件增加索引(减少内存表的循环匹配次数)</p>
+<p>4、增大join buffer size的大小（一次索引的数据越多，那么内层包的扫描次数就越少）</p>
+<p>5、减少驱动表不必要的字段查询（字段越少，join buffer所缓存的数据就越多）</p>
+<h5 id="6-Hash-Join"><a href="#6-Hash-Join" class="headerlink" title="6. Hash Join"></a>6. Hash Join</h5><p><strong>从MySQL的8.0.20版本开始将废弃BNLJ，因为从MySQL8.0.18版本开始就加入了hash join默认都会使用hash join</strong></p>
+<ul>
+<li><p>Nested Loop:</p>
+<p>对于被连接的数据子集较小的情况，Nested Loop是个较好的选择。</p>
+</li>
+<li><p>Hash Join是做<code>大数据集连接</code>时的常用方式，优化器使用两个表中较小（相对较小）的表利用Join Key在内存中建立<code>散列表</code>，然后扫描较大的表并探测散列表，找出与Hash表匹配的行。</p>
+<ul>
+<li>这种方式适合于较小的表完全可以放于内存中的情况，这样总成本就是访问两个表的成本之和。</li>
+<li>在表很大的情况下并不能完全放入内存，这时优化器会将它分割成<code>若干不同的分区</code>，不能放入内存的部分就把该分区写入磁盘的临时段，此时要求有较大的临时段从而尽量提高I&#x2F;O的性能。</li>
+<li>它能够很好的工作于没有索引的大表和并行查询的环境中，并提供最好的性能。大多数人都说它是Join的重型升降机。Hash Join只能应用于等值连接（如WHERE A.COL1 &#x3D; B.COL2），这是由Hash的特点决定的。</li>
+</ul>
+<p><img src="image-20230724144436345.png" alt="image-20230724144436345"></p>
+</li>
+</ul>
+<h4 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>保证被驱动表的JOIN字段已经创建了索引</li>
+<li>需要JOIN 的字段，数据类型保持绝对一致。</li>
+<li>LEFT JOIN 时，选择小表作为驱动表， 大表作为被驱动表 。减少外层循环的次数。</li>
+<li>INNER JOIN 时，MySQL会自动将 小结果集的表选为驱动表 。选择相信MySQL优化策略。</li>
+<li>能够直接多表关联的尽量直接关联，不用子查询。(减少查询的趟数)</li>
+<li>不建议使用子查询，建议将子查询SQL拆开结合程序多次查询，或使用 JOIN 来代替子查询。</li>
+<li>衍生表建不了索引</li>
+</ul>
+<h3 id="子查询优化"><a href="#子查询优化" class="headerlink" title="子查询优化"></a>子查询优化</h3><p>MySQL从4.1版本开始支持子查询，使用子查询可以进行SELECT语句的嵌套查询，即一个SELECT查询的结 果作为另一个SELECT语句的条件。 <code>子查询可以一次性完成很多逻辑上需要多个步骤才能完成的SQL操作</code> 。</p>
+<p>子查询是 MySQL 的一项重要的功能，可以帮助我们通过一个 SQL 语句实现比较复杂的查询。但是，子查询的执行效率不高。原因：</p>
+<p>① 执行子查询时，MySQL需要为内层查询语句的查询结果 建立一个临时表 ，然后外层查询语句从临时表 中查询记录。查询完毕后，再撤销这些临时表 。这样会消耗过多的CPU和IO资源，产生大量的慢查询。</p>
+<p>② 子查询的结果集存储的临时表，不论是内存临时表还是磁盘临时表都 不会存在索引 ，所以查询性能会 受到一定的影响。</p>
+<p>③ 对于返回结果集比较大的子查询，其对查询性能的影响也就越大。</p>
+<p><strong>在MySQL中，可以使用连接（JOIN）查询来替代子查询。</strong>连接查询 <code>不需要建立临时表</code> ，其 <code>速度比子查询</code> 要快 ，如果查询中使用索引的话，性能就会更好。</p>
+<blockquote>
+<p>结论：尽量不要使用NOT IN或者NOT EXISTS，用LEFT JOIN xxx ON xx WHERE xx IS NULL替代</p>
+</blockquote>
+<h3 id="排序优化"><a href="#排序优化" class="headerlink" title="排序优化"></a>排序优化</h3><p>在MySQL中，支持两种排序方式，分别是 <code>FileSort</code> 和 <code>Index</code> 排序。</p>
+<ul>
+<li>Index 排序中，索引可以保证数据的有序性，不需要再进行排序，<code>效率更高</code>。</li>
+<li>FileSort 排序则一般在 <code>内存中</code> 进行排序，占用<code>CPU较多</code>。如果待排结果较大，会产生临时文件 I&#x2F;O 到磁盘进行排序的情况，效率较低。</li>
+</ul>
+<p><strong>优化建议：</strong></p>
+<ol>
+<li>SQL 中，可以在 WHERE 子句和 ORDER BY 子句中使用索引，目的是在 WHERE 子句中 <code>避免全表扫描</code> ，在 ORDER BY 子句 <code>避免使用 FileSort 排序</code> 。当然，某些情况下全表扫描，或者 FileSort 排序不一定比索引慢。但总的来说，我们还是要避免，以提高查询效率。</li>
+<li>尽量使用 Index 完成 ORDER BY 排序。如果 WHERE 和 ORDER BY 后面是相同的列就使用单索引列； 如果不同就使用联合索引。</li>
+<li>无法使用 Index 时，需要对 FileSort 方式进行调优。</li>
+</ol>
+<p><strong>order by 时不limit,索引失效</strong></p>
+<p><strong>order by 时顺序错误，索引失效</strong></p>
+<p><strong>order by 时规则不一致，索引失效（顺序错，不索引；方向反，不索引）</strong></p>
+<p><strong>无过滤，不索引</strong></p>
+<p><strong>小结</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">INDEX a_b_c(a,b,c)</span><br><span class="line">order by 能使用索引最左前缀</span><br><span class="line">- ORDER BY a</span><br><span class="line">- ORDER BY a,b</span><br><span class="line">- ORDER BY a,b,c</span><br><span class="line">- ORDER BY a DESC,b DESC,c DESC</span><br><span class="line">如果WHERE使用索引的最左前缀定义为常量，则order by 能使用索引</span><br><span class="line">- WHERE a = const ORDER BY b,c</span><br><span class="line">- WHERE a = const AND b = const ORDER BY c</span><br><span class="line">- WHERE a = const ORDER BY b,c</span><br><span class="line">- WHERE a = const AND b &gt; const ORDER BY b,c</span><br><span class="line">不能使用索引进行排序</span><br><span class="line">- ORDER BY a ASC,b DESC,c DESC /* 排序不一致 */</span><br><span class="line">- WHERE g = const ORDER BY b,c /*丢失a索引*/</span><br><span class="line">- WHERE a = const ORDER BY c /*丢失b索引*/</span><br><span class="line">- WHERE a = const ORDER BY a,d /*d不是索引的一部分*/</span><br><span class="line">- WHERE a in (...) ORDER BY b,c /*对于排序来说，多个相等条件也是范围查询*/</span><br></pre></td></tr></table></figure>
+
+<p>结论：</p>
+<ol>
+<li>两个索引同时存在，mysql自动选择最优的方案。但是， <code>随着数据量的变化，选择的索引也会随之变化的 </code>。</li>
+<li><strong>当【范围条件】和【group by 或者 order by】的字段出现二选一时，优先观察条件字段的过 滤数量，如果过滤的数据足够多，而需要排序的数据并不多时，优先把索引放在范围字段上。反之，亦然。</strong></li>
+</ol>
+<h4 id="filesort算法：双路排序和单路排序"><a href="#filesort算法：双路排序和单路排序" class="headerlink" title="filesort算法：双路排序和单路排序"></a>filesort算法：双路排序和单路排序</h4><p>排序的字段若不在索引列上，则filesort会有两种算法：双路排序和单路排序</p>
+<p><strong>双路排序 （慢）</strong></p>
+<ul>
+<li>MySQL 4.1之前是使用双路排序 ，字面意思就是两次扫描磁盘，最终得到数据， 读取行指针和 order by列 ，对他们进行排序，然后扫描已经排序好的列表，按照列表中的值重新从列表中读取对应的数据输出</li>
+<li>从磁盘取排序字段，在buffer进行排序，再从磁盘取其他字段 。</li>
+</ul>
+<p>取一批数据，要对磁盘进行两次扫描，众所周知，IO是很耗时的，所以在mysql4.1之后，出现了第二种 改进的算法，就是单路排序。</p>
+<p><strong>单路排序 （快）</strong></p>
+<p>从磁盘读取查询需要的 所有列 ，按照order by列在buffer对它们进行排序，然后扫描排序后的列表进行输出， 它的效率更快一些，避免了第二次读取数据。并且把随机IO变成了顺序IO，但是它会使用更多的空间， 因为它把每一行都保存在内存中了。</p>
+<p><strong>结论及引申出的问题</strong></p>
+<ul>
+<li>由于单路是后出的，总体而言好过双路</li>
+<li>但是用单路有问题<ul>
+<li>在sort_buffer中，单路要比多路多占用很多空间，因为单路是把所有字段都取出，所以有可能取出的数据的总大小超出了<code>sort_buffer</code>的容量，导致每次只能取<code>sort_buffer</code>容量大小的数据，进行排序（创建tmp文件，多路合并），排完再取sort_buffer容量大小，再排…从而多次I&#x2F;O。</li>
+<li>单路本来想省一次I&#x2F;O操作，反而导致了大量的I&#x2F;O操作，反而得不偿失。</li>
+</ul>
+</li>
+</ul>
+<p><strong>优化策略</strong></p>
+<p><strong>1. 尝试提高 sort_buffer_size</strong></p>
+<p><img src="image-20230725150209948.png" alt="image-20230725150209948"></p>
+<p><strong>2. 尝试提高 max_length_for_sort_data</strong></p>
+<p><img src="image-20230725150234449.png" alt="image-20230725150234449"></p>
+<p><strong>3. Order by 时select * 是一个大忌。最好只Query需要的字段。</strong></p>
+<p><img src="image-20230725150317521.png" alt="image-20230725150317521"></p>
+<h3 id="GROUP-BY优化"><a href="#GROUP-BY优化" class="headerlink" title="GROUP BY优化"></a>GROUP BY优化</h3><ul>
+<li>group by 使用索引的原则几乎跟order by一致 ，group by 即使没有过滤条件用到索引，也可以直接使用索引。</li>
+<li>group by 先排序再分组，遵照索引建的最佳左前缀法则</li>
+<li>当无法使用索引列，增大 max_length_for_sort_data 和 sort_buffer_size 参数的设置</li>
+<li>where效率高于having，能写在where限定的条件就不要写在having中了</li>
+<li>减少使用order by，和业务沟通能不排序就不排序，或将排序放到程序端去做。Order by、group by、distinct这些语句较为耗费CPU，数据库的CPU资源是极其宝贵的。</li>
+<li>包含了order by、group by、distinct这些查询的语句，where条件过滤出来的结果集请保持在1000行 以内，否则SQL会很慢。</li>
+</ul>
+<h3 id="优化分页查询"><a href="#优化分页查询" class="headerlink" title="优化分页查询"></a>优化分页查询</h3><p><img src="image-20230725151145228.png" alt="image-20230725151145228"></p>
+<p><strong>优化思路一</strong></p>
+<p>在索引上完成排序分页操作，最后根据主键关联回原表查询所需要的其他列内容。</p>
+<p><strong>优化思路二</strong></p>
+<p>该方案适用于主键自增的表，可以把Limit 查询转换成某个位置的查询 。</p>
+<h3 id="优先考虑覆盖索引"><a href="#优先考虑覆盖索引" class="headerlink" title="优先考虑覆盖索引"></a>优先考虑覆盖索引</h3><h4 id="什么是覆盖索引？"><a href="#什么是覆盖索引？" class="headerlink" title="什么是覆盖索引？"></a>什么是覆盖索引？</h4><p><strong>理解方式一</strong>：索引是高效找到行的一个方法，但是一般数据库也能使用索引找到一个列的数据，因此它不必读取整个行。毕竟索引叶子节点存储了它们索引的数据；当能通过读取索引就可以得到想要的数据，那就不需要读取行了。<strong>一个索引包含了满足查询结果的数据就叫做覆盖索引</strong>。</p>
+<p><strong>理解方式二</strong>：非聚簇复合索引的一种形式，它包括在查询里的SELECT、JOIN和WHERE子句用到的所有列 （即建索引的字段正好是覆盖查询条件中所涉及的字段）。</p>
+<p>简单说就是， <code>索引列+主键</code> 包含 <code>SELECT 到 FROM之间查询的列</code> 。</p>
+<h4 id="覆盖索引的利弊"><a href="#覆盖索引的利弊" class="headerlink" title="覆盖索引的利弊"></a>覆盖索引的利弊</h4><p><img src="image-20230725151549435.png" alt="image-20230725151549435"></p>
+<h3 id="如何给字符串添加索引"><a href="#如何给字符串添加索引" class="headerlink" title="如何给字符串添加索引"></a>如何给字符串添加索引</h3><h4 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h4><p>MySQL是支持前缀索引的。默认地，如果你创建索引的语句不指定前缀长度，那么索引就会包含整个字 符串。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher <span class="keyword">add</span> index index1(email);</span><br><span class="line">#或</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher <span class="keyword">add</span> index index2(email(<span class="number">6</span>));</span><br></pre></td></tr></table></figure>
+
+<p>这两种不同的定义在数据结构和存储上有什么区别呢？下图就是这两个索引的示意图。</p>
+<p><img src="image-20230725151659989.png" alt="image-20230725151659989"></p>
+<p>以及</p>
+<p><img src="image-20230725151722370.png" alt="image-20230725151722370"></p>
+<p><strong>如果使用的是index1</strong>（即email整个字符串的索引结构），执行顺序是这样的：</p>
+<ol>
+<li>从index1索引树找到满足索引值是’ <a href="mailto:zhangssxyz@xxx.com">zhangssxyz@xxx.com</a>’的这条记录，取得ID2的值；</li>
+<li>到主键上查到主键值是ID2的行，判断email的值是正确的，将这行记录加入结果集；</li>
+<li>取index1索引树上刚刚查到的位置的下一条记录，发现已经不满足email&#x3D;’ <a href="mailto:zhangssxyz@xxx.com">zhangssxyz@xxx.com</a> ’的 条件了，循环结束。</li>
+</ol>
+<p>这个过程中，只需要回主键索引取一次数据，所以系统认为只扫描了一行。</p>
+<p><strong>如果使用的是index2</strong>（即email(6)索引结构），执行顺序是这样的：</p>
+<ol>
+<li>从index2索引树找到满足索引值是’zhangs’的记录，找到的第一个是ID1；</li>
+<li>到主键上查到主键值是ID1的行，判断出email的值不是’ <a href="mailto:zhangssxyz@xxx.com">zhangssxyz@xxx.com</a> ’，这行记录丢弃；</li>
+<li>取index2上刚刚查到的位置的下一条记录，发现仍然是’zhangs’，取出ID2，再到ID索引上取整行然 后判断，这次值对了，将这行记录加入结果集；</li>
+<li>重复上一步，直到在idxe2上取到的值不是’zhangs’时，循环结束。</li>
+</ol>
+<p>也就是说<strong>使用前缀索引，定义好长度，就可以做到既节省空间，又不用额外增加太多的查询成本。</strong>前面 已经讲过区分度，区分度越高越好。因为区分度越高，意味着重复的键值越少。</p>
+<h4 id="前缀索引对覆盖索引的影响"><a href="#前缀索引对覆盖索引的影响" class="headerlink" title="前缀索引对覆盖索引的影响"></a>前缀索引对覆盖索引的影响</h4><blockquote>
+<p>结论： 使用前缀索引就用不上覆盖索引对查询性能的优化了，这也是你在选择是否使用前缀索引时需要考虑的一个因素。</p>
+</blockquote>
+<h3 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h3><h4 id="使用前后对比"><a href="#使用前后对比" class="headerlink" title="使用前后对比"></a>使用前后对比</h4><p>Index Condition Pushdown(ICP)是MySQL 5.6中新特性，是一种在存储引擎层使用索引过滤数据的一种优化方式。</p>
+<p><img src="image-20230725151906852.png" alt="image-20230725151906852"></p>
+<h4 id="ICP的开启-x2F-关闭"><a href="#ICP的开启-x2F-关闭" class="headerlink" title="ICP的开启&#x2F;关闭"></a>ICP的开启&#x2F;关闭</h4><ul>
+<li>默认情况下启动索引条件下推。可以通过设置系统变量<code>optimizer_switch</code>控制：<code>index_condition_pushdown</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 打开索引下推</span><br><span class="line"><span class="keyword">SET</span> optimizer_switch <span class="operator">=</span> <span class="string">&#x27;index_condition_pushdown=on&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 关闭索引下推</span><br><span class="line"><span class="keyword">SET</span> optimizer_switch <span class="operator">=</span> <span class="string">&#x27;index_condition_pushdown=off&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当使用索引条件下推是，<code>EXPLAIN</code>语句输出结果中<code>Extra</code>列内容显示为<code>Using index condition</code>。</li>
+</ul>
+<h4 id="ICP的使用条件"><a href="#ICP的使用条件" class="headerlink" title="ICP的使用条件"></a>ICP的使用条件</h4><ol>
+<li>如果表的访问类型为 range 、 ref 、 eq_ref 或者 ref_or_null 可以使用ICP。</li>
+<li>ICP可以使用<code>InnDB</code>和<code>MyISAM</code>表，包括分区表<code>InnoDB</code>和<code>MyISAM</code>表</li>
+<li>对于<code>InnoDB</code>表，ICP仅用于<code>二级索引</code>。ICP的目标是减少全行读取次数，从而减少I&#x2F;O操作。</li>
+<li>当SQL使用覆盖索引时，不支持ICP优化方法。因为这种情况下使用ICP不会减少I&#x2F;O。</li>
+<li>相关子查询的条件不能使用ICP</li>
+</ol>
+<h3 id="普通索引-vs-唯一索引"><a href="#普通索引-vs-唯一索引" class="headerlink" title="普通索引 vs 唯一索引"></a>普通索引 vs 唯一索引</h3><h4 id="查询过程"><a href="#查询过程" class="headerlink" title="查询过程"></a>查询过程</h4><p>假设，执行查询的语句是 select id from test where k&#x3D;5。</p>
+<ul>
+<li>对于普通索引来说，查找到满足条件的第一个记录(5,500)后，需要查找下一个记录，直到碰到第一 个不满足k&#x3D;5条件的记录。</li>
+<li>对于唯一索引来说，由于索引定义了唯一性，查找到第一个满足条件的记录后，就会停止继续检 索。</li>
+</ul>
+<p>那么，这个不同带来的性能差距会有多少呢？答案是， 微乎其微 。</p>
+<h4 id="更新过程"><a href="#更新过程" class="headerlink" title="更新过程"></a>更新过程</h4><p>为了说明普通索引和唯一索引对更新语句性能的影响这个问题，介绍一下change buffer。</p>
+<p>当需要更新一个数据页时，如果数据页在内存中就直接更新，而如果这个数据页还没有在内存中的话， 在不影响数据一致性的前提下， <code>InooDB会将这些更新操作缓存在change buffer中</code> ，这样就不需要从磁盘中读入这个数据页了。在下次查询需要访问这个数据页的时候，将数据页读入内存，然后执行change buffer中与这个页有关的操作。通过这种方式就能保证这个数据逻辑的正确性。</p>
+<p>将change buffer中的操作应用到原数据页，得到最新结果的过程称为 merge 。除了 <code>访问这个数据页</code> 会触 发merge外，系统有 <code>后台线程会定期</code> merge。在 <code>数据库正常关闭（shutdown）</code> 的过程中，也会执行merge 操作。</p>
+<p>如果能够将更新操作先记录在change buffer， <code>减少读磁盘</code> ，语句的执行速度会得到明显的提升。而且， 数据读入内存是需要占用 buffer pool 的，所以这种方式还能够 <code>避免占用内存 </code>，提高内存利用率。</p>
+<p><code>唯一索引的更新就不能使用change buffer</code> ，实际上也只有普通索引可以使用。</p>
+<h4 id="change-buffer的使用场景"><a href="#change-buffer的使用场景" class="headerlink" title="change buffer的使用场景"></a>change buffer的使用场景</h4><ol>
+<li>普通索引和唯一索引应该怎么选择？其实，这两类索引在查询能力上是没差别的，主要考虑的是 对 更新性能 的影响。所以，建议你 尽量选择普通索引 。</li>
+<li>在实际使用中会发现， 普通索引 和 change buffer 的配合使用，对于 数据量大 的表的更新优化 还是很明显的。</li>
+<li>如果所有的更新后面，都马上 伴随着对这个记录的查询 ，那么你应该 关闭change buffer 。而在 其他情况下，change buffer都能提升更新性能。</li>
+<li>由于唯一索引用不上change buffer的优化机制，因此如果 业务可以接受 ，从性能角度出发建议优 先考虑非唯一索引。但是如果”业务可能无法确保”的情况下，怎么处理呢？<ul>
+<li>首先， 业务正确性优先 。我们的前提是“业务代码已经保证不会写入重复数据”的情况下，讨论性能 问题。如果业务不能保证，或者业务就是要求数据库来做约束，那么没得选，必须创建唯一索引。 这种情况下，本节的意义在于，如果碰上了大量插入数据慢、内存命中率低的时候，给你多提供一 个排查思路。</li>
+<li>然后，在一些“ 归档库 ”的场景，你是可以考虑使用唯一索引的。比如，线上数据只需要保留半年， 然后历史数据保存在归档库。这时候，归档数据已经是确保没有唯一键冲突了。要提高归档效率， 可以考虑把表里面的唯一索引改成普通索引。</li>
+</ul>
+</li>
+</ol>
+<h3 id="其它查询优化策略"><a href="#其它查询优化策略" class="headerlink" title="其它查询优化策略"></a>其它查询优化策略</h3><h4 id="EXISTS-和-IN-的区分"><a href="#EXISTS-和-IN-的区分" class="headerlink" title="EXISTS 和 IN 的区分"></a>EXISTS 和 IN 的区分</h4><p><img src="image-20230726145628244.png" alt="image-20230726145628244"></p>
+<h4 id="COUNT-与COUNT-具体字段-效率"><a href="#COUNT-与COUNT-具体字段-效率" class="headerlink" title="COUNT(*)与COUNT(具体字段)效率"></a>COUNT(*)与COUNT(具体字段)效率</h4><p><img src="image-20230726174542607.png" alt="image-20230726174542607"></p>
+<h4 id="关于SELECT"><a href="#关于SELECT" class="headerlink" title="关于SELECT(*)"></a>关于SELECT(*)</h4><p>在表查询中，建议明确字段，不要使用 * 作为查询的字段列表，推荐使用SELECT &lt;字段列表&gt; 查询。原因：</p>
+<p>① MySQL 在解析的过程中，会通过查询数据字典 将”*”按序转换成所有列名，这会大大的耗费资源和时间。</p>
+<p>② 无法使用 覆盖索</p>
+<h4 id="LIMIT-1-对优化的影响"><a href="#LIMIT-1-对优化的影响" class="headerlink" title="LIMIT 1 对优化的影响"></a>LIMIT 1 对优化的影响</h4><p>针对的是会扫描全表的 SQL 语句，如果你可以确定结果集只有一条，那么加上 LIMIT 1 的时候，当找到一条结果的时候就不会继续扫描了，这样会加快查询速度。</p>
+<p>如果数据表已经对字段建立了唯一索引，那么可以通过索引进行查询，不会全表扫描的话，就不需要加上 LIMIT 1 了。</p>
+<h4 id="多使用COMMIT"><a href="#多使用COMMIT" class="headerlink" title="多使用COMMIT"></a>多使用COMMIT</h4><p>只要有可能，在程序中尽量多使用 COMMIT，这样程序的性能得到提高，需求也会因为 COMMIT 所释放 的资源而减少。</p>
+<p>COMMIT 所释放的资源：</p>
+<ul>
+<li>回滚段上用于恢复数据的信息</li>
+<li>被程序语句获得的锁</li>
+<li>redo &#x2F; undo log buffer 中的空间</li>
+<li>管理上述 3 种资源中的内部花费</li>
+</ul>
+<h3 id="淘宝数据库，主键如何设计的？"><a href="#淘宝数据库，主键如何设计的？" class="headerlink" title="淘宝数据库，主键如何设计的？"></a>淘宝数据库，主键如何设计的？</h3><h4 id="自增ID的问题"><a href="#自增ID的问题" class="headerlink" title="自增ID的问题"></a>自增ID的问题</h4><p>自增ID做主键，简单易懂，几乎所有数据库都支持自增类型，只是实现上各自有所不同而已。自增ID除 了简单，其他都是缺点，总体来看存在以下几方面的问题：</p>
+<ol>
+<li><p><strong>可靠性不高</strong></p>
+<p>存在自增ID回溯的问题，这个问题直到最新版本的MySQL 8.0才修复。</p>
+</li>
+<li><p>**安全性不高 **</p>
+<p>对外暴露的接口可以非常容易猜测对应的信息。比如：&#x2F;User&#x2F;1&#x2F;这样的接口，可以非常容易猜测用户ID的 值为多少，总用户数量有多少，也可以非常容易地通过接口进行数据的爬取。</p>
+</li>
+<li><p><strong>性能差</strong></p>
+<p>自增ID的性能较差，需要在数据库服务器端生成。</p>
+</li>
+<li><p><strong>交互多</strong></p>
+<p>业务还需要额外执行一次类似 last_insert_id() 的函数才能知道刚才插入的自增值，这需要多一次的 网络交互。在海量并发的系统中，多1条SQL，就多一次性能上的开销。</p>
+</li>
+<li><p>**局部唯一性 **</p>
+<p>最重要的一点，自增ID是局部唯一，只在当前数据库实例中唯一，而不是全局唯一，在任意服务器间都 是唯一的。对于目前分布式系统来说，这简直就是噩梦。</p>
+</li>
+</ol>
+<h4 id="业务字段做主键"><a href="#业务字段做主键" class="headerlink" title="业务字段做主键"></a>业务字段做主键</h4><p>为了能够唯一地标识一个会员的信息，需要为 会员信息表 设置一个主键。那么，怎么为这个表设置主 键，才能达到我们理想的目标呢？ 这里我们考虑业务字段做主键。</p>
+<p>表数据如下：</p>
+<p><img src="image-20230728142608606.png" alt="image-20230728142608606"></p>
+<p>在这个表里，哪个字段比较合适呢？</p>
+<ul>
+<li><strong>选择卡号（cardno）</strong></li>
+</ul>
+<p>会员卡号（cardno）看起来比较合适，因为会员卡号不能为空，而且有唯一性，可以用来 标识一条会员 记录。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> demo.membermaster</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> (</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> cardno <span class="type">CHAR</span>(<span class="number">8</span>) <span class="keyword">PRIMARY</span> KEY, <span class="comment">-- 会员卡号为主键</span></span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> membername TEXT,</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> memberphone TEXT,</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> memberpid TEXT,</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> memberaddress TEXT,</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> sex TEXT,</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> birthday DATETIME</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>不同的会员卡号对应不同的会员，字段“cardno”唯一地标识某一个会员。如果都是这样，会员卡号与会 员一一对应，系统是可以正常运行的。</p>
+<p>但实际情况是， 会员卡号可能存在重复使用 的情况。比如，张三因为工作变动搬离了原来的地址，不再 到商家的门店消费了 （退还了会员卡），于是张三就不再是这个商家门店的会员了。但是，商家不想让 这个会 员卡空着，就把卡号是“10000001”的会员卡发给了王五。</p>
+<p>从系统设计的角度看，这个变化只是修改了会员信息表中的卡号是“10000001”这个会员 信息，并不会影 响到数据一致性。也就是说，修改会员卡号是“10000001”的会员信息， 系统的各个模块，都会获取到修 改后的会员信息，不会出现“有的模块获取到修改之前的会员信息，有的模块获取到修改后的会员信息， 而导致系统内部数据不一致”的情况。因此，从 信息系统层面 上看是没问题的。</p>
+<p>但是从使用 系统的业务层面 来看，就有很大的问题 了，会对商家造成影响。</p>
+<p>比如，我们有一个销售流水表（trans），记录了所有的销售流水明细。2020 年 12 月 01 日，张三在门店 购买了一本书，消费了 89 元。那么，系统中就有了张三买书的流水记录，如下所示：</p>
+<p><img src="image-20230728142712172.png" alt="image-20230728142712172"></p>
+<p>接着，我们查询一下 2020 年 12 月 01 日的会员销售记录：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SELECT</span> b.membername,c.goodsname,a.quantity,a.salesvalue,a.transdate</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">FROM</span> demo.trans <span class="keyword">AS</span> a</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">JOIN</span> demo.membermaster <span class="keyword">AS</span> b</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">JOIN</span> demo.goodsmaster <span class="keyword">AS</span> c</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">ON</span> (a.cardno <span class="operator">=</span> b.cardno <span class="keyword">AND</span> a.itemnumber<span class="operator">=</span>c.itemnumber);</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-----------+----------+------------+---------------------+</span></span><br><span class="line"><span class="operator">|</span> membername <span class="operator">|</span> goodsname <span class="operator">|</span> quantity <span class="operator">|</span> salesvalue <span class="operator">|</span> transdate <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-----------+----------+------------+---------------------+</span></span><br><span class="line"><span class="operator">|</span>     张三   <span class="operator">|</span> 书         <span class="operator">|</span> <span class="number">1.000</span>    <span class="operator">|</span> <span class="number">89.00</span>      <span class="operator">|</span> <span class="number">2020</span><span class="number">-12</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-----------+----------+------------+---------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>如果会员卡“10000001”又发给了王五，我们会更改会员信息表。导致查询时：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SELECT</span> b.membername,c.goodsname,a.quantity,a.salesvalue,a.transdate</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">FROM</span> demo.trans <span class="keyword">AS</span> a</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">JOIN</span> demo.membermaster <span class="keyword">AS</span> b</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">JOIN</span> demo.goodsmaster <span class="keyword">AS</span> c</span><br><span class="line"><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">ON</span> (a.cardno <span class="operator">=</span> b.cardno <span class="keyword">AND</span> a.itemnumber<span class="operator">=</span>c.itemnumber);</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-----------+----------+------------+---------------------+</span></span><br><span class="line"><span class="operator">|</span> membername <span class="operator">|</span> goodsname <span class="operator">|</span> quantity <span class="operator">|</span> salesvalue <span class="operator">|</span> transdate <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-----------+----------+------------+---------------------+</span></span><br><span class="line"><span class="operator">|</span> 王五        <span class="operator">|</span> 书        <span class="operator">|</span> <span class="number">1.000</span>    <span class="operator">|</span> <span class="number">89.00</span>      <span class="operator">|</span> <span class="number">2020</span><span class="number">-12</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-----------+----------+------------+---------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>这次得到的结果是：王五在 2020 年 12 月 01 日，买了一本书，消费 89 元。显然是错误的！结论：千万 不能把会员卡号当做主键。</p>
+<ul>
+<li><strong>选择会员电话 或 身份证号</strong></li>
+</ul>
+<p>会员电话可以做主键吗？不行的。在实际操作中，手机号也存在 被运营商收回 ，重新发给别人用的情况。</p>
+<p>那身份证号行不行呢？好像可以。因为身份证决不会重复，身份证号与一个人存在一一对 应的关系。可 问题是，身份证号属于 个人隐私 ，顾客不一定愿意给你。要是强制要求会员必须登记身份证号，会把很 多客人赶跑的。其实，客户电话也有这个问题，这也是我们在设计会员信息表的时候，允许身份证号和 电话都为空的原因。</p>
+<p><strong>所以，建议尽量不要用跟业务有关的字段做主键。毕竟，作为项目设计的技术人员，我们谁也无法预测 在项目的整个生命周期中，哪个业务字段会因为项目的业务需求而有重复，或者重用之类的情况出现。</strong></p>
+<blockquote>
+<p>经验： 刚开始使用 MySQL 时，很多人都很容易犯的错误是喜欢用业务字段做主键，想当然地认为了解业 务需求，但实际情况往往出乎意料，而更改主键设置的成本非常高。</p>
+</blockquote>
+<h4 id="推荐的主键设计"><a href="#推荐的主键设计" class="headerlink" title="推荐的主键设计"></a>推荐的主键设计</h4><p><strong>非核心业务</strong> ：对应表的主键自增ID，如告警、日志、监控等信息。</p>
+<p><strong>核心业务</strong> ：<code>主键设计至少应该是全局唯一且是单调递增</code>。全局唯一保证在各系统之间都是唯一的，单调 递增是希望插入时不影响数据库性能。</p>
+<p>这里推荐最简单的一种主键设计：UUID。</p>
+<p><strong>UUID的特点：</strong></p>
+<p>全局唯一，占用36字节，数据无序，插入性能差。</p>
+<p><strong>认识UUID：</strong></p>
+<ul>
+<li>为什么UUID是全局唯一的？</li>
+<li>为什么UUID占用36个字节？</li>
+<li>为什么UUID是无序的？</li>
+</ul>
+<p>MySQL数据库的UUID组成如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UUID = 时间+UUID版本（16字节）- 时钟序列（4字节） - MAC地址（12字节）</span><br></pre></td></tr></table></figure>
+
+<p>我们以UUID值e0ea12d4-6473-11eb-943c-00155dbaa39d举例：</p>
+<p><img src="image-20230728142908005.png" alt="image-20230728142908005"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">为什么UUID是全局唯一的？</span><br></pre></td></tr></table></figure>
+
+<p>在UUID中时间部分占用60位，存储的类似TIMESTAMP的时间戳，但表示的是从1582-10-15 00：00：00.00 到现在的100ns的计数。可以看到UUID存储的时间精度比TIMESTAMPE更高，时间维度发生重复的概率降 低到1&#x2F;100ns。</p>
+<p>时钟序列是为了避免时钟被回拨导致产生时间重复的可能性。MAC地址用于全局唯一。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">为什么UUID占用36个字节？</span><br></pre></td></tr></table></figure>
+
+<p>UUID根据字符串进行存储，设计时还带有无用”-“字符串，因此总共需要36个字节。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">为什么UUID是随机无序的呢？</span><br></pre></td></tr></table></figure>
+
+<p>因为UUID的设计中，将时间低位放在最前面，而这部分的数据是一直在变化的，并且是无序。</p>
+<p><strong>改造UUID</strong></p>
+<p>若将时间高低位互换，则时间就是单调递增的了，也就变得单调递增了。MySQL 8.0可以更换时间低位和时间高位的存储方式，这样UUID就是有序的UUID了。</p>
+<p>MySQL 8.0还解决了UUID存在的空间占用的问题，除去了UUID字符串中无意义的”-“字符串，并且将字符串用二进制类型保存，这样存储空间降低为了16字节。</p>
+<p>可以通过MySQL8.0提供的uuid_to_bin函数实现上述功能，同样的，MySQL也提供了bin_to_uuid函数进行转化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET @uuid = UUID();</span><br><span class="line">SELECT @uuid,uuid_to_bin(@uuid),uuid_to_bin(@uuid,TRUE);</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20230728142943472.png" alt="image-20230728142943472"></p>
+<p><strong>通过函数uuid_to_bin(@uuid,true)将UUID转化为有序UUID了</strong>。全局唯一 + 单调递增，这不就是我们想要的主键！</p>
+<p><strong>有序UUID性能测试</strong></p>
+<p>16字节的有序UUID，相比之前8字节的自增ID，性能和存储空间对比究竟如何呢？</p>
+<p>我们来做一个测试，插入1亿条数据，每条数据占用500字节，含有3个二级索引，最终的结果如下所示：</p>
+<p><img src="image-20230728143001825.png" alt="image-20230728143001825"></p>
+<p>从上图可以看到插入1亿条数据有序UUID是最快的，而且在实际业务使用中有序UUID在 <code>业务端就可以生成</code> 。还可以进一步减少SQL的交互次数。</p>
+<p>另外，虽然有序UUID相比自增ID多了8个字节，但实际只增大了3G的存储空间，还可以接受。</p>
+<blockquote>
+<p>在当今的互联网环境中，非常不推荐自增ID作为主键的数据库设计。更推荐类似有序UUID的全局 唯一的实现。</p>
+<p>另外在真实的业务系统中，主键还可以加入业务和系统属性，如用户的尾号，机房的信息等。这样 的主键设计就更为考验架构师的水平了。</p>
+</blockquote>
+<p><strong>如果不是MySQL8.0 肿么办？</strong></p>
+<p>手动赋值字段做主键！</p>
+<p>比如，设计各个分店的会员表的主键，因为如果每台机器各自产生的数据需要合并，就可能会出现主键重复的问题。</p>
+<p>可以在总部 MySQL 数据库中，有一个管理信息表，在这个表中添加一个字段，专门用来记录当前会员编号的最大值。</p>
+<p>门店在添加会员的时候，先到总部 MySQL 数据库中获取这个最大值，在这个基础上加 1，然后用这个值 作为新会员的“id”，同时，更新总部 MySQL 数据库管理信息表中的当前会员编号的最大值。</p>
+<p>这样一来，各个门店添加会员的时候，都对同一个总部 MySQL 数据库中的数据表字段进行操作，就解 决了各门店添加会员时会员编号冲突的问题。</p>
+<h2 id="数据库的设计规范"><a href="#数据库的设计规范" class="headerlink" title="数据库的设计规范"></a>数据库的设计规范</h2><h3 id="为什么需要数据库设计"><a href="#为什么需要数据库设计" class="headerlink" title="为什么需要数据库设计"></a>为什么需要数据库设计</h3><p><img src="image-20230728143132063.png" alt="image-20230728143132063"></p>
+<h3 id="范-式"><a href="#范-式" class="headerlink" title="范 式"></a>范 式</h3><h4 id="范式简介"><a href="#范式简介" class="headerlink" title="范式简介"></a>范式简介</h4><p>在关系型数据库中，关于数据表设计的基本原则、规则就称为范式。可以理解为，一张数据表的设计结 构需要满足的某种设计标准的 级别 。要想设计一个结构合理的关系型数据库，必须满足一定的范式。</p>
+<h4 id="范式都包括哪些"><a href="#范式都包括哪些" class="headerlink" title="范式都包括哪些"></a>范式都包括哪些</h4><p>目前关系型数据库有六种常见范式，按照范式级别，从低到高分别是：第一范式（1NF）、第二范式 （2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。</p>
+<p>数据库的范式设计越高阶，夯余度就越低，同时高阶的范式一定符合低阶范式的要求，满足最低要求的范式是第一范式（1NF）。在第一范式的基础上进一步满足更多规范的要求称为第二范式（2NF），其余范式以此类推。</p>
+<p>一般来说，在关系型数据库设计中，最高也就遵循到<code>BCNF</code>, 普遍还是<code>3NF</code>。但也不绝对，有时候为了提高某些查询性能，我们还需要破坏范式规则，也就是<code>反规范化</code>。</p>
+<p><img src="image-20230728143252520.png" alt="image-20230728143252520"></p>
+<h4 id="键和相关属性的概念"><a href="#键和相关属性的概念" class="headerlink" title="键和相关属性的概念"></a>键和相关属性的概念</h4><p><img src="image-20230728143330716-1690526011905-1.png" alt="image-20230728143330716"></p>
+<p><strong>举例:</strong></p>
+<p>这里有两个表：</p>
+<p><code>球员表(player)</code> ：球员编号 | 姓名 | 身份证号 | 年龄 | 球队编号</p>
+<p><code>球队表(team) </code>：球队编号 | 主教练 | 球队所在地</p>
+<ul>
+<li>超键 ：对于球员表来说，超键就是包括球员编号或者身份证号的任意组合，比如（球员编号） （球员编号，姓名）（身份证号，年龄）等。</li>
+<li>候选键 ：就是最小的超键，对于球员表来说，候选键就是（球员编号）或者（身份证号）。</li>
+<li>主键 ：我们自己选定，也就是从候选键中选择一个，比如（球员编号）。</li>
+<li>外键 ：球员表中的球队编号。</li>
+<li>主属性 、 非主属性 ：在球员表中，主属性是（球员编号）（身份证号），其他的属性（姓名） （年龄）（球队编号）都是非主属性。</li>
+</ul>
+<h4 id="第一范式-1st-NF"><a href="#第一范式-1st-NF" class="headerlink" title="第一范式(1st NF)"></a>第一范式(1st NF)</h4><p>第一范式主要确保数据库中每个字段的值必须具有<code>原子性</code>，也就是说数据表中每个字段的值为<code>不可再次拆分</code>的最小数据单元。</p>
+<p>我们在设计某个字段的时候，对于字段X来说，不能把字段X拆分成字段X-1和字段X-2。事实上，任何的DBMS都会满足第一范式的要求，不会将字段进行拆分。</p>
+<h4 id="第二范式-2nd-NF"><a href="#第二范式-2nd-NF" class="headerlink" title="第二范式(2nd NF)"></a>第二范式(2nd NF)</h4><p>第二范式要求，在满足第一范式的基础上，还要<strong>满足数据库里的每一条数据记录，都是可唯一标识的。而且所有非主键字段，都必须完全依赖主键，不能只依赖主键的一部分</strong>。如果知道主键的所有属性的值，就可以检索到任何元组（行）的任何属性的任何值。（要求中的主键，其实可以扩展替换为候选键）。</p>
+<h4 id="第三范式-3rd-NF"><a href="#第三范式-3rd-NF" class="headerlink" title="第三范式(3rd NF)"></a>第三范式(3rd NF)</h4><p>第三范式是在第二范式的基础上，确保数据表中的每一个非主键字段都和主键字段直接相关，也就是说，<strong>要求数据表中的所有非主键字段不能依赖于其他非主键字段</strong>。（即，不能存在非主属性A依赖于非主属性B，非主属性B依赖于主键C的情况，即存在“A-&gt;B-&gt;C”的决定关系）通俗地讲，该规则的意思是所有<code>非主键属性</code>之间不能由依赖关系，必须<code>相互独立</code>。</p>
+<h4 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h4><p><img src="image-20230728153559784.png" alt="image-20230728153559784"></p>
+<h3 id="反范式化"><a href="#反范式化" class="headerlink" title="反范式化"></a>反范式化</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p><img src="image-20230728153651374.png" alt="image-20230728153651374"></p>
+<p><strong>规范化 vs 性能</strong></p>
+<blockquote>
+<ol>
+<li>为满足某种商业目标 , 数据库性能比规范化数据库更重要</li>
+<li>在数据规范化的同时 , 要综合考虑数据库的性能</li>
+<li>通过在给定的表中添加额外的字段，以大量减少需要从中搜索信息所需的时间</li>
+<li>通过在给定的表中插入计算列，以方便查询</li>
+</ol>
+</blockquote>
+<h4 id="反范式的新问题"><a href="#反范式的新问题" class="headerlink" title="反范式的新问题"></a>反范式的新问题</h4><ul>
+<li>存储 空间变大了</li>
+<li>一个表中字段做了修改，另一个表中冗余的字段也需要做同步修改，否则 数据不一致</li>
+<li>若采用存储过程来支持数据的更新、删除等额外操作，如果更新频繁，会非常 消耗系统资源</li>
+<li>在 数据量小 的情况下，反范式不能体现性能的优势，可能还会让数据库的设计更加复杂</li>
+</ul>
+<h4 id="反范式的适用场景"><a href="#反范式的适用场景" class="headerlink" title="反范式的适用场景"></a>反范式的适用场景</h4><p>当冗余信息有价值或者能 <code>大幅度提高查询效率</code> 的时候，我们才会采取反范式的优化。</p>
+<h5 id="1-增加冗余字段的建议"><a href="#1-增加冗余字段的建议" class="headerlink" title="1. 增加冗余字段的建议"></a>1. 增加冗余字段的建议</h5><p>增加冗余字段一定要符合如下两个条件。只要满足这两个条件，才可以考虑增加夯余字段。</p>
+<p>1）这个冗余字段<code>不需要经常进行修改</code>。</p>
+<p>2）这个冗余字段<code>查询的时候不可或缺</code>。</p>
+<h5 id="2-历史快照、历史数据的需要"><a href="#2-历史快照、历史数据的需要" class="headerlink" title="2. 历史快照、历史数据的需要"></a>2. 历史快照、历史数据的需要</h5><p>在现实生活中，我们经常需要一些冗余信息，比如订单中的收货人信息，包括姓名、电话和地址等。每 次发生的 <code>订单收货信息</code> 都属于 <code>历史快照</code> ，需要进行保存，但用户可以随时修改自己的信息，这时保存这 些冗余信息是非常有必要的。</p>
+<p>反范式优化也常用在 <code>数据仓库</code> 的设计中，因为数据仓库通常<code>存储历史数据</code> ，对增删改的实时性要求不 强，对历史数据的分析需求强。这时适当允许数据的冗余度，更方便进行数据分析。</p>
+<p>我简单总结下数据仓库和数据库在使用上的区别：</p>
+<ol>
+<li>数据库设计的目的在于<code>捕捉数据</code>，而数据仓库设计的目的在于<code>分析数据</code>。</li>
+<li>数据库对数据的<code>增删改实时性</code>要求强，需要存储在线的用户数据，而数据仓库存储的一般是<code>历史数据</code>。</li>
+<li>数据库设计需要<code>尽量避免冗余</code>，但为了提高查询效率也允许一定的<code>冗余度</code>，而数据仓库在设计上更偏向采用反范式设计，</li>
+</ol>
+<h3 id="BCNF-巴斯范式"><a href="#BCNF-巴斯范式" class="headerlink" title="BCNF(巴斯范式)"></a>BCNF(巴斯范式)</h3><p>人们在3NF的基础上进行了改进，提出了巴斯范式（BCNF），页脚巴斯 - 科德范式（Boyce - Codd Normal Form）。BCNF被认为没有新的设计规范加入，只是对第三范式中设计规范要求更强，使得数据库冗余度更小。所以，称为是<code>修正的第三范式</code>，或<code>扩充的第三范式</code>，BCNF不被称为第四范式。</p>
+<h3 id="第四范式"><a href="#第四范式" class="headerlink" title="第四范式"></a>第四范式</h3><p>多值依赖的概念：</p>
+<ul>
+<li><code>多值依赖</code>即属性之间的一对多关系，记为K—&gt;—&gt;A。</li>
+<li><code>函数依赖</code>事实上是单值依赖，所以不能表达属性值之间的一对多关系。</li>
+<li><code>平凡的多值依赖</code>：全集U&#x3D;K+A，一个K可以对应于多个A，即K—&gt;—&gt;A。此时整个表就是一组一对多关系。</li>
+<li><code>非平凡的多值依赖</code>：全集U&#x3D;K+A+B，一个K可以对应于多个A，也可以对应于多个B，A与B相互独立，即K—&gt;—&gt;A，K—&gt;—&gt;B。整个表有多组一对多关系，且有：”一”部分是相同的属性集合，“多”部分是相互独立的属性集合。</li>
+</ul>
+<p>第四范式即在满足巴斯 - 科德范式（BCNF）的基础上，消除非平凡且非函数依赖的多值依赖（即把同一表的多对多关系删除）。</p>
+<h3 id="第五范式、域键范式"><a href="#第五范式、域键范式" class="headerlink" title="第五范式、域键范式"></a>第五范式、域键范式</h3><p>除了第四范式外，我们还有更高级的第五范式（又称完美范式）和域键范式（DKNF）。</p>
+<p>在满足第四范式（4NF）的基础上，消除不是由候选键所蕴含的连接依赖。<strong>如果关系模式R中的每一个连 接依赖均由R的候选键所隐含</strong>，则称此关系模式符合第五范式。</p>
+<p>函数依赖是多值依赖的一种特殊的情况，而多值依赖实际上是连接依赖的一种特殊情况。但连接依赖不 像函数依赖和多值依赖可以由 <code>语义直接导出</code> ，而是在 <code>关系连接运算</code> 时才反映出来。存在连接依赖的关系 模式仍可能遇到数据冗余及插入、修改、删除异常等问题。</p>
+<p>第五范式处理的是 <code>无损连接问题</code> ，这个范式基本 <code>没有实际意义</code> ，因为无损连接很少出现，而且难以察觉。而域键范式试图定义一个 <code>终极范式</code> ，该范式考虑所有的依赖和约束类型，但是实用价值也是最小的，只存在理论研究中。</p>
+<h3 id="ER模型"><a href="#ER模型" class="headerlink" title="ER模型"></a>ER模型</h3><p><img src="image-20230728164420172.png" alt="image-20230728164420172"></p>
+<h4 id="ER模型包括哪些要素？"><a href="#ER模型包括哪些要素？" class="headerlink" title="ER模型包括哪些要素？"></a>ER模型包括哪些要素？</h4><p><strong>ER 模型中有三个要素，分别是实体、属性和关系。</strong></p>
+<p><code>实体</code> ，可以看做是数据对象，往往对应于现实生活中的真实存在的个体。在 ER 模型中，用 矩形 来表 示。实体分为两类，分别是 强实体 和 弱实体 。强实体是指不依赖于其他实体的实体；弱实体是指对另 一个实体有很强的依赖关系的实体。</p>
+<p><code>属性</code> ，则是指实体的特性。比如超市的地址、联系电话、员工数等。在 ER 模型中用 椭圆形 来表示。</p>
+<p><code>关系</code> ，则是指实体之间的联系。比如超市把商品卖给顾客，就是一种超市与顾客之间的联系。在 ER 模 型中用 菱形 来表示。</p>
+<p>注意：实体和属性不容易区分。这里提供一个原则：我们要从系统整体的角度出发去看，<strong>可以独立存在的是实体，不可再分的是属性</strong>。也就是说，属性不能包含其他属性。</p>
+<h4 id="关系的类型"><a href="#关系的类型" class="headerlink" title="关系的类型"></a>关系的类型</h4><p>在 ER 模型的 3 个要素中，关系又可以分为 3 种类型，分别是 一对一、一对多、多对多。</p>
+<p><code>一对一</code> ：指实体之间的关系是一一对应的，比如个人与身份证信息之间的关系就是一对一的关系。一个人只能有一个身份证信息，一个身份证信息也只属于一个人。</p>
+<p><code>一对多</code> ：指一边的实体通过关系，可以对应多个另外一边的实体。相反，另外一边的实体通过这个关系，则只能对应唯一的一边的实体。比如说，我们新建一个班级表，而每个班级都有多个学生，每个学 生则对应一个班级，班级对学生就是一对多的关系。</p>
+<p><code>多对多</code> ：指关系两边的实体都可以通过关系对应多个对方的实体。比如在进货模块中，供货商与超市之 间的关系就是多对多的关系，一个供货商可以给多个超市供货，一个超市也可以从多个供货商那里采购 商品。再比如一个选课表，有许多科目，每个科目有很多学生选，而每个学生又可以选择多个科目，这 就是多对多的关系。</p>
+<h4 id="建模分析"><a href="#建模分析" class="headerlink" title="建模分析"></a>建模分析</h4><p>ER 模型看起来比较麻烦，但是对我们把控项目整体非常重要。如果你只是开发一个小应用，或许简单设 计几个表够用了，一旦要设计有一定规模的应用，在项目的初始阶段，建立完整的 ER 模型就非常关键 了。开发应用项目的实质，其实就是 建模 。</p>
+<h3 id="数据表的设计原则"><a href="#数据表的设计原则" class="headerlink" title="数据表的设计原则"></a>数据表的设计原则</h3><p>综合以上内容，总结出数据表设计的一般原则：”三少一多”</p>
+<p><strong>1. 数据表的个数越少越好</strong></p>
+<p><img src="image-20230731133244497.png" alt="image-20230731133244497"></p>
+<p><strong>2. 数据表中的字段个数越少越好</strong></p>
+<p><img src="image-20230731133303415.png" alt="image-20230731133303415"></p>
+<p><strong>3. 数据表中联合主键的字段个数越少越好</strong></p>
+<p><img src="image-20230731133319904.png" alt="image-20230731133319904"></p>
+<p><strong>4. 使用主键和外键越多越好</strong></p>
+<p><img src="image-20230731133336238.png" alt="image-20230731133336238"></p>
+<h3 id="数据库对象编写建议"><a href="#数据库对象编写建议" class="headerlink" title="数据库对象编写建议"></a>数据库对象编写建议</h3><h4 id="关于库"><a href="#关于库" class="headerlink" title="关于库"></a>关于库</h4><ol>
+<li>【强制】库的名称必须控制在32个字符以内，只能使用英文字母、数字和下划线，建议以英文字 母开头。</li>
+<li>【强制】库名中英文 一律小写 ，不同单词采用 下划线 分割。须见名知意。</li>
+<li>【强制】库的名称格式：业务系统名称_子系统名。</li>
+<li>【强制】库名禁止使用关键字（如type,order等）。</li>
+<li>【强制】创建数据库时必须 显式指定字符集 ，并且字符集只能是utf8或者utf8mb4。 创建数据库SQL举例：CREATE DATABASE crm_fund DEFAULT CHARACTER SET ‘utf8’ ;</li>
+<li>【建议】对于程序连接数据库账号，遵循 权限最小原则 使用数据库账号只能在一个DB下使用，不准跨库。程序使用的账号 原则上不准有drop权限 。</li>
+<li>【建议】临时库以 tmp_ 为前缀，并以日期为后缀； 备份库以 bak_ 为前缀，并以日期为后缀。</li>
+</ol>
+<h4 id="关于表、列"><a href="#关于表、列" class="headerlink" title="关于表、列"></a>关于表、列</h4><ol>
+<li><p>【强制】表和列的名称必须控制在32个字符以内，表名只能使用英文字母、数字和下划线，建议 以 英文字母开头 。</p>
+</li>
+<li><p>【强制】 表名、列名一律小写 ，不同单词采用下划线分割。须见名知意。</p>
+</li>
+<li><p>【强制】表名要求有模块名强相关，同一模块的表名尽量使用 统一前缀 。比如：crm_fund_item</p>
+</li>
+<li><p>【强制】创建表时必须 显式指定字符集 为utf8或utf8mb4。</p>
+</li>
+<li><p>【强制】表名、列名禁止使用关键字（如type,order等）。</p>
+</li>
+<li><p>【强制】创建表时必须 显式指定表存储引擎 类型。如无特殊需求，一律为InnoDB。</p>
+</li>
+<li><p>【强制】建表必须有comment。</p>
+</li>
+<li><p>【强制】字段命名应尽可能使用表达实际含义的英文单词或 缩写 。如：公司 ID，不要使用 corporation_id, 而用corp_id 即可。</p>
+</li>
+<li><p>【强制】布尔值类型的字段命名为 is_描述 。如member表上表示是否为enabled的会员的字段命 名为 is_enabled。</p>
+</li>
+<li><p>【强制】禁止在数据库中存储图片、文件等大的二进制数据 通常文件很大，短时间内造成数据量快速增长，数据库进行数据库读取时，通常会进行大量的随 机IO操作，文件很大时，IO操作很耗时。通常存储于文件服务器，数据库只存储文件地址信息。</p>
+</li>
+<li><p>【建议】建表时关于主键： 表必须有主键</p>
+<p>(1)强制要求主键为id，类型为int或bigint，且为 auto_increment 建议使用unsigned无符号型。</p>
+<p>(2)标识表里每一行主体的字段不要设为主键，建议 设为其他字段如user_id，order_id等，并建立unique key索引。因为如果设为主键且主键值为随机 插入，则会导致innodb内部页分裂和大量随机I&#x2F;O，性能下降。</p>
+</li>
+<li><p>【建议】核心表（如用户表）必须有行数据的 创建时间字段 （create_time）和 最后更新时间字段 （update_time），便于查问题。</p>
+</li>
+<li><p>【建议】表中所有字段尽量都是 NOT NULL 属性，业务可以根据需要定义 DEFAULT值 。 因为使用 NULL值会存在每一行都会占用额外存储空间、数据迁移容易出错、聚合函数计算结果偏差等问 题。</p>
+</li>
+<li><p>【建议】所有存储相同数据的 列名和列类型必须一致 （一般作为关联列，如果查询时关联列类型 不一致会自动进行数据类型隐式转换，会造成列上的索引失效，导致查询效率降低）。</p>
+</li>
+<li><p>【建议】中间表（或临时表）用于保留中间结果集，名称以 tmp_ 开头。 备份表用于备份或抓取源表快照，名称以 bak_ 开头。中间表和备份表定期清理。 </p>
+</li>
+<li><p>【示范】一个较为规范的建表语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user_info (</span><br><span class="line">`id` int unsigned NOT NULL AUTO_INCREMENT COMMENT &#x27;自增主键&#x27;,</span><br><span class="line">`user_id` bigint(11) NOT NULL COMMENT &#x27;用户id&#x27;,</span><br><span class="line">`username` varchar(45) NOT NULL COMMENT &#x27;真实姓名&#x27;,</span><br><span class="line">`email` varchar(30) NOT NULL COMMENT &#x27;用户邮箱&#x27;,</span><br><span class="line">`nickname` varchar(45) NOT NULL COMMENT &#x27;昵称&#x27;,</span><br><span class="line">`birthday` date NOT NULL COMMENT &#x27;生日&#x27;,</span><br><span class="line">`sex` tinyint(4) DEFAULT &#x27;0&#x27; COMMENT &#x27;性别&#x27;,</span><br><span class="line">`short_introduce` varchar(150) DEFAULT NULL COMMENT &#x27;一句话介绍自己，最多50个汉字&#x27;,</span><br><span class="line">`user_resume` varchar(300) NOT NULL COMMENT &#x27;用户提交的简历存放地址&#x27;,</span><br><span class="line">`user_register_ip` int NOT NULL COMMENT &#x27;用户注册时的源ip&#x27;,</span><br><span class="line">`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#x27;创建时间&#x27;,</span><br><span class="line">`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE</span><br><span class="line">CURRENT_TIMESTAMP COMMENT &#x27;修改时间&#x27;,</span><br><span class="line">`user_review_status` tinyint NOT NULL COMMENT &#x27;用户资料审核状态，1为通过，2为审核中，3为未</span><br><span class="line">通过，4为还未提交审核&#x27;,</span><br><span class="line">PRIMARY KEY (`id`),</span><br><span class="line">UNIQUE KEY `uniq_user_id` (`user_id`),</span><br><span class="line">KEY `idx_username`(`username`),</span><br><span class="line">KEY `idx_create_time_status`(`create_time`,`user_review_status`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT=&#x27;网站用户基本信息</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>【建议】创建表时，可以使用可视化工具。这样可以确保表、字段相关的约定都能设置上。</p>
+<p>实际上，我们通常很少自己写 DDL 语句，可以使用一些可视化工具来创建和操作数据库和数据表。</p>
+<p>可视化工具除了方便，还能直接帮我们将数据库的结构定义转化成 SQL 语言，方便数据库和数据表结构的导出和导入。</p>
+</li>
+</ol>
+<h4 id="关于索引"><a href="#关于索引" class="headerlink" title="关于索引"></a>关于索引</h4><ol>
+<li>【强制】InnoDB表必须主键为id int&#x2F;bigint auto_increment，且主键值 禁止被更新 。</li>
+<li>【强制】InnoDB和MyISAM存储引擎表，索引类型必须为 BTREE 。</li>
+<li>【建议】主键的名称以 pk_ 开头，唯一键以 uni_ 或 uk_ 开头，普通索引以 idx_ 开头，一律使用小写格式，以字段的名称或缩写作为后缀。</li>
+<li>【建议】多单词组成的columnname，取前几个单词首字母，加末单词组成column_name。如: sample 表 member_id 上的索引：idx_sample_mid。</li>
+<li>【建议】单个表上的索引个数 不能超过6个 。</li>
+<li>【建议】在建立索引时，多考虑建立 联合索引 ，并把区分度最高的字段放在最前面。</li>
+<li>【建议】在多表 JOIN 的SQL里，保证被驱动表的连接列上有索引，这样JOIN 执行效率最高。</li>
+<li>【建议】建表或加索引时，保证表里互相不存在 冗余索引 。 比如：如果表里已经存在key(a,b)， 则key(a)为冗余索引，需要删除。</li>
+</ol>
+<h4 id="SQL编写"><a href="#SQL编写" class="headerlink" title="SQL编写"></a>SQL编写</h4><ol>
+<li>【强制】程序端SELECT语句必须指定具体字段名称，禁止写成 *。</li>
+<li>【建议】程序端insert语句指定具体字段名称，不要写成INSERT INTO t1 VALUES(…)。</li>
+<li>【建议】除静态表或小表（100行以内），DML语句必须有WHERE条件，且使用索引查找。</li>
+<li>【建议】INSERT INTO…VALUES(XX),(XX),(XX).. 这里XX的值不要超过5000个。 值过多虽然上线很 快，但会引起主从同步延迟。</li>
+<li>【建议】SELECT语句不要使用UNION，推荐使用UNION ALL，并且UNION子句个数限制在5个以 内。</li>
+<li>【建议】线上环境，多表 JOIN 不要超过5个表。</li>
+<li>【建议】减少使用ORDER BY，和业务沟通能不排序就不排序，或将排序放到程序端去做。ORDER BY、GROUP BY、DISTINCT 这些语句较为耗费CPU，数据库的CPU资源是极其宝贵的。</li>
+<li>【建议】包含了ORDER BY、GROUP BY、DISTINCT 这些查询的语句，WHERE 条件过滤出来的结果 集请保持在1000行以内，否则SQL会很慢。</li>
+<li>【建议】对单表的多次alter操作必须合并为一次 对于超过100W行的大表进行alter table，必须经过DBA审核，并在业务低峰期执行，多个alter需整 合在一起。 因为alter table会产生 表锁 ，期间阻塞对于该表的所有写入，对于业务可能会产生极 大影响。</li>
+<li>【建议】批量操作数据时，需要控制事务处理间隔时间，进行必要的sleep。</li>
+<li>【建议】事务里包含SQL不超过5个。 因为过长的事务会导致锁数据较久，MySQL内部缓存、连接消耗过多等问题。</li>
+<li>【建议】事务里更新语句尽量基于主键或UNIQUE KEY，如UPDATE… WHERE id&#x3D;XX; 否则会产生间隙锁，内部扩大锁定范围，导致系统性能下降，产生死锁。</li>
+</ol>
+<h3 id="PowerDesigner的使用"><a href="#PowerDesigner的使用" class="headerlink" title="PowerDesigner的使用"></a>PowerDesigner的使用</h3><h2 id="数据库其它调优策略"><a href="#数据库其它调优策略" class="headerlink" title="数据库其它调优策略"></a>数据库其它调优策略</h2><h3 id="数据库调优的措施"><a href="#数据库调优的措施" class="headerlink" title="数据库调优的措施"></a>数据库调优的措施</h3><h4 id="调优的目标"><a href="#调优的目标" class="headerlink" title="调优的目标"></a>调优的目标</h4><ul>
+<li>尽可能节省系统资源 ，以便系统可以提供更大负荷的服务。（吞吐量更大）</li>
+<li>合理的结构设计和参数调整，以提高用户操作响应的速度 。（响应速度更快）</li>
+<li>减少系统的瓶颈，提高MySQL数据库整体的性能。</li>
+</ul>
+<h4 id="如何定位调优问题"><a href="#如何定位调优问题" class="headerlink" title="如何定位调优问题"></a>如何定位调优问题</h4><p><img src="image-20230731134556472.png" alt="image-20230731134556472"></p>
 
       
     </div>
@@ -2004,8 +2590,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/07/14/Mysql%E6%9E%B6%E6%9E%84%E7%AF%87/" rel="prev" title="Mysql机构篇">
-                Mysql机构篇 <i class="fa fa-chevron-right"></i>
+              <a href="/2023/07/14/Mysql%E4%BA%8B%E5%8A%A1/" rel="prev" title="Mysql事务">
+                Mysql事务 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -2053,6 +2639,8 @@
 
   <aside id="sidebar" class="sidebar">
     
+      <div id="sidebar-dimmer"></div>
+    
     <div class="sidebar-inner">
 
       
@@ -2081,9 +2669,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives">
+                <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2125,6 +2713,7 @@
 
           
 
+
         </div>
       </section>
 
@@ -2138,7 +2727,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">为什么使用索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">索引及其优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.</span> <span class="nav-text">索引概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E6%8E%A8%E6%BC%94"><span class="nav-number">3.</span> <span class="nav-text">InnoDB中索引的推演</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B9%8B%E5%89%8D%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">3.1.</span> <span class="nav-text">索引之前的查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E4%B8%80%E4%B8%AA%E9%A1%B5%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">3.1.1.</span> <span class="nav-text">在一个页中的查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%BE%88%E5%A4%9A%E9%A1%B5%E4%B8%AD%E6%9F%A5%E6%89%BE"><span class="nav-number">3.1.2.</span> <span class="nav-text">在很多页中查找</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%B4%A2%E5%BC%95"><span class="nav-number">3.2.</span> <span class="nav-text">设计索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88"><span class="nav-number">3.2.1.</span> <span class="nav-text">一个简单的索引设计方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#InnoDB%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E6%96%B9%E6%A1%88"><span class="nav-number">3.2.2.</span> <span class="nav-text">InnoDB中的索引方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A31%E6%AC%A1%EF%BC%9A%E7%9B%AE%E5%BD%95%E9%A1%B9%E7%BA%AA%E5%BD%95%E7%9A%84%E9%A1%B5"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">迭代1次：目录项纪录的页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A32%E6%AC%A1%EF%BC%9A%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95%E9%A1%B9%E7%BA%AA%E5%BD%95%E7%9A%84%E9%A1%B5"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">迭代2次：多个目录项纪录的页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A33%E6%AC%A1%EF%BC%9A%E7%9B%AE%E5%BD%95%E9%A1%B9%E8%AE%B0%E5%BD%95%E9%A1%B5%E7%9A%84%E7%9B%AE%E5%BD%95%E9%A1%B5"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">迭代3次：目录项记录页的目录页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-Tree"><span class="nav-number">3.2.2.4.</span> <span class="nav-text">B+Tree</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%B4%A2%E5%BC%95%E6%A6%82%E5%BF%B5"><span class="nav-number">3.3.</span> <span class="nav-text">常见索引概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.1.</span> <span class="nav-text">聚簇索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%EF%BC%88%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95%E3%80%81%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%EF%BC%89"><span class="nav-number">3.3.2.</span> <span class="nav-text">二级索引（辅助索引、非聚簇索引）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.3.</span> <span class="nav-text">联合索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E7%9A%84B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.4.</span> <span class="nav-text">InnoDB的B+树索引的注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B9%E9%A1%B5%E9%9D%A2%E4%BD%8D%E7%BD%AE%E4%B8%87%E5%B9%B4%E4%B8%8D%E5%8A%A8"><span class="nav-number">3.4.1.</span> <span class="nav-text">根页面位置万年不动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E8%8A%82%E7%82%B9%E4%B8%AD%E7%9B%AE%E5%BD%95%E9%A1%B9%E8%AE%B0%E5%BD%95%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7"><span class="nav-number">3.4.2.</span> <span class="nav-text">内节点中目录项记录的唯一性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E6%9C%80%E5%B0%91%E5%AD%98%E5%82%A8-2-%E6%9D%A1%E8%AE%B0%E5%BD%95"><span class="nav-number">3.4.3.</span> <span class="nav-text">一个页面最少存储 2 条记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">MyISAM中的索引方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">MyISAM索引的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM-%E4%B8%8E-InnoDB%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.</span> <span class="nav-text">MyISAM 与 InnoDB对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BB%A3%E4%BB%B7"><span class="nav-number">5.</span> <span class="nav-text">索引的代价</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%90%88%E7%90%86%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">MySQL数据结构选择的合理性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.1.</span> <span class="nav-text">全表查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.2.</span> <span class="nav-text">Hash查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">6.3.</span> <span class="nav-text">二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVL%E6%A0%91"><span class="nav-number">6.4.</span> <span class="nav-text">AVL树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree-1"><span class="nav-number">6.5.</span> <span class="nav-text">B-Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree-2"><span class="nav-number">6.6.</span> <span class="nav-text">B+Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">6.8.</span> <span class="nav-text">附录：算法的时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">7.</span> <span class="nav-text">InnoDB数据存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%EF%BC%9A%E9%A1%B5"><span class="nav-number">7.1.</span> <span class="nav-text">数据库的存储结构：页</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E4%B8%8E%E5%86%85%E5%AD%98%E4%BA%A4%E4%BA%92%E5%9F%BA%E6%9C%AC%E5%8D%95%E4%BD%8D%EF%BC%9A%E9%A1%B5"><span class="nav-number">7.1.1.</span> <span class="nav-text">磁盘与内存交互基本单位：页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E7%BB%93%E6%9E%84%E7%9A%84%E6%A6%82%E8%BF%B0"><span class="nav-number">7.1.2.</span> <span class="nav-text">页结构的概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">7.1.3.</span> <span class="nav-text">页的大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E7%9A%84%E4%B8%8A%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">7.1.4.</span> <span class="nav-text">页的上层结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">7.2.</span> <span class="nav-text">页的内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AFile-Header-%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8-%E5%92%8C-File-Trailer-%E6%96%87%E4%BB%B6%E5%B0%BE%E9%83%A8"><span class="nav-number">7.2.1.</span> <span class="nav-text">第一部分：File Header (文件头部) 和 File Trailer (文件尾部)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9AUser-Records-%E7%94%A8%E6%88%B7%E8%AE%B0%E5%BD%95-%E3%80%81%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E8%AE%B0%E5%BD%95%E3%80%81Free-Space-%E7%A9%BA%E9%97%B2%E7%A9%BA%E9%97%B4"><span class="nav-number">7.2.2.</span> <span class="nav-text">第二部分：User Records (用户记录)、最大最小记录、Free Space (空闲空间)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9APage-Directory-%E9%A1%B5%E7%9B%AE%E5%BD%95-%E5%92%8C-Page-Header-%E9%A1%B5%E9%9D%A2%E5%A4%B4%E9%83%A8"><span class="nav-number">7.2.3.</span> <span class="nav-text">第三部分：Page Directory (页目录) 和 Page Header (页面头部)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A1%B5%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BB-%E6%A0%91%E5%A6%82%E4%BD%95%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.2.4.</span> <span class="nav-text">从数据库页的角度看B+树如何查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E8%A1%8C%E6%A0%BC%E5%BC%8F-%E6%88%96%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">7.3.</span> <span class="nav-text">InnoDB行格式 (或记录格式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E3%80%81%E6%AE%B5%E4%B8%8E%E7%A2%8E%E7%89%87%E5%8C%BA"><span class="nav-number">7.4.</span> <span class="nav-text">区、段与碎片区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA"><span class="nav-number">7.4.1.</span> <span class="nav-text">区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5"><span class="nav-number">7.4.2.</span> <span class="nav-text">段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A2%8E%E7%89%87%E5%8C%BA"><span class="nav-number">7.4.3.</span> <span class="nav-text">碎片区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">7.4.4.</span> <span class="nav-text">区的分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">7.5.</span> <span class="nav-text">表空间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">7.5.1.</span> <span class="nav-text">独立表空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">7.5.2.</span> <span class="nav-text">系统表空间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A1%B5%E5%8A%A0%E8%BD%BD%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">7.6.</span> <span class="nav-text">数据页加载的三种方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">性能分析工具的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%BC%98%E5%8C%96%E6%AD%A5%E9%AA%A4"><span class="nav-number">8.1.</span> <span class="nav-text">数据库服务器的优化步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0"><span class="nav-number">8.2.</span> <span class="nav-text">查看系统性能参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1SQL%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC-last-query-cost"><span class="nav-number">8.3.</span> <span class="nav-text">统计SQL的查询成本: last_query_cost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E6%89%A7%E8%A1%8C%E6%85%A2%E7%9A%84-SQL%EF%BC%9A%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">8.4.</span> <span class="nav-text">定位执行慢的 SQL：慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E5%8F%82%E6%95%B0"><span class="nav-number">8.4.1.</span> <span class="nav-text">开启慢查询日志参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%9B%AE"><span class="nav-number">8.4.2.</span> <span class="nav-text">查看慢查询数目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-number">8.4.3.</span> <span class="nav-text">案例演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%8F%8A%E5%88%86%E6%9E%90"><span class="nav-number">8.4.4.</span> <span class="nav-text">测试及分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%EF%BC%9Amysqldumpslow"><span class="nav-number">8.4.5.</span> <span class="nav-text">慢查询日志分析工具：mysqldumpslow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">8.4.6.</span> <span class="nav-text">关闭慢查询日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">8.4.7.</span> <span class="nav-text">删除慢查询日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-SQL-%E6%89%A7%E8%A1%8C%E6%88%90%E6%9C%AC%EF%BC%9ASHOW-PROFILE"><span class="nav-number">8.4.8.</span> <span class="nav-text">查看 SQL 执行成本：SHOW PROFILE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%EF%BC%9AEXPLAIN"><span class="nav-number">8.5.</span> <span class="nav-text">分析查询语句：EXPLAIN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">8.5.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">8.5.2.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="nav-number">8.5.3.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPLAIN%E5%90%84%E5%88%97%E4%BD%9C%E7%94%A8"><span class="nav-number">8.5.4.</span> <span class="nav-text">EXPLAIN各列作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-table"><span class="nav-number">8.5.4.1.</span> <span class="nav-text">1. table</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-id"><span class="nav-number">8.5.4.2.</span> <span class="nav-text">2. id</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-select-type"><span class="nav-number">8.5.4.3.</span> <span class="nav-text">3. select_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-partitions-%E5%8F%AF%E7%95%A5"><span class="nav-number">8.5.4.4.</span> <span class="nav-text">4. partitions (可略)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-type"><span class="nav-number">8.5.4.5.</span> <span class="nav-text">5. type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-possible-keys%E5%92%8Ckey"><span class="nav-number">8.5.4.6.</span> <span class="nav-text">6. possible_keys和key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-key-len"><span class="nav-number">8.5.4.7.</span> <span class="nav-text">7. key_len</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-ref"><span class="nav-number">8.5.4.8.</span> <span class="nav-text">8. ref</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-rows"><span class="nav-number">8.5.4.9.</span> <span class="nav-text">9. rows</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-filtered"><span class="nav-number">8.5.4.10.</span> <span class="nav-text">10. filtered</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-Extra"><span class="nav-number">8.5.4.11.</span> <span class="nav-text">11. Extra</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-%E5%B0%8F%E7%BB%93"><span class="nav-number">8.5.4.12.</span> <span class="nav-text">12. 小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPLAIN%E7%9A%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E4%BD%BF%E7%94%A8"><span class="nav-number">8.6.</span> <span class="nav-text">EXPLAIN的进一步使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPLAIN%E5%9B%9B%E7%A7%8D%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.</span> <span class="nav-text">EXPLAIN四种输出格式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%BC%A0%E7%BB%9F%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.1.</span> <span class="nav-text">1. 传统格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-JSON%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.2.</span> <span class="nav-text">2. JSON格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-TREE%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.3.</span> <span class="nav-text">3. TREE格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BE%93%E5%87%BA"><span class="nav-number">8.6.1.4.</span> <span class="nav-text">4. 可视化输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SHOW-WARNINGS%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">8.6.2.</span> <span class="nav-text">SHOW WARNINGS的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E4%BC%98%E5%8C%96%E5%99%A8%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%EF%BC%9Atrace"><span class="nav-number">8.7.</span> <span class="nav-text">分析优化器执行计划：trace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9B%91%E6%8E%A7%E5%88%86%E6%9E%90%E8%A7%86%E5%9B%BE-sys-schema"><span class="nav-number">8.8.</span> <span class="nav-text">MySQL监控分析视图-sys schema</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sys-schema%E8%A7%86%E5%9B%BE%E6%91%98%E8%A6%81"><span class="nav-number">8.8.1.</span> <span class="nav-text">Sys schema视图摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sys-schema%E8%A7%86%E5%9B%BE%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">8.8.2.</span> <span class="nav-text">Sys schema视图使用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-number">8.9.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E4%B8%8E%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">9.</span> <span class="nav-text">索引优化与查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%A1%88%E4%BE%8B"><span class="nav-number">9.1.</span> <span class="nav-text">索引失效案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%80%BC%E5%8C%B9%E9%85%8D%E6%88%91%E6%9C%80%E7%88%B1"><span class="nav-number">9.1.1.</span> <span class="nav-text">全值匹配我最爱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%B7%A6%E5%89%8D%E7%BC%80%E6%B3%95%E5%88%99"><span class="nav-number">9.1.2.</span> <span class="nav-text">最佳左前缀法则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E6%8F%92%E5%85%A5%E9%A1%BA%E5%BA%8F"><span class="nav-number">9.1.3.</span> <span class="nav-text">主键插入顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E3%80%81%E5%87%BD%E6%95%B0%E3%80%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-%E8%87%AA%E5%8A%A8%E6%88%96%E6%89%8B%E5%8A%A8-%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.4.</span> <span class="nav-text">计算、函数、类型转换(自动或手动)导致索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.5.</span> <span class="nav-text">类型转换导致索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%E6%9D%A1%E4%BB%B6%E5%8F%B3%E8%BE%B9%E7%9A%84%E5%88%97%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.6.</span> <span class="nav-text">范围条件右边的列索引失效</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">为什么使用索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">索引及其优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.</span> <span class="nav-text">索引概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E6%8E%A8%E6%BC%94"><span class="nav-number">3.</span> <span class="nav-text">InnoDB中索引的推演</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B9%8B%E5%89%8D%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">3.1.</span> <span class="nav-text">索引之前的查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E4%B8%80%E4%B8%AA%E9%A1%B5%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">3.1.1.</span> <span class="nav-text">在一个页中的查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%BE%88%E5%A4%9A%E9%A1%B5%E4%B8%AD%E6%9F%A5%E6%89%BE"><span class="nav-number">3.1.2.</span> <span class="nav-text">在很多页中查找</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%B4%A2%E5%BC%95"><span class="nav-number">3.2.</span> <span class="nav-text">设计索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88"><span class="nav-number">3.2.1.</span> <span class="nav-text">一个简单的索引设计方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#InnoDB%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E6%96%B9%E6%A1%88"><span class="nav-number">3.2.2.</span> <span class="nav-text">InnoDB中的索引方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A31%E6%AC%A1%EF%BC%9A%E7%9B%AE%E5%BD%95%E9%A1%B9%E7%BA%AA%E5%BD%95%E7%9A%84%E9%A1%B5"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">迭代1次：目录项纪录的页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A32%E6%AC%A1%EF%BC%9A%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95%E9%A1%B9%E7%BA%AA%E5%BD%95%E7%9A%84%E9%A1%B5"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">迭代2次：多个目录项纪录的页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A33%E6%AC%A1%EF%BC%9A%E7%9B%AE%E5%BD%95%E9%A1%B9%E8%AE%B0%E5%BD%95%E9%A1%B5%E7%9A%84%E7%9B%AE%E5%BD%95%E9%A1%B5"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">迭代3次：目录项记录页的目录页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-Tree"><span class="nav-number">3.2.2.4.</span> <span class="nav-text">B+Tree</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%B4%A2%E5%BC%95%E6%A6%82%E5%BF%B5"><span class="nav-number">3.3.</span> <span class="nav-text">常见索引概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.1.</span> <span class="nav-text">聚簇索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%EF%BC%88%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95%E3%80%81%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%EF%BC%89"><span class="nav-number">3.3.2.</span> <span class="nav-text">二级索引（辅助索引、非聚簇索引）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.3.</span> <span class="nav-text">联合索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E7%9A%84B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.4.</span> <span class="nav-text">InnoDB的B+树索引的注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B9%E9%A1%B5%E9%9D%A2%E4%BD%8D%E7%BD%AE%E4%B8%87%E5%B9%B4%E4%B8%8D%E5%8A%A8"><span class="nav-number">3.4.1.</span> <span class="nav-text">根页面位置万年不动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E8%8A%82%E7%82%B9%E4%B8%AD%E7%9B%AE%E5%BD%95%E9%A1%B9%E8%AE%B0%E5%BD%95%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7"><span class="nav-number">3.4.2.</span> <span class="nav-text">内节点中目录项记录的唯一性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E6%9C%80%E5%B0%91%E5%AD%98%E5%82%A8-2-%E6%9D%A1%E8%AE%B0%E5%BD%95"><span class="nav-number">3.4.3.</span> <span class="nav-text">一个页面最少存储 2 条记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">MyISAM中的索引方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">MyISAM索引的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM-%E4%B8%8E-InnoDB%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.</span> <span class="nav-text">MyISAM 与 InnoDB对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BB%A3%E4%BB%B7"><span class="nav-number">5.</span> <span class="nav-text">索引的代价</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%90%88%E7%90%86%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">MySQL数据结构选择的合理性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.1.</span> <span class="nav-text">全表查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.2.</span> <span class="nav-text">Hash查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">6.3.</span> <span class="nav-text">二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVL%E6%A0%91"><span class="nav-number">6.4.</span> <span class="nav-text">AVL树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree-1"><span class="nav-number">6.5.</span> <span class="nav-text">B-Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree-2"><span class="nav-number">6.6.</span> <span class="nav-text">B+Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">6.8.</span> <span class="nav-text">附录：算法的时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">7.</span> <span class="nav-text">InnoDB数据存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%EF%BC%9A%E9%A1%B5"><span class="nav-number">7.1.</span> <span class="nav-text">数据库的存储结构：页</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E4%B8%8E%E5%86%85%E5%AD%98%E4%BA%A4%E4%BA%92%E5%9F%BA%E6%9C%AC%E5%8D%95%E4%BD%8D%EF%BC%9A%E9%A1%B5"><span class="nav-number">7.1.1.</span> <span class="nav-text">磁盘与内存交互基本单位：页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E7%BB%93%E6%9E%84%E7%9A%84%E6%A6%82%E8%BF%B0"><span class="nav-number">7.1.2.</span> <span class="nav-text">页结构的概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">7.1.3.</span> <span class="nav-text">页的大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E7%9A%84%E4%B8%8A%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">7.1.4.</span> <span class="nav-text">页的上层结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">7.2.</span> <span class="nav-text">页的内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AFile-Header-%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8-%E5%92%8C-File-Trailer-%E6%96%87%E4%BB%B6%E5%B0%BE%E9%83%A8"><span class="nav-number">7.2.1.</span> <span class="nav-text">第一部分：File Header (文件头部) 和 File Trailer (文件尾部)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9AUser-Records-%E7%94%A8%E6%88%B7%E8%AE%B0%E5%BD%95-%E3%80%81%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E8%AE%B0%E5%BD%95%E3%80%81Free-Space-%E7%A9%BA%E9%97%B2%E7%A9%BA%E9%97%B4"><span class="nav-number">7.2.2.</span> <span class="nav-text">第二部分：User Records (用户记录)、最大最小记录、Free Space (空闲空间)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9APage-Directory-%E9%A1%B5%E7%9B%AE%E5%BD%95-%E5%92%8C-Page-Header-%E9%A1%B5%E9%9D%A2%E5%A4%B4%E9%83%A8"><span class="nav-number">7.2.3.</span> <span class="nav-text">第三部分：Page Directory (页目录) 和 Page Header (页面头部)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A1%B5%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BB-%E6%A0%91%E5%A6%82%E4%BD%95%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.2.4.</span> <span class="nav-text">从数据库页的角度看B+树如何查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E8%A1%8C%E6%A0%BC%E5%BC%8F-%E6%88%96%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">7.3.</span> <span class="nav-text">InnoDB行格式 (或记录格式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E3%80%81%E6%AE%B5%E4%B8%8E%E7%A2%8E%E7%89%87%E5%8C%BA"><span class="nav-number">7.4.</span> <span class="nav-text">区、段与碎片区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA"><span class="nav-number">7.4.1.</span> <span class="nav-text">区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5"><span class="nav-number">7.4.2.</span> <span class="nav-text">段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A2%8E%E7%89%87%E5%8C%BA"><span class="nav-number">7.4.3.</span> <span class="nav-text">碎片区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">7.4.4.</span> <span class="nav-text">区的分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">7.5.</span> <span class="nav-text">表空间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">7.5.1.</span> <span class="nav-text">独立表空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">7.5.2.</span> <span class="nav-text">系统表空间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A1%B5%E5%8A%A0%E8%BD%BD%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">7.6.</span> <span class="nav-text">数据页加载的三种方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">性能分析工具的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%BC%98%E5%8C%96%E6%AD%A5%E9%AA%A4"><span class="nav-number">8.1.</span> <span class="nav-text">数据库服务器的优化步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0"><span class="nav-number">8.2.</span> <span class="nav-text">查看系统性能参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1SQL%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC-last-query-cost"><span class="nav-number">8.3.</span> <span class="nav-text">统计SQL的查询成本: last_query_cost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E6%89%A7%E8%A1%8C%E6%85%A2%E7%9A%84-SQL%EF%BC%9A%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">8.4.</span> <span class="nav-text">定位执行慢的 SQL：慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E5%8F%82%E6%95%B0"><span class="nav-number">8.4.1.</span> <span class="nav-text">开启慢查询日志参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%9B%AE"><span class="nav-number">8.4.2.</span> <span class="nav-text">查看慢查询数目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-number">8.4.3.</span> <span class="nav-text">案例演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%8F%8A%E5%88%86%E6%9E%90"><span class="nav-number">8.4.4.</span> <span class="nav-text">测试及分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%EF%BC%9Amysqldumpslow"><span class="nav-number">8.4.5.</span> <span class="nav-text">慢查询日志分析工具：mysqldumpslow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">8.4.6.</span> <span class="nav-text">关闭慢查询日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">8.4.7.</span> <span class="nav-text">删除慢查询日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-SQL-%E6%89%A7%E8%A1%8C%E6%88%90%E6%9C%AC%EF%BC%9ASHOW-PROFILE"><span class="nav-number">8.4.8.</span> <span class="nav-text">查看 SQL 执行成本：SHOW PROFILE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%EF%BC%9AEXPLAIN"><span class="nav-number">8.5.</span> <span class="nav-text">分析查询语句：EXPLAIN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">8.5.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">8.5.2.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="nav-number">8.5.3.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPLAIN%E5%90%84%E5%88%97%E4%BD%9C%E7%94%A8"><span class="nav-number">8.5.4.</span> <span class="nav-text">EXPLAIN各列作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-table"><span class="nav-number">8.5.4.1.</span> <span class="nav-text">1. table</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-id"><span class="nav-number">8.5.4.2.</span> <span class="nav-text">2. id</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-select-type"><span class="nav-number">8.5.4.3.</span> <span class="nav-text">3. select_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-partitions-%E5%8F%AF%E7%95%A5"><span class="nav-number">8.5.4.4.</span> <span class="nav-text">4. partitions (可略)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-type"><span class="nav-number">8.5.4.5.</span> <span class="nav-text">5. type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-possible-keys%E5%92%8Ckey"><span class="nav-number">8.5.4.6.</span> <span class="nav-text">6. possible_keys和key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-key-len"><span class="nav-number">8.5.4.7.</span> <span class="nav-text">7. key_len</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-ref"><span class="nav-number">8.5.4.8.</span> <span class="nav-text">8. ref</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-rows"><span class="nav-number">8.5.4.9.</span> <span class="nav-text">9. rows</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-filtered"><span class="nav-number">8.5.4.10.</span> <span class="nav-text">10. filtered</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-Extra"><span class="nav-number">8.5.4.11.</span> <span class="nav-text">11. Extra</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-%E5%B0%8F%E7%BB%93"><span class="nav-number">8.5.4.12.</span> <span class="nav-text">12. 小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPLAIN%E7%9A%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E4%BD%BF%E7%94%A8"><span class="nav-number">8.6.</span> <span class="nav-text">EXPLAIN的进一步使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPLAIN%E5%9B%9B%E7%A7%8D%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.</span> <span class="nav-text">EXPLAIN四种输出格式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%BC%A0%E7%BB%9F%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.1.</span> <span class="nav-text">1. 传统格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-JSON%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.2.</span> <span class="nav-text">2. JSON格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-TREE%E6%A0%BC%E5%BC%8F"><span class="nav-number">8.6.1.3.</span> <span class="nav-text">3. TREE格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BE%93%E5%87%BA"><span class="nav-number">8.6.1.4.</span> <span class="nav-text">4. 可视化输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SHOW-WARNINGS%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">8.6.2.</span> <span class="nav-text">SHOW WARNINGS的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E4%BC%98%E5%8C%96%E5%99%A8%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%EF%BC%9Atrace"><span class="nav-number">8.7.</span> <span class="nav-text">分析优化器执行计划：trace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9B%91%E6%8E%A7%E5%88%86%E6%9E%90%E8%A7%86%E5%9B%BE-sys-schema"><span class="nav-number">8.8.</span> <span class="nav-text">MySQL监控分析视图-sys schema</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sys-schema%E8%A7%86%E5%9B%BE%E6%91%98%E8%A6%81"><span class="nav-number">8.8.1.</span> <span class="nav-text">Sys schema视图摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sys-schema%E8%A7%86%E5%9B%BE%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">8.8.2.</span> <span class="nav-text">Sys schema视图使用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-number">8.9.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E4%B8%8E%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">9.</span> <span class="nav-text">索引优化与查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%A1%88%E4%BE%8B"><span class="nav-number">9.1.</span> <span class="nav-text">索引失效案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%80%BC%E5%8C%B9%E9%85%8D%E6%88%91%E6%9C%80%E7%88%B1"><span class="nav-number">9.1.1.</span> <span class="nav-text">全值匹配我最爱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%B7%A6%E5%89%8D%E7%BC%80%E6%B3%95%E5%88%99"><span class="nav-number">9.1.2.</span> <span class="nav-text">最佳左前缀法则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E6%8F%92%E5%85%A5%E9%A1%BA%E5%BA%8F"><span class="nav-number">9.1.3.</span> <span class="nav-text">主键插入顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E3%80%81%E5%87%BD%E6%95%B0%E3%80%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-%E8%87%AA%E5%8A%A8%E6%88%96%E6%89%8B%E5%8A%A8-%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.4.</span> <span class="nav-text">计算、函数、类型转换(自动或手动)导致索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.5.</span> <span class="nav-text">类型转换导致索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%E6%9D%A1%E4%BB%B6%E5%8F%B3%E8%BE%B9%E7%9A%84%E5%88%97%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.6.</span> <span class="nav-text">范围条件右边的列索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E7%AD%89%E4%BA%8E-x3D-%E6%88%96%E8%80%85-lt-gt-%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.7.</span> <span class="nav-text">不等于(!&#x3D; 或者&lt;&gt;)索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#is-null%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%8Cis-not-null%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">9.1.8.</span> <span class="nav-text">is null可以使用索引，is not null无法使用索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#like%E4%BB%A5%E9%80%9A%E9%85%8D%E7%AC%A6-%E5%BC%80%E5%A4%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.9.</span> <span class="nav-text">like以通配符%开头索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OR-%E5%89%8D%E5%90%8E%E5%AD%98%E5%9C%A8%E9%9D%9E%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%97%EF%BC%8C%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-number">9.1.10.</span> <span class="nav-text">OR 前后存在非索引的列，索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E8%A1%A8%E7%9A%84%E5%AD%97%E7%AC%A6%E9%9B%86%E7%BB%9F%E4%B8%80%E4%BD%BF%E7%94%A8utf8mb4"><span class="nav-number">9.1.11.</span> <span class="nav-text">数据库和表的字符集统一使用utf8mb4</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">9.2.</span> <span class="nav-text">关联查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#join%E8%AF%AD%E5%8F%A5%E5%8E%9F%E7%90%86"><span class="nav-number">9.2.1.</span> <span class="nav-text">join语句原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E9%A9%B1%E5%8A%A8%E8%A1%A8%E5%92%8C%E8%A2%AB%E9%A9%B1%E5%8A%A8%E8%A1%A8"><span class="nav-number">9.2.1.1.</span> <span class="nav-text">1. 驱动表和被驱动表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Simple-Nested-Loop-Join-%E7%AE%80%E5%8D%95%E5%B5%8C%E5%A5%97%E5%BE%AA%E7%8E%AF%E8%BF%9E%E6%8E%A5"><span class="nav-number">9.2.1.2.</span> <span class="nav-text">2. Simple Nested-Loop Join (简单嵌套循环连接)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Index-Nested-Loop-Join-%EF%BC%88%E7%B4%A2%E5%BC%95%E5%B5%8C%E5%A5%97%E5%BE%AA%E7%8E%AF%E8%BF%9E%E6%8E%A5%EF%BC%89"><span class="nav-number">9.2.1.3.</span> <span class="nav-text">3. Index Nested-Loop Join （索引嵌套循环连接）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Block-Nested-Loop-Join%EF%BC%88%E5%9D%97%E5%B5%8C%E5%A5%97%E5%BE%AA%E7%8E%AF%E8%BF%9E%E6%8E%A5%EF%BC%89"><span class="nav-number">9.2.1.4.</span> <span class="nav-text">4. Block Nested-Loop Join（块嵌套循环连接）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-Join%E5%B0%8F%E7%BB%93"><span class="nav-number">9.2.1.5.</span> <span class="nav-text">5. Join小结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-Hash-Join"><span class="nav-number">9.2.1.6.</span> <span class="nav-text">6. Hash Join</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-2"><span class="nav-number">9.2.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">9.3.</span> <span class="nav-text">子查询优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96"><span class="nav-number">9.4.</span> <span class="nav-text">排序优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#filesort%E7%AE%97%E6%B3%95%EF%BC%9A%E5%8F%8C%E8%B7%AF%E6%8E%92%E5%BA%8F%E5%92%8C%E5%8D%95%E8%B7%AF%E6%8E%92%E5%BA%8F"><span class="nav-number">9.4.1.</span> <span class="nav-text">filesort算法：双路排序和单路排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GROUP-BY%E4%BC%98%E5%8C%96"><span class="nav-number">9.5.</span> <span class="nav-text">GROUP BY优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">9.6.</span> <span class="nav-text">优化分页查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E8%80%83%E8%99%91%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="nav-number">9.7.</span> <span class="nav-text">优先考虑覆盖索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-number">9.7.1.</span> <span class="nav-text">什么是覆盖索引？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%A9%E5%BC%8A"><span class="nav-number">9.7.2.</span> <span class="nav-text">覆盖索引的利弊</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%99%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B7%BB%E5%8A%A0%E7%B4%A2%E5%BC%95"><span class="nav-number">9.8.</span> <span class="nav-text">如何给字符串添加索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95"><span class="nav-number">9.8.1.</span> <span class="nav-text">前缀索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95%E5%AF%B9%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">9.8.2.</span> <span class="nav-text">前缀索引对覆盖索引的影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8"><span class="nav-number">9.9.</span> <span class="nav-text">索引下推</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%89%8D%E5%90%8E%E5%AF%B9%E6%AF%94"><span class="nav-number">9.9.1.</span> <span class="nav-text">使用前后对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICP%E7%9A%84%E5%BC%80%E5%90%AF-x2F-%E5%85%B3%E9%97%AD"><span class="nav-number">9.9.2.</span> <span class="nav-text">ICP的开启&#x2F;关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICP%E7%9A%84%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">9.9.3.</span> <span class="nav-text">ICP的使用条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95-vs-%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95"><span class="nav-number">9.10.</span> <span class="nav-text">普通索引 vs 唯一索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">9.10.1.</span> <span class="nav-text">查询过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">9.10.2.</span> <span class="nav-text">更新过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#change-buffer%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">9.10.3.</span> <span class="nav-text">change buffer的使用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5"><span class="nav-number">9.11.</span> <span class="nav-text">其它查询优化策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EXISTS-%E5%92%8C-IN-%E7%9A%84%E5%8C%BA%E5%88%86"><span class="nav-number">9.11.1.</span> <span class="nav-text">EXISTS 和 IN 的区分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COUNT-%E4%B8%8ECOUNT-%E5%85%B7%E4%BD%93%E5%AD%97%E6%AE%B5-%E6%95%88%E7%8E%87"><span class="nav-number">9.11.2.</span> <span class="nav-text">COUNT(*)与COUNT(具体字段)效率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ESELECT"><span class="nav-number">9.11.3.</span> <span class="nav-text">关于SELECT(*)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT-1-%E5%AF%B9%E4%BC%98%E5%8C%96%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">9.11.4.</span> <span class="nav-text">LIMIT 1 对优化的影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E4%BD%BF%E7%94%A8COMMIT"><span class="nav-number">9.11.5.</span> <span class="nav-text">多使用COMMIT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%98%E5%AE%9D%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E4%B8%BB%E9%94%AE%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F"><span class="nav-number">9.12.</span> <span class="nav-text">淘宝数据库，主键如何设计的？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%A2%9EID%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">9.12.1.</span> <span class="nav-text">自增ID的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%E5%AD%97%E6%AE%B5%E5%81%9A%E4%B8%BB%E9%94%AE"><span class="nav-number">9.12.2.</span> <span class="nav-text">业务字段做主键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E4%B8%BB%E9%94%AE%E8%AE%BE%E8%AE%A1"><span class="nav-number">9.12.3.</span> <span class="nav-text">推荐的主键设计</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83"><span class="nav-number">10.</span> <span class="nav-text">数据库的设计规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="nav-number">10.1.</span> <span class="nav-text">为什么需要数据库设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8C%83-%E5%BC%8F"><span class="nav-number">10.2.</span> <span class="nav-text">范 式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%BC%8F%E7%AE%80%E4%BB%8B"><span class="nav-number">10.2.1.</span> <span class="nav-text">范式简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%BC%8F%E9%83%BD%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B"><span class="nav-number">10.2.2.</span> <span class="nav-text">范式都包括哪些</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%AE%E5%92%8C%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">10.2.3.</span> <span class="nav-text">键和相关属性的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F-1st-NF"><span class="nav-number">10.2.4.</span> <span class="nav-text">第一范式(1st NF)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F-2nd-NF"><span class="nav-number">10.2.5.</span> <span class="nav-text">第二范式(2nd NF)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F-3rd-NF"><span class="nav-number">10.2.6.</span> <span class="nav-text">第三范式(3rd NF)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-3"><span class="nav-number">10.2.7.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E8%8C%83%E5%BC%8F%E5%8C%96"><span class="nav-number">10.3.</span> <span class="nav-text">反范式化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0-1"><span class="nav-number">10.3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E8%8C%83%E5%BC%8F%E7%9A%84%E6%96%B0%E9%97%AE%E9%A2%98"><span class="nav-number">10.3.2.</span> <span class="nav-text">反范式的新问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E8%8C%83%E5%BC%8F%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">10.3.3.</span> <span class="nav-text">反范式的适用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%A2%9E%E5%8A%A0%E5%86%97%E4%BD%99%E5%AD%97%E6%AE%B5%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-number">10.3.3.1.</span> <span class="nav-text">1. 增加冗余字段的建议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%8E%86%E5%8F%B2%E5%BF%AB%E7%85%A7%E3%80%81%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE%E7%9A%84%E9%9C%80%E8%A6%81"><span class="nav-number">10.3.3.2.</span> <span class="nav-text">2. 历史快照、历史数据的需要</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BCNF-%E5%B7%B4%E6%96%AF%E8%8C%83%E5%BC%8F"><span class="nav-number">10.4.</span> <span class="nav-text">BCNF(巴斯范式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E8%8C%83%E5%BC%8F"><span class="nav-number">10.5.</span> <span class="nav-text">第四范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E8%8C%83%E5%BC%8F%E3%80%81%E5%9F%9F%E9%94%AE%E8%8C%83%E5%BC%8F"><span class="nav-number">10.6.</span> <span class="nav-text">第五范式、域键范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ER%E6%A8%A1%E5%9E%8B"><span class="nav-number">10.7.</span> <span class="nav-text">ER模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ER%E6%A8%A1%E5%9E%8B%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E8%A6%81%E7%B4%A0%EF%BC%9F"><span class="nav-number">10.7.1.</span> <span class="nav-text">ER模型包括哪些要素？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">10.7.2.</span> <span class="nav-text">关系的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E6%A8%A1%E5%88%86%E6%9E%90"><span class="nav-number">10.7.3.</span> <span class="nav-text">建模分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">10.8.</span> <span class="nav-text">数据表的设计原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E8%B1%A1%E7%BC%96%E5%86%99%E5%BB%BA%E8%AE%AE"><span class="nav-number">10.9.</span> <span class="nav-text">数据库对象编写建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%BA%93"><span class="nav-number">10.9.1.</span> <span class="nav-text">关于库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%A1%A8%E3%80%81%E5%88%97"><span class="nav-number">10.9.2.</span> <span class="nav-text">关于表、列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%B4%A2%E5%BC%95"><span class="nav-number">10.9.3.</span> <span class="nav-text">关于索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL%E7%BC%96%E5%86%99"><span class="nav-number">10.9.4.</span> <span class="nav-text">SQL编写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PowerDesigner%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">10.10.</span> <span class="nav-text">PowerDesigner的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B6%E5%AE%83%E8%B0%83%E4%BC%98%E7%AD%96%E7%95%A5"><span class="nav-number">11.</span> <span class="nav-text">数据库其它调优策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B0%83%E4%BC%98%E7%9A%84%E6%8E%AA%E6%96%BD"><span class="nav-number">11.1.</span> <span class="nav-text">数据库调优的措施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E4%BC%98%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="nav-number">11.1.1.</span> <span class="nav-text">调优的目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E8%B0%83%E4%BC%98%E9%97%AE%E9%A2%98"><span class="nav-number">11.1.2.</span> <span class="nav-text">如何定位调优问题</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -2168,20 +2757,36 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
 
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
